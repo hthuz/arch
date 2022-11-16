@@ -4,12 +4,15 @@
 
 CMD                     | Description
 -----------------       | -------------
-```pacman -Rs```        | Remove package and dependency
+```pacman -Rs```        | Remove package and dependency 
 ```pacman -Ss <name>``` | Search remote package
 ```pacman -Q <name>```  | Search local package
 ```pacman -Q```         | List all local packages
 ```pacman -Qs ```       | Detailed search local packages
 ```pacman -Qi <name>``` | Extensive search local packages
+
+pacman mirrorlist: `/etc/pacman.d/mirrorlist`  
+`pacman -Syyu` to sync modified mirrolist
 
 ## systemmd  
 
@@ -28,6 +31,21 @@ CMD                                   | DESCRIPTION
 `systemctl disable unit`              | no longer start at boot
 `systemctl mask unit`                 | impossible to start
 `systemctl unmask unit`               |
+
+
+## Environment Variables  
+
+CMD                             | Description
+--                              | --
+`printenv <var>`                | print one variable
+`printenv`                      | print all environment variables
+`set`                           | print all variables(including shell var etc)
+`set <myvar>`                   | set a var(not env)
+`export <myvar>`                | set <myvar> to env
+`export MYVAR=content`          | directory set env var (temporary)
+add env var in /etc/environment | persistent env var(system-wide)
+
+Environment varialbe $PATH: list of directories to be searched when executing command  
 
 
 
@@ -52,7 +70,9 @@ shift+alt+enter             | open st
 shift+alt+c                 | close window
 shift+alt+q                 | quit dwm
 alt+j/k                     | change window
+alt+p                       | open dmenu
 alt+enter                   | set current window as master window  
+alt+m/t                     | change full screen
 alt+1-9                     | change tag             
 
 
@@ -70,6 +90,8 @@ Default configuration file: ```/usr/lib/sddm/sddm.conf.d/default.conf```
 Configuration change: ```/etc/sddm.conf.d/```  
 Autologin: ```/etc/sddm.conf.d/autologin.conf```  
 
+## Swap Esp and Caps  
+`setxkbmap -option caps:swapescape`
 
 
 ##  Processes
@@ -108,6 +130,7 @@ CMD                 | Description
 
 
 ## Vim  
+
 ### ColorScheme
 `:colorscheme <scheme>`  Change color scheme  
 Options:
