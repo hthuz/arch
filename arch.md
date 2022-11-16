@@ -11,6 +11,57 @@ CMD                     | Description
 ```pacman -Qs ```       | Detailed search local packages
 ```pacman -Qi <name>``` | Extensive search local packages
 
+## systemmd  
+
+PID 1, system and service manager  
+Units: service, mount, device, socket  
+
+CMD                                   | DESCRIPTION
+--                                    | --
+`systemctl status`                    |
+`systemctl list-units`                |
+`systemctl list-units --type=service` | list service only
+`systemctl start unit`                | start a unit immediately
+`systemctl stop unit`                 | stop a unit immediately
+`systemctl enable unit`               | start automatically at boot
+`systemctl enable --now unit`         | start automatically at boot and start it now
+`systemctl disable unit`              | no longer start at boot
+`systemctl mask unit`                 | impossible to start
+`systemctl unmask unit`               |
+
+
+
+## DWM  
+Require:  st, dmenu, dwm  
+Use git clone and make install
+/usr/share/xsessions/dwm.desktop content:  
+```
+[Desktop Entry]
+Encoding=UTF-8
+Name=dwm
+Comment=Dynamic Window Manager  
+Exec=dwm
+Icon=dwm
+Type=xsession
+
+```
+
+Shortcut                    | Description  
+--                          | --
+shift+alt+enter             | open st
+shift+alt+c                 | close window
+shift+alt+q                 | quit dwm
+alt+j/k                     | change window
+alt+enter                   | set current window as master window  
+alt+1-9                     | change tag             
+
+
+
+
+
+
+
+
 
 ## KDE  
 
@@ -42,7 +93,7 @@ S       | sleeping
 T       | traced or stopped  
 Z       | zombie
 
-Process Status command, display running processes
+Process Status command, display current running processes only
 CMD     | Description
 --      | --
 `ps`    | start
@@ -51,5 +102,18 @@ CMD     | Description
 
 ### Kill Processes
 CMD                 | Description
+--                  | --
 `kill (-9)[pid]`    | kill a process
 `kill -L`           | list all signals
+
+
+## Vim  
+### ColorScheme
+`:colorscheme <scheme>`  Change color scheme  
+Options:
+blue       delek     evening    morning   peachpuff   slate  
+darkblue   desert    industry   murphy    ron         torte  
+default    elflord   koehler    pablo     shine       zellner  
+
+
+
