@@ -12,7 +12,8 @@ CMD                     | Description
 ```pacman -Qi <name>``` | Extensive search local packages
 
 pacman mirrorlist: `/etc/pacman.d/mirrorlist`  
-`pacman -Syyu` to sync modified mirrolist
+`pacman -Syyu` to sync modified mirrolist  
+pacman configuration file: `/etc/pacman.conf`
 
 ## systemmd  
 
@@ -44,6 +45,7 @@ CMD                             | Description
 `export <myvar>`                | set <myvar> to env
 `export MYVAR=content`          | directory set env var (temporary)
 add env var in /etc/environment | persistent env var(system-wide)
+add env var in /etc/profile     | persistent env var(for this profile)
 
 Environment varialbe $PATH: list of directories to be searched when executing command  
 
