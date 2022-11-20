@@ -78,7 +78,28 @@ alt+m/t                     | change full screen
 alt+1-9                     | change tag             
 
 
+## xorg
 
+
+
+### xinit
+Used to start window managers  
+Default configuration file: `etc/X11/xinit/xinitrc`  
+Configuration file in home directory :`~/.xinitrc`  
+Note commands after `exec` won't be executed  
+
+To start, run `startx` or set auto start 
+
+#### Autostart
+
+
+
+
+
+### keyboard
+
+CMD                 | Description
+`setxkbmap -print -verbose 10` | see X kb settings
 
 
 
@@ -93,7 +114,7 @@ Configuration change: ```/etc/sddm.conf.d/```
 Autologin: ```/etc/sddm.conf.d/autologin.conf```  
 
 ## Swap Esp and Caps  
-`setxkbmap -option caps:swapescape`
+`setxkbmap -option caps:swapescape`. Add this to `.xinitrc`
 
 
 ##  Processes
@@ -140,5 +161,53 @@ blue       delek     evening    morning   peachpuff   slate
 darkblue   desert    industry   murphy    ron         torte  
 default    elflord   koehler    pablo     shine       zellner  
 
+
+## Makefile  
+```
+targets: prerequisites
+    command
+    command
+    command
+```
+
+## cat  
+
+CMD                    | Description
+--                     | --
+`cat filename`         |
+`cat -n filename`      | show with line numbers
+`cat > newfile`        | create new file
+`cat src1 src2 > dest` | copy content from srcfile to dest
+`cat src >> dest`      | append file1 to file2
+`cat -s filename`      | no repeated empty line
+
+
+## x86 Assembly  
+```
+.data                      # readable/writable
+data_item:                 # data_items points to 3
+.long 3,5,6,7              # declare an array of numbers with 4bytes(consecutive)
+
+.text                      # readable/executable
+ 
+.global _start
+
+_start:                    # entry to instruction
+    
+```
+.quad: 8bytes  
+.word: 2bytes
+
+```
+.rept 3
+.long 0
+.endr           # repeat sequence of lines 3 times
+```
+equivalent to 
+```
+.long 0
+.long 0
+.long 0
+```
 
 
