@@ -91,6 +91,47 @@ Note commands after `exec` won't be executed
 To start, run `startx` or set auto start 
 
 #### Autostart
+Add the following in `~/.bash_profile`
+```
+if [-z "${DISPLAY}" && ["${XDG_VTNR}" -eq 1]] then
+    exec startx
+fi
+```
+
+
+### xorg-xinput  
+A tool to manage input devices
+CMD                             | DEScription  
+--                              | --  
+xinput list                     | show devices
+
+
+## libinput  
+A library to handle input devices  
+Default configuration file is in `/usr/share/X11/xorg.conf.d/40-libinput.conf`
+
+CMD                             | Description
+--                              | --  
+libinput list-devices           | show devices
+
+**Note**: this method can't change touchpad to natural scrolling for my laptop
+
+## xf86-input-synaptics
+
+Default configuration file: `/usr/share/X11/xorg.conf.d/70-synaptics.conf`  
+Copy to `/etc/X11/xorg.conf.d/` and edit here
+
+### Touchpad Natural Scorrling  
+In `70-synaptics.conf` file, add following to identifer 'touchpad catchall'
+```
+Option "VertScrollDelta" "-111"
+Option "HorizScrollDelta" "-111"
+```
+### Touchpad one-click confirm
+```
+Option "TapButton1" "1"
+```
+
 
 
 
