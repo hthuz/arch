@@ -77,6 +77,8 @@ alt+enter                   | set current window as master window
 alt+m/t                     | change full screen
 alt+1-9                     | change tag             
 
+Apply patches 'patch --merge -i <patch.diff>'
+
 
 ## xorg
 
@@ -132,6 +134,44 @@ Option "HorizScrollDelta" "-111"
 Option "TapButton1" "1"
 ```
 
+## Battery   
+Check battery: acpi
+
+
+## User Management  
+Information about all users: `/etc/passwd`
+Information about all groups: `/etc/group`
+
+Each user has a default primary group and some other secondary groups(15 max)
+
+
+CMD                                | Description
+--                                 | --
+`id username`                      | get id of user
+`useradd username`                 | add user
+`passwd username`                  | assign passwd to a user
+`usermod -u new_id username`       | change id of a user
+`usermod -g new_group_id username` | change group of a user
+`usermod -l new_name old_name`     | only change login name
+`usermod -d new_home_dir username` | change home direcotry of a user
+`usermod -r username`              | delete a user
+`groups username`                  | get user's group format:(primary secondary)
+`usermod -a -G sec_group username` | add a secondary group to user
+
+
+
+
+## Permission  
+`ls -l filename`  show permission of a file  
+
+-rw-r--r--  
+
+Part    | Description
+--      | -- 
+-       | type of file(d for directory, s for special, - for regular file)
+rw-     | owner's permission to file
+r--     | members of the same group's permission
+r--     | all other users' permission
 
 
 
@@ -141,10 +181,6 @@ Option "TapButton1" "1"
 
 CMD                 | Description
 `setxkbmap -print -verbose 10` | see X kb settings
-
-
-
-
 
 
 ## KDE  
@@ -250,5 +286,24 @@ equivalent to
 .long 0
 .long 0
 ```
+
+
+
+## Bash
+
+### Commands  
+Every part separated is called **word** 
+Arguments are separated by blankspace with command, `[]` is also a command'
+`[-f file]` (wrong)   
+`[ -f file ]` (correct)  
+
+In Bash, almost everything is string (command, argumetns etc)
+
+### Types of commands  
+**Alias**: A way of shortening a cmd, only in interactive shell  
+**Functions**  
+**Builtins**: builtin commands 
+**Keywords**: part of Bash syntax
+**Executable**  
 
 
