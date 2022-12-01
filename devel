@@ -1,0 +1,2 @@
+#!/bin/sh
+"qemu-system-i386" -hda "/home/autentico/Downloads/ece391/ece391_share/work/vm/devel.qcow" -m 512 -name devel

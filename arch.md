@@ -137,6 +137,12 @@ Option "TapButton1" "1"
 ## Battery   
 Check battery: acpi
 
+Get: fetch data from specified resources  
+Post: submit data to a specified resource
+
+
+## VScode  
+Format code: `Ctrl + Shift + I`
 
 ## User Management  
 Information about all users: `/etc/passwd`
@@ -149,7 +155,7 @@ CMD                                | Description
 --                                 | --
 `id username`                      | get id of user
 `useradd username`                 | add user
-`passwd username`                  | assign passwd to a user
+`passwd username`                  | assign/change passwd to a user
 `usermod -u new_id username`       | change id of a user
 `usermod -g new_group_id username` | change group of a user
 `usermod -l new_name old_name`     | only change login name
@@ -247,6 +253,28 @@ targets: prerequisites
     command
 ```
 
+## picom  
+Default configuration file: `/etc/xdg/picom.conf`
+
+## xwallpaper  
+`xwallpaper --zoom filename`
+
+## ranger
+Copy default configuration to `~/.config/ranger`: `ranger --copy-config=all`
+
+eile            | Description  
+`rc.conf``      | startup cmds and key binginds  
+`commands.py`   | commands launced with :
+`rifle.conf`    | application used when given type of file is launced
+
+## cs411 instwhoance ip address
+
+
+## MariaDB
+`mariadb -u root (-h) -p`
+34.66.142.241
+ 
+
 ## cat  
 
 CMD                    | Description
@@ -305,5 +333,6 @@ In Bash, almost everything is string (command, argumetns etc)
 **Builtins**: builtin commands 
 **Keywords**: part of Bash syntax
 **Executable**  
+
 
 
