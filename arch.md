@@ -273,9 +273,72 @@ eile            | Description
 ## MariaDB
 `mariadb -u root (-h) -p`
 34.66.142.241
- 
+
+
+## fcitx5
+
+
+## Git
+git commit --amend 补充上一次提交（新提交换旧提交）
+
+git reset HEAD <file> (old) 取消stage一个文件
+
+git clone 		抓取远程所有分支，同时为origin/master创建本地跟踪分支master，但不会为其他分支创建跟踪分支
+
+git fetch <remote>	(<branch>) 移动remote/branch到更新后的位置，需要自己merge,若指明了branch，只会fetch这个branch
+
+git pull 		 git fetch + git merge， 合并跟踪分支和远程分支(try not to use)
+git pull <remote> <branch> 抓取remote的branch
+
+git push <remote> <branch> 把本地的<branch>推送到remote上，将其作为远程的<branch>（更新到远程的<remote/branch>或创建<remote/branch>)
+git push <remote> <localbranch>:<remotebranch> 同上，远程不一定相同
+git push <remote> --delete <branch>  删除远程分支
+
+git remote 	查看配置的remote repository
+git remote -v	显示url
+git remote add <shortname> <url>
+git remote rename <old> <new>
+git remote remove <name>
+
+git branch   	显示分支
+git branch -v	显示分支及其最后一次commit信息
+git branch -vv	显示所有跟踪分支
+git branch <name> 创建分支，指向最新的commit
+git branch -d <name> 删除分支
+git branch -D <branch> 强制删除未合并分支
+git branch (--merged)(--no-merged) 显示和当前分支合并未合并的分支,加上<name>表示显示另一个分支
+git branch -u <remote/branch>修改当前分支跟踪的远程分支
+
+git checkout <branch> HEAD指向不同新分支t
+git checkout -b <branch> 创建分支并转过去
+git checkout -b <branch> <remote/branch> 远程分支b不可修改，创建本地跟踪分支，跟踪远程分支，即clone时dev跟踪origin/dev
+git checkout --track <remote/branch> 创建一个本地跟踪分支，同上指令
+git checkout -- <file>  (old)用最近commit版本覆盖文件，以此撤销工作区修改
+
+git merge <branch> 把<branch>合并到当前分支
+
+git log
+git log --oneline (--graph)(--all)
+
+git tag (-l)    列出标签
+git tag -a <tagname> -m "" 创建annotated标签
+git show <tagname> 查看某标签
+
+git tag <tagname> 创建lightweight标签
+git tag -a <tagname> <commit number> 为某次提交打标签
+
+git push <remote> <tagname> 推送一个标签
+git push <remote> --tags  推送所有标签  
+git tag -d <tagname> 删除某标签（本地）
+git push <remote> :refs/tags/<tagname> 也删除远程标签  
+git push <remote> --delete <tagname> 同上  
+
+git checkout <tagname> 检出标签  
+git checkout -b <branch> <tagname> 同标签的分支
 
 ## cat  
+
+
 
 CMD                    | Description
 --                     | --
