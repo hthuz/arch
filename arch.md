@@ -279,6 +279,20 @@ eile            | Description
 
 
 ## Git
+
+### Configuration
+Path                                                       | Description
+--                                                         | --
+`/etc/gitconfig``git config --system`                      | config to all users and repos
+`~/.gitconfig/ ~/.config/git/config` `git config --global` | config personally to this user and all your repos
+`.git/config` in repo `git config --local`                 | specifict to this single repository(default)
+`git config --list --show-origin`                          | view all settings
+`git config <key>`                                         | check a specific key
+`git config --global user.name "sth"`                      |
+`git config --global user.email sth`                       | `git config user.name ` to override this setting in a specific repo
+`git config --global core.editor vim`                      | set editor
+
+### Useful commands
 git commit --amend 补充上一次提交（新提交换旧提交）
 
 git reset HEAD <file> (old) 取消stage一个文件
@@ -382,7 +396,7 @@ equivalent to
 
 ## Bash
 
-### Commands  
+###Commands  
 Every part separated is called **word** 
 Arguments are separated by blankspace with command, `[]` is also a command'
 `[-f file]` (wrong)   
@@ -399,3 +413,37 @@ In Bash, almost everything is string (command, argumetns etc)
 
 
 
+### Special Characters  
+Character                       | Description  
+--                              | --  
+`[[  ]]`                        | *Test* - evaluation of a conditional expression
+`{}`                              | *Inline group* - cmds inside are treated as one cmd
+`()`                            | *Subshell group* - cmds insde are executed in a subshell
+`((  ))`                          | *Arithmetic expression* - +,-,* inside are treated as operator
+`$((  ))`                       | the expression will be replaced with the reuslt of arithmetic evaluation
+
+
+### Parameters
+Parameters include *variables* and *special parameters*  
+variable: parameters that are denoted by a name  
+special parameters: not denoted by a name  
+
+Assign a variable  
+`varname=data`  
+Access data using *parameter expansion*   
+`echo "$varname"`
+
+
+
+Special Parameters                      | Description
+--                                      | --  
+`0`           | name/path of the script
+`1,2,3`       | *Positional Parameters* arguments passed to current script
+`*`           | Expands to all words to all positional parameters. If double quoted, it expands a string containing them all
+`@`           | Expands to all words to all positional parameters. If doube quoted, it expnads to a list containing them all
+`#`           | Number of postional parameters currently set
+`?`           | 
+`$`           | PID of current shell
+`!`           | PID of command most recently executed 
+`_`           | last argument of last cmd executed  
+To expand these parameters, add $ before them
