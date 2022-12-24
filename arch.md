@@ -231,8 +231,9 @@ CMD     | Description
 ### Kill Processes
 CMD                 | Description
 --                  | --
-`kill (-9)[pid]`    | kill a process
+`kill (-9)[pid]`    | kill a process. -9 is SIGKILL, by default
 `kill -L`           | list all signals
+`killall [pname]`     | kill a process
 
 
 ## Vim  
@@ -244,6 +245,11 @@ blue       delek     evening    morning   peachpuff   slate
 darkblue   desert    industry   murphy    ron         torte  
 default    elflord   koehler    pablo     shine       zellner  
 
+
+Cmd                     | Description  
+--                      | -- 
+`gg`                    | Go to start of file
+`G`                     | Go to end of file
 
 ## Makefile  
 ```
@@ -260,14 +266,73 @@ Default configuration file: `/etc/xdg/picom.conf`
 `xwallpaper --zoom filename`
 
 ## ranger
-Copy default configuration to `~/.config/ranger`: `ranger --copy-config=all`
+Copy default configuration to `~/.config/ranger`: `ranger --copy-config=all`  
+In `~/.config/ranger`, there are following files
 
-eile            | Description  
-`rc.conf``      | startup cmds and key binginds  
+file            | Description  
+--              | --
+`rc.conf`       | Keybinding and settings
 `commands.py`   | commands launced with :
 `rifle.conf`    | application used when given type of file is launced
+`scope.sh`      | File Preview Settings
 
-## cs411 instwhoance ip address
+
+#### Console Commands  
+Use `space` to select files  
+Use `:` followed by commands
+
+CMDs              | Description
+--                | --
+`:bulkrename`     | Rename in bulk
+`:open_with`       | Open a select file with your choosen program
+`:touch FILENAME` | create new file
+`:mkdir FILENAME` | create new directory
+`:shell COMMANDS` | run commands in a shell
+`:delete`         | Delete files
+
+Placeholder         | Description  
+--                  | --
+`%s`                | Currently select file
+`%d`                | Current directory
+
+#### Usual Commands
+
+CMDs           | Description
+--             | --
+`i`            | Preview File
+`r`            | Open File
+`zh/backspace` | View hidden files
+`gh`           | Go to home directory
+`g/`           | Go to root directory
+`cw`           | Rename File
+`yy`           | Copy file
+`dd`           | cut file
+`dD`           | delete file
+`pp`           | paste file
+`z + letter`   | Changing settings
+`g + letter`   | Go directly to one directory and create/delete/move tab
+`c + letter`   |
+`y + letter`   |
+`d + letter`   |
+`p + letter`   | Different paste mode
+
+#### Image Preview  
+`set preview_images true`  in `rc.conf` and change `preview_images_method`
+
+#### PDF Preview
+Uncomment the following part in "scope.sh"
+```
+# PDF  
+ application/pdf)
+    pdftoppm -f 1 -l 1 \
+
+```
+
+## imagemagick
+Image viewer in terminal
+
+`display filename`
+
 
 
 ## MariaDB
@@ -396,7 +461,7 @@ equivalent to
 
 ## Bash
 
-###Commands  
+### Commands  
 Every part separated is called **word** 
 Arguments are separated by blankspace with command, `[]` is also a command'
 `[-f file]` (wrong)   
@@ -414,14 +479,42 @@ In Bash, almost everything is string (command, argumetns etc)
 
 
 ### Special Characters  
-Character                       | Description  
---                              | --  
-`[[  ]]`                        | *Test* - evaluation of a conditional expression
-`{}`                              | *Inline group* - cmds inside are treated as one cmd
-`()`                            | *Subshell group* - cmds insde are executed in a subshell
-`((  ))`                          | *Arithmetic expression* - +,-,* inside are treated as operator
-`$((  ))`                       | the expression will be replaced with the reuslt of arithmetic evaluation
+Character | Description
+--        | --
+`[[  ]]`  | *Test* - evaluation of a conditional expression
+`{}`      | *Inline group* - cmds inside are treated as one cmd
+`()`      | *Subshell group* - cmds insde are executed in a subshell
+`((  ))`  | *Arithmetic expression* - +,-,* inside are treated as operator
+`$((  ))` | the expression will be replaced with the reuslt of arithmetic evaluation
 
+### Parameter Expansion  
+
+`$var` variable expansion
+`${var}s` Seperate s from the variable
+`$(command)`  command expansion  
+`$((expression))`  arithmetic expansion
+```
+$ echo "'$USER', '$USERs','${USER}s'"
+'autentico', '', 'autenticos'
+```
+
+Command                     | Description  
+--                          | --  
+`${#parameter}`             | length of parameter in character
+`${parameter#pattern}`      | delete pattern from start, match against start, short
+`${parameter##pattern}`     | delete pattern from start, use longest match from start
+`${parameter%pattern}`      | delete pattern from end, match against end, short
+`${parameter%%pattern}`     | delete pattern from end, use longest match from end
+`${parameter/pat/string}`   | replace first pat with string, string can be null
+`${parameter//pat/string}`  | replace every pat with string
+`${parameter/#pat/string}`  | match against beginning, useful to add prefix
+`${parameter/%pat/string}`  | match against end, useful to add suffix
+
+```
+$var=1.5.9
+${var#*.}   -> 5.9
+${var##*.}  -> 9
+```
 
 ### Parameters
 Parameters include *variables* and *special parameters*  
@@ -435,15 +528,52 @@ Access data using *parameter expansion*
 
 
 
-Special Parameters                      | Description
---                                      | --  
-`0`           | name/path of the script
-`1,2,3`       | *Positional Parameters* arguments passed to current script
-`*`           | Expands to all words to all positional parameters. If double quoted, it expands a string containing them all
-`@`           | Expands to all words to all positional parameters. If doube quoted, it expnads to a list containing them all
-`#`           | Number of postional parameters currently set
-`?`           | 
-`$`           | PID of current shell
-`!`           | PID of command most recently executed 
-`_`           | last argument of last cmd executed  
+Special Parameters | Description
+--                 | --
+`0`                | name/path of the script
+`1,2,3`            | *Positional Parameters* arguments passed to current script
+`*`                | Expands to all words to all positional parameters. If double quoted, it expands a string containing them all
+`@`                | Expands to all words to all positional parameters. If doube quoted, it expands to a list containing them all
+`#`                | Number of postional parameters currently set
+`?`                |
+`$`                | PID of current shell
+`!`                | PID of command most recently executed
+`_`                | last argument of last cmd executed
+
 To expand these parameters, add $ before them
+
+Predefined Variables            | Description  
+--                              | --  
+BASH_VERSIOn                    |
+HOSTNAME                        |
+PPID                            | PID of parent process of shell
+PWD                             | current working directory
+RANDOM                          |
+UID                             | ID of current user
+COLUMNS                         | width of terminal in characters
+LINES                           | height of terminal in characters
+HOME                            |
+PATH                            |
+
+
+
+### Variable Types
+Command               | Type
+--                    | --
+`declare -a/array=()` | Array
+`declare -A`          | Associative array
+`declare -i `         | Integer, rarely used
+`declare -r`          | Read Only
+
+
+
+### Glob Patterns
+Glob=normal character + metacharacter
+
+Metacharacter               | Description  
+--                          | --  
+*                           | Match any string
+?                           | Match any single character
+[...]                       | Match any one of enclosed character
+
+
