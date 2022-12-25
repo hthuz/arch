@@ -476,6 +476,9 @@ In Bash, almost everything is string (command, argumetns etc)
 **Keywords**: part of Bash syntax
 **Executable**  
 
+### Empty Space
+Use double quote if there's whitespace belongs to one word
+`var=a b` is wrong and `var="a b"` is correct
 
 
 ### Special Characters  
@@ -575,5 +578,137 @@ Metacharacter               | Description
 *                           | Match any string
 ?                           | Match any single character
 [...]                       | Match any one of enclosed character
+
+### Extended Glob  
+Enable extended glob using `shopt -s extglob`
+
+Metacharacter   | Description  
+--              | -- 
+?(list)         | Match zero or one occurence of pattern
+*(list)         | Match zero or more occurence of pattern  
++(list)         | Match one or more occurence of pattern 
+@(list)         | Match one of given patterns
+!(list)         | Match anything but given patterns
+
+list: list of (extended) globs separated by `|`  
+```
+$ ls
+names.txt  tokyo.jpg  california.bmp
+$ echo !(*jpg|*bmp)
+names.txt
+```
+
+### Brace Expansion
+```
+$ echo th{e,a}n
+then than
+$ echo {/home/*,/root}/.*profile
+/home/axxo/.bash_profile /home/lhunath/.profile /root/.bash_profile /root/.profile
+$ echo {1..9}
+1 2 3 4 5 6 7 8 9
+$ echo {0,1}{0..9}
+00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19
+```
+
+### Exit Status  
+Each command has an exit status. Range 0-255, 0 means success. `$?` to get exit code of last command
+
+
+### Control Operator (&& || )
+`&&`: If the first command return exit code 0, it will execute the next command.  
+`||`: If the first command doesn't return exit code 0, it will execute the next command. Useful for simple error handling
+`!`: Negate
+
+### Grouping Statements
+Use `{}` to group statements and the group is considered as one statement instead of several.  
+Example. Without grouping, which will execute `echo` even though the first command fails:
+```
+$ grep -q goodword "$file" && ! grep -q badword "$file" && rm "$file" || echo "Couldn't delete: $file" >&2
+```  
+With grouping, which is correct:
+```
+$ grep -q goodword "$file" && ! grep -q badword "$file" && { rm "$file" || echo "Couldn't delete: $file" >&2; }
+```
+
+### Conditional Blocks
+`if` will check the exit code of `COMMAND1`. If it's 0, it will execute the `then` part  
+```
+if COMMAND1
+then COMMAND2
+elif COMMAND3
+then COMMAND4
+else COMMAND5
+fi
+```
+
+Test command:`[]` or 'test' and `[[]]`, test things and return an exit status 
+`[ a = b ]` 
+`[[]]` allows pattern matching while `[]` doesn't  
+`= != < > ` treat their arguments as strings   
+`-eq -ne -lt -gt -le -ge` treat arguments as numbers
+
+Tests           | Description
+--              | --
+-e FILE         | if file exists
+-f FILE         | if is regular file
+-d FILE         | if is directory
+-s FILE         | if file exists and not empty
+-r FILE         | if file is readable
+-w FILE         | if file is writable
+-x FILE         | if file is executable
+FILE1 -nt FILE2 | if file1 is newer than file2
+FILE1 -ot FILE2 | if file1 is older than file2
+-z STRING       | if string is empty
+-n STRING       | if string is not empty
+
+Tests support by `[[]]`
+Tests             | Description
+--                | --
+STRING = PATTERN  | if string matches the glob pattern
+STRING == PATTERN | same as above
+STRING != PATTERN | if string doesn't match the glob pattern
+STRING =~ REGEX   | if string matches the regex
+
+
+### Conditional Loops
+```
+while COMMAND
+do COMMAND
+done
+
+for ((i=10; i > 0; i--))
+do COMMAND
+done
+
+for i in {10..1}
+do COMMAND
+done
+```
+
+### Choices  
+```
+case $LANG in 
+    en*) COMMAND ;;
+    fr*) COMMAND ;;
+    de*) COMMAND ;;
+    *) COMMAND ;;
+esac
+```
+
+If use `;&`, the block of next code will be executed no matter if pattern for that choice matches or not  
+If use `;;*`, the block of next code will be executed depending on if the condition satisfies
+
+```
+select choice in A B C
+do
+echo "Your choice $choice"
+done
+```
+
+
+
+
+
+
 
 
