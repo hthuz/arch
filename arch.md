@@ -705,7 +705,11 @@ echo "Your choice $choice"
 done
 ```
 
-
+### Arrays  
+`names=("Bob","Peter","Big John")`  
+`names=([0]="Bob",[1]="Peter",[20]="Big John")`  
+`names[0]="Bob"`  
+`photos=(~/pictures/*.jpg)`
 
 
 
