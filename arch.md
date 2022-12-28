@@ -503,7 +503,7 @@ $ echo "'$USER', '$USERs','${USER}s'"
 
 Command                     | Description  
 --                          | --  
-`${#parameter}`             | length of parameter in character
+`${#parameter}`             | length of parameter in character, if parameter is array, it returns the length of array  
 `${parameter#pattern}`      | delete pattern from start, match against start, short
 `${parameter##pattern}`     | delete pattern from start, use longest match from start
 `${parameter%pattern}`      | delete pattern from end, match against end, short
@@ -706,13 +706,111 @@ done
 ```
 
 ### Arrays  
-`names=("Bob","Peter","Big John")`  
-`names=([0]="Bob",[1]="Peter",[20]="Big John")`  
+
+#### Declare an array:  
+`names=("Bob" "Peter" "Big John")`  
+`names=([0]="Bob" [1]="Peter" [20]="Big John")`  
 `names[0]="Bob"`  
-`photos=(~/pictures/*.jpg)`
+`unset 'names[1]' #remove an element to make in sparse`
+`array=("$(array[@])")  # Reindex to remove holes in sparse array`
+`photos=(~/pictures/*.jpg)`  
+`file=(*)`
+
+In order to parse stream(e.g. Output of a command) into elements of array, we can use NUL byte to indicate where each element starts and ends. As output of a command often can make its output separated by NUL.
+
+#### Print a (array) variable
+```
+$declare -p names
+declare -a names=([0]="Bob,Peter,Big John")
+```
+
+```
+echo "${file[@]}"
+echo "${file[0]}"
+echo "${#file[@]}"  # Length of an array
+```
+
+```
+printf '%s\n' "${file[@]}"   # $@: Expands to a list of words, with each array element as one word. 
+```
+
+```
+for file in "${file[@]}"
+do COMMAND
+done
+```
+
+Remember always to quote properly!  
+```
+$for name in ${names[@]}; do echo $name; done
+Bob
+Peter
+Big
+John
+
+$for name in "${names[@]}"; do echo $name; done
+Bob
+Peter
+Big John
+
+$for name in ${names[*]}; do echo $name; done
+Bob
+Peter
+Big
+John
+
+$for name in "${names[*]}"; do echo $name; done
+Bob Peter Big John  # If you use *, it will be a string
+
+```
+
+
+#### Expanding Indices  
+```
+$echo "${!names[@]}"
+0 1 2       # In this way, you get the index of an array and can possibly use a for loop iterating indices.
+```
+
+#### Associative Array
+```
+declare -A fullNames    # declare an associate array
+fullNames=( ["Bob"]="Bobbe Lorry" ["Peter"]="Pettery Parker" )
+declare -p fullNames
+echo "${fullNames['Bob']}"
+```
+Context in [...] in a indexed array is arithmetic, you can do math here without wrapping using $((...)).  
+For indexed array, index in [...] part doesn't need a dollar sign$, but for associated array, an dollar sign is required. 
+```
+$ indexedArray=( "one" "two" )
+
+$ declare -A associativeArray=( ["foo"]="bar" ["alpha"]="omega" )
+
+$ index=0 key="foo"
+
+$ echo "${indexedArray[$index]}"
+
+one
+
+$ echo "${indexedArray[index]}"
+
+one
+
+$ echo "${indexedArray[index + 1]}"
+
+two
+
+$ echo "${associativeArray[$key]}"
+
+bar
+
+$ echo "${associativeArray[key]}"
+
+$ echo "${associativeArray[key + 1]}"
+
+```
 
 
 
-
+### Command Line Arguments
 
 
