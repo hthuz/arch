@@ -42,12 +42,14 @@ CMD                             | Description
 `printenv`                      | print all environment variables
 `set`                           | print all variables(including shell var etc)
 `set <myvar>`                   | set a var(not env)
-`export <myvar>`                | set <myvar> to env
-`export MYVAR=content`          | directory set env var (temporary)
+`export <myvar>`                | set <myvar> to env, only change env var of my child processes
+`export MYVAR=content`          | directly set env var (temporary)
 add env var in /etc/environment | persistent env var(system-wide)
 add env var in /etc/profile     | persistent env var(for this profile)
 
 Environment varialbe $PATH: list of directories to be searched when executing command  
+
+In command-line, you can add `VAR=value` in front of the command to temporarily change the environmental variable for this command. Example:`LANG=C ls .`
 
 
 
@@ -812,5 +814,122 @@ $ echo "${associativeArray[key + 1]}"
 
 
 ### Command Line Arguments
+```
+myfile arg1 arg2 arg3  
+$0     $1   $2   $3   # $@ is set of all positional parameters
+```
+If you `shift` $1, $1 goes away and $2 becomes $1, $3 becomes $2 and so on
+
+### File Descriptors  
+Reference to files and other resources like files.
+By default, there are three FDs:  
+    + stdin, FD 0, from keyboard
+    + stdout, FD 1, display on monitor
+    + stderr, FD 2, display on monitor
+
+`read`: read info from *stdin* and store in a variable  
+`-p`: print according message
+`read -p "What's your name?" name`
+
+### Redirection  
+Redirection works by changing what FD points to. For example, change FD1 points to stdout to regular file.  
+
+Redirection         | Description  
+--                  | --  
+`>`                 | Output redirection, stdout will write to a file 
+`<`                 | Input redirection , stdin will read from a file 
+`>>`                |
+
+By default, if you simply type `cat`, it will read input from `stdin` and print to `stdout`. You can do some changes using redirection  
+
+`cat < story`
+
+Use number to denote FD that will be changed
+`command > file`  
+`command 1> file`
+`command < file`
+`command 0< file`
+
+`rm file_that_not_exist 2> errors  # store error log in a file`
+```
+for sth in sths
+do COMMAND
+done 2> errors      # redirection applies to all output to stderr inside the loop
+```
+
+Ignore error message.  
+`COMMAND 2> /dev/null`
+
+
+
+
+### File Descriptor Manipulation
+
+
+
+
+
+
+
+### grep
+Reads the files and searches for the pattern provided.
+
+`grep PATTERN FILEs` (from stdin if no file indicated)  
+`grep -r `     # supports directories, it will search all files in this directories
+
+
+In the following command, two indenpendent FDs point to the same file.
+The second FD points to beginning of `proud.log` and it will overwrite the information.  
+`grep proud file not_file > proud.log 2> proud.log`  
+Result in proud.log:  
+```
+grep: not_file: No such file or directory
+ not and this is really amazing.
+```
+
+
+In the following command,`>&1` duplicate FD1 to FD2. Write to these FDs are the same and there's no mix-up.  
+`grep proud file not_file > proud.log 2>&1`
+Result in proud.log:  
+```
+file:I am proud whatever you believe it or not and this is really amazing.
+grep: not_file: No such file or directory
+```
+
+### Heredoc and Herestring
+
+Embed short blocks of multi-line data in to the command  
+Example of heredoc:
+```
+cat << CONTENT  
+>This is
+>Really
+>Amazing
+CONTENT
+```
+
+Example of herestring:
+`stdin` read information from string after `<<<`
+`grep proud <<< "I am really proud"` 
+
+
+
+### FIFO  
+`mkfifo FILENAME`  
+Create a special file, first write, first read, read will block until write to the file. Write will block until another process read FIFO.  
+
+
+### Pipe  
+Connects `stdout` of one process to `stdin` of another.  
+Pipe operator will create a subshell environment for each command, so variables you modify inside the second command will appear unmodified outside of it.    
+
+
+### Process Substition  
+`>(command)` write  
+`<(command)` read, run the command inside the parentheses and give a temporary filename that you can use.
+Example   
+`diff <(sort file1) <(sort file2)`
+
+
 
 
