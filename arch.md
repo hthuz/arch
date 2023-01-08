@@ -829,7 +829,7 @@ By default, there are three FDs:
 
 `read`: read info from *stdin* and store in a variable  
 `-p`: print according message
-`read -p "What's your name?" name`
+`read -p "What's your name?" name_variable`
 
 ### Redirection  
 Redirection works by changing what FD points to. For example, change FD1 points to stdout to regular file.  
@@ -929,6 +929,61 @@ Pipe operator will create a subshell environment for each command, so variables 
 `<(command)` read, run the command inside the parentheses and give a temporary filename that you can use.
 Example   
 `diff <(sort file1) <(sort file2)`
+
+
+### Subshell  
+Create subshell explicitly using parentheses `()`  
+Any variables set during subshell are not remembered  
+`(cd /tmp || exit 1; date > timestamp)`  
+If `cd` fails, `exit 1` will terminate the subshell instead of the interactive shell.
+
+### Command Grouping  
+use `{}` to group commands.Separate commands with semicolon and there must be a semicolon after the last command. Or you can write commands in multiple lines. Basically it has no effect. But it allows a collection of commands to be considered as a whole with regard to redirection and control flow.`if, for, while` are already compound commands which behave like command grouping.  
+If you use redirection to a command group, the file FD point to will only open once and close once, instead of opening the file and closing the file for each command in the group.
+
+
+### Arithmatic Evaluation  
+```
+$a=2+3         # a is '2+3'
+$let a=2+3     # a is 5
+$let a='2 + 3' # a is 5
+$((a=2+3))     # a is 5, which is arithmatic evaluation 
+$echo $((a*b)) # arithmatic substitution  
+```
+`((abs = (a>0) ? a : -a))`  
+`if ((flag)); then COMMAND; fi      # note $ sign is not required`  
+
+
+### Functions
+```
+sum(){
+    echo "$1 + $2 = $(($1 + $2))"
+}
+$sum 1 3
+1 + 3 = 4
+```
+```
+#!/bin/bash
+count() {
+    local i         # Local variable in the function
+    for ((i=1; i<=$1; i++)); do echo $i; done
+    echo 'Ah, ah, ah!'
+}
+for ((i=1; i<=3; i++)); do count $i; done
+```
+
+To remove a variable, alias or a function:  
+`unset -f myfunction`  
+`unset -v myvariable`
+`unalias myalias`
+
+
+
+
+
+
+
+
 
 
 
