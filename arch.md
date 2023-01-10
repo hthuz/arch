@@ -977,7 +977,10 @@ To remove a variable, alias or a function:
 `unset -v myvariable`
 `unalias myalias`
 
-
+### Sourcing  
+When a script finishes its execution, its environment is discarded.  
+`. ./myscript`  
+If you use the dot operation, the script will run in current shell's environment. So Current shell's variables, working directory, functions etc will be changed.
 
 
 
