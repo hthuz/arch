@@ -476,6 +476,68 @@ s: substitution
 
 
 
+## Regular Expression
+
+Example 1:
+```
+$echo 'abc' | sed 's/./xyz/g'
+xyzxyzxyz  
+```
+Here a dot means **any character**  
+
+Example 2:  
+```
+$echo 'abc' | sed 's/\./xyz/g'
+abc
+```
+Use back slash to avoid interrept dot as regular expression
+
+Example 3:  
+```
+$echo 'a..b..c' | sed 's/[\.b]/d/g'
+adddddc
+$echo 'a..b..c' | sed 's/[\.b]\+/d/g'
+adc
+$echo 'a..b ..c' | sed 's/[\.b]\+/d/g'
+ad dc
+$ echo 'a..b..c' | sed 's|[\.b]\+|d|g; s|[a-c]|d|g'
+ddd
+```
+`[\.b]`: Any literal dot or character b  
+`\+`: Look for at least one, possibly more of listed characters and the matched pattern will be considered as only a single occurence  
+`[a-c]`: A range of letters from a to c
+
+Example 4:
+```
+$echo "have a nice day" | sed 's/$/ you all/'
+have a nice day you all
+```
+`$`: means end of line
+
+
+
+Metacharacters  | Example       | Description
+--              | --            | --  
+[]              | [a-m]         | A set of characters
+.               | he..o         | Any character
+*               | he.*o*        | Zero or more occurences
++               | he.+o         | One or more occurences
+?               | he.?o         | Zero or one occurences
+{}              | he.{2}o       | Exactly specified number of occurences
+^               | ^hello        | Start with
+$               | planet$       | End with
+`|`             | fall|stays    | Either or
+
+
+Special Sequences   | Example       | Description  
+--                  | --            | --
+
+
+
+
+
+
+
 
 ## Bash
 
