@@ -459,6 +459,22 @@ equivalent to
 .long 0
 ```
 
+## Sed Command  
+Sed stands for stream editor. Used for inserting, deleting, searching or replacing sth in file and print the result to stdout. It WON'T modify the original file
+
+Commands                    | Description  
+--                          | --  
+sed 's/unix/linux/' FILE    | Replace unix with linux in the file, only replace the first occurence of the pattern in each line
+sed 's/unix/linux/2' FILE   | Replace the second occurence of unix in the file
+sed 's/unix/linux/g' FILE   | g:Global. Replace all occurences  
+sed 's/unix/linux/3g' FILE  | Replace from 3th occurence to all occurences **in a line**
+
+
+
+s: substitution  
+/: delimiter
+
+
 
 
 ## Bash
@@ -490,7 +506,22 @@ Character | Description
 `{}`      | *Inline group* - cmds inside are treated as one cmd
 `()`      | *Subshell group* - cmds insde are executed in a subshell
 `((  ))`  | *Arithmetic expression* - +,-,* inside are treated as operator
-`$((  ))` | the expression will be replaced with the reuslt of arithmetic evaluation
+`$((  ))` | the expression will be replaced with the reuslt of arithmetic evaluation  
+`\`       | *Escape* - Prevents next character from being interpreted as a special character.
+
+### Quotation
+
+Double quotes can be used for strings containing spaces. Some times, it's not necessary to wrap a variable with double quotation like `"$var"`,but it is always a good idea to do so.  
+Single quote will cause Bash to interrept string literally  
+Back quote allow us to execute command  
+
+```
+echo $var         - > hello world
+echo "$var"       - > hello world (a better habit)
+echo '$var'       - > $var
+echo '"'"$var"'"' - > "hello world" (put single quote around double quote so that it is interrrepted literally)
+echo \""$var"\"   - > "hello world" (escape double quote so that it is printed)
+```
 
 ### Parameter Expansion  
 
@@ -502,6 +533,11 @@ Character | Description
 $ echo "'$USER', '$USERs','${USER}s'"
 'autentico', '', 'autenticos'
 ```
+### String Concatenation  
+
+Example                     | Description
+--                          | --
+`var=$var1$var2`            | Concatenate two variables
 
 Command                     | Description  
 --                          | --  
@@ -520,6 +556,12 @@ $var=1.5.9
 ${var#*.}   -> 5.9
 ${var##*.}  -> 9
 ```
+
+
+### Command Substitution
+Insert the output of one command into a second command  
+Example: `cur_time=$(date)`  
+
 
 ### Parameters
 Parameters include *variables* and *special parameters*  
