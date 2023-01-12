@@ -1,4 +1,6 @@
-# Arch Linux Note
+# Arch Linux Note  
+
+This is my learning note of all kinds of things as I'm trying to be familiar with Linux as a rookie. Some contents may not be written in detail as I'm already familiar with relevent concepts. So the learning note is somewhat personalized. Also note that some materials are cited from some books/websites. Because of my laziness I won't cite them in this note but I do appreciate all of these materials.
 
 ## Pacman  
 
@@ -483,6 +485,36 @@ s: substitution
 /: delimiter
 
 
+## Awk Command
+
+awk is used for manipulating data.  
+`awk [options] 'selection criteria' <input file>`
+
+Note:  
+Record: Each record is separated by a record separator, by default the separator is newline
+Field: Each field is separated by a field separator, by default the separator is whitespace
+
+
+Built-in Variables  | Description  
+--                  | --  
+NR                  | current number of input records/lines
+NF                  | current number of fields(separate by whitespace) in current line
+FS                  | Current Field Separator, by default whitespace
+RS                  | current Record Separator, by default newline
+OFS                 | Output Field Separator, by default whitespace, when print several parameters separator with commas, it prints value of OFS between each parameter
+ORS                 | Output Record Separator, by default newline. print ORS at the end of whatever it is given to print
+
+Command                               | Description
+--                                    | --
+awk '{print}' FILE                    | Print the content of the file
+awk '/manager/ {print}' FILE          | Print all lines matching the pattern 'manager'
+awk '{print $1,$4}' FILE              | Split each line based on whitespace and print the 1st and 4th field
+awk '{print NR,$0}' FILE              | Display line number, $0 stands for all contents of current record
+awk 'NR==3, NR==6 {print $0}' FILE    | Display from 3rd line to 6th line
+awk '{print $1 "-" $2}'               | Field 1 and 2 are separated by "-"
+awk 'END {print NR}' FILE             | Count the number of lines in the file
+awk 'length($0) > 10' FILE            | Print lines with length larger than 10
+awk '{if($3 == "B6") print $0;}' FILE | Find string in specific column
 
 ## Regular Expression
 
