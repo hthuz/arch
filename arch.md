@@ -678,6 +678,10 @@ ${var#*.}   -> 5.9
 ${var##*.}  -> 9
 ```
 
+### Substring  
+`${VAR:start_index:length}   # start_index from 0`  
+`${MYSTR:11:4}`
+
 
 ### Command Substitution
 Insert the output of one command into a second command  
