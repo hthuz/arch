@@ -468,7 +468,15 @@ sed 's/unix/linux/' FILE    | Replace unix with linux in the file, only replace 
 sed 's/unix/linux/2' FILE   | Replace the second occurence of unix in the file
 sed 's/unix/linux/g' FILE   | g:Global. Replace all occurences  
 sed 's/unix/linux/3g' FILE  | Replace from 3th occurence to all occurences **in a line**
-
+echo "have a nice day" | sed -E 's/([a-z])/\(\1\)/g' | Add parenthesis to every letter. -E to enable extended regular expression so that () doesn't need backslash before it. \1 to represent the matched pattern
+sed '3 s/unix/linux/' FILE  | Replace only the third line
+sed '1,3 s/unix/linux/' FILE| Replace from the first line to the third line
+sed '2,$ s/unix/linux/' FILE| $ means last line, replace from second line to the last line
+sed '5d' FILE               | Delete 5th line of the file
+sed '3,6d' FILE             | Delete 3rd to 6th line of the file
+sed '/abc/d' FILE           | Delete pattern matching line
+sed 'G' FILE                | Insert a blank line after each line
+sed '/love/G' FILE          | Insert a blank line after each line with matching pattern love
 
 
 s: substitution  
@@ -504,8 +512,9 @@ $ echo 'a..b..c' | sed 's|[\.b]\+|d|g; s|[a-c]|d|g'
 ddd
 ```
 `[\.b]`: Any literal dot or character b  
-`\+`: Look for at least one, possibly more of listed characters and the matched pattern will be considered as only a single occurence  
-`[a-c]`: A range of letters from a to c
+`\+`: Look for at least one, possibly more of listed characters and the matched pattern will be considered as only a single occurence. Here `\+` is not a literal `+`.  
+`[a-c]`: A range of letters from a to c  
+
 
 Example 4:
 ```
@@ -514,23 +523,73 @@ have a nice day you all
 ```
 `$`: means end of line
 
+Example 5:  
+```
+$echo "sample+" | sed 's/[a-e]+/_/g'
+sampl_  # Here + is just a +
+$echo "sample+" | sed -E 's/[a-e]+/_/g'
+s_mpl_+ # Here + is not a +
+```
+-E: Enable Extended Regex.  In extended regex, + just means /+
+
+Example 6:
+```
+$echo "abcdefghijklmnopqrstuvwxyz ABCDEFG 0123456789" | sed -E 's/([a-o]+).*([A-Z]+)/\2 \1/'  
+G abcdefghijklmno 0123456789
+```
+`.*`:Any character, 0 or more times.It starts matching after character o and it will keep matching characters until the last A-Z are matched. This part is not captured by sed
+`\2 \1`: Change the order of lower-case letters(first search pattern) and upper-case letters( second search pattern )
+
+Example 7 (Easier version of Example 6):  
+```
+$echo "have a nice day " | sed 's/e.*e//g'
+hav day
+$echo "have a nice day " | sed 's/e.*//g'
+hav
+$echo "have a nice day " | sed 's/.*e//g'
+ day
+$echo "have a nice day " | sed 's/.*[a-d]//g'
+y
+$echo "have a nice day " | sed 's/e.*[a-d]//g'
+havy 
+```
+Example 8:  
+```
+$echo "abcdefghijklmnopqrstuvwxyz ABCDEFG 0123456789" | sed -E 's/[^ ]*/_/'
+_ ABCDEFG 0123456789
+```
+`[^ ]*`: Match any non-space character, 0 or more times. ^ in [] means not
+
+Example 9:
+```
+$ echo "have a nice day" | sed -E 's/[^ ]+ [^ ]+//'
+ nice day
+```
+`[^ ]+ [^ ]+` means the pattern of no-space space no-space  
+
+**Summary**
+
+Metacharacters | Example         | Description
+--             | --              | --
+[]             | [a-m],[0-9AF-Z] | A set of characters
+[^ ]           | [^A-Za-z]       | Outside the selected range
+.              | he..o           | Any character
+*              | he.*o*          | Zero or more occurences, usually followed by other metacharacters like .*
++              | he.+o           | One or more occurences
+?              | he.?o           | Zero or one occurences
+{}             | he.{2}o         | Exactly specified number of occurences
+^              | ^hello          | Start of the string
+$              | planet$         | End of the string
+`|`            | `fall|stays`    | Either or
+\d             |                 | One digit
+\D             |                 | One non-digit
+\s             |                 | One whitespace
+\S             |                 | One non-whitespace
+\b             |                 | Backspace character
+\n             |                 | Newline character
+\t             |                 | Tab character
 
 
-Metacharacters  | Example       | Description
---              | --            | --  
-[]              | [a-m]         | A set of characters
-.               | he..o         | Any character
-*               | he.*o*        | Zero or more occurences
-+               | he.+o         | One or more occurences
-?               | he.?o         | Zero or one occurences
-{}              | he.{2}o       | Exactly specified number of occurences
-^               | ^hello        | Start with
-$               | planet$       | End with
-`|`             | fall|stays    | Either or
-
-
-Special Sequences   | Example       | Description  
---                  | --            | --
 
 
 
