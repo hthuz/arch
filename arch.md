@@ -419,6 +419,22 @@ git push <remote> --delete <tagname> 同上
 git checkout <tagname> 检出标签  
 git checkout -b <branch> <tagname> 同标签的分支
 
+
+## xrandr  
+Used to manage output of a screen including resolution and refresh rate
+Can be used to enable multiple monitors.  
+
+Commands                                                                 | Description
+--                                                                       | --
+xrandr (-q)                                                              | List information of monitors
+xrandr --output <MONITOR NAME> --auto                                    | Turn on monitor using default config
+xrandr --output <MONITOR NAME> --off                                     | Turn off monitor
+xrandr --output <MONITOR NAME> --mode <resolution> --rate <refresh rate> | Change the resolution and refresh rate
+
+
+## pamixer  
+Aka amixer. But can be configured with pacman. A volume level controller
+
 ## cat  
 
 
