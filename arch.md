@@ -349,6 +349,25 @@ $?        | Names of all prerequisites newer than target
 $^        | Names of all prerequisites
 
 
+### Implicit Rules  
+
+Variabels | Description  
+--        | --  
+CC        | Program for compiling C, usually `cc`
+CXX       | Program for compiling C++, usually `g++` 
+CFLAGS    | Extra flags to C compiler
+CXXFLAGS  | Extra flags to C++
+CPPFLAGS  | Extra flags to C preprocessor
+LDFLAGS   | Extra flags to compilers when they are suppopsed to invoke the linker
+
+Compile C program, file.c->file.o:  
+`$(CC) -c $(CPPFLAGS) $(CFLAGS) $^ -o $@`   
+Compile C++ program, file.cpp->file.o:  
+`$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $^ -o $@`  
+Link object file, file.o->file:    
+`$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@`  
+
+
 ## picom  
 Default configuration file: `/etc/xdg/picom.conf`
 
