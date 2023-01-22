@@ -263,6 +263,8 @@ targets: prerequisites
     command
 ```
 
+
+
 ## picom  
 Default configuration file: `/etc/xdg/picom.conf`
 
