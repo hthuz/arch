@@ -337,6 +337,7 @@ three: $(thing_right)
 four: $(wildcard *.o)
 ```
 
+`%`: Matches one or more characters in a string or take the stem that was matched and replaces that in a string.
 
 ### Automatic Variables  
 
@@ -351,6 +352,18 @@ $^        | Names of all prerequisites
 
 ### Implicit Rules  
 
+In the following example, there's no rule to make foo.o bar.o. Make will use implicit rules to make these object files. The implicit rules are based on what kind of files you have and so on.    
+
+Implicit rule will be applied for
+1) each target without recipe
+2) each double-colon rule without recipe 
+```
+foo: foo.o bar.o
+    cc -o foo foo.o bar.o
+```  
+```
+foo.o: foo.c  # Implicit rules will be used
+```
 Variabels | Description  
 --        | --  
 CC        | Program for compiling C, usually `cc`
@@ -367,6 +380,29 @@ Compile C++ program, file.cpp->file.o:
 Link object file, file.o->file:    
 `$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@`  
 
+
+### Static Pattern Rule  
+Syntex:  
+```
+targets...: target-pattern: prereq-patterns
+    commands
+```
+For example, the following two Makefiles are the same  
+```
+objects = foo.o bar.o all.o   
+all:${objects}
+
+foo.o: foo.c
+bar.o: bar.c
+all.o: all.c
+
+```
+```
+objects = foo.o bar.o all.o
+all:{Obejcts}
+
+${objects}: %.o : %.c
+```
 
 ## picom  
 Default configuration file: `/etc/xdg/picom.conf`
