@@ -128,7 +128,7 @@ Default configuration file: `/usr/share/X11/xorg.conf.d/70-synaptics.conf`
 Copy to `/etc/X11/xorg.conf.d/` and edit here
 
 ### Touchpad Natural Scorrling  
-In `70-synaptics.conf` file, add following to identifer 'touchpad catchall'
+In `/etc/X11/xorg.conf.d/70-synaptics.conf` file, add following to identifer 'touchpad catchall'
 ```
 Option "VertScrollDelta" "-111"
 Option "HorizScrollDelta" "-111"
@@ -435,9 +435,19 @@ xrandr --output <MONITOR NAME> --mode <resolution> --rate <refresh rate> | Chang
 ## pamixer  
 Aka amixer. But can be configured with pacman. A volume level controller
 
+
+## curl  
+Used to transfer data to/from a server
+`curl [options] [URL...]`  
+
+
+Command                     | Description  
+--                          | --  
+curl URL                    | Display content of a website
+curl -o FILE URL            | Save the downloaded file in local file
+curl -O URL                 | Save the downloaded file in a file with the same name as URL
+
 ## cat  
-
-
 
 CMD                    | Description
 --                     | --
@@ -531,6 +541,42 @@ awk '{print $1 "-" $2}'               | Field 1 and 2 are separated by "-"
 awk 'END {print NR}' FILE             | Count the number of lines in the file
 awk 'length($0) > 10' FILE            | Print lines with length larger than 10
 awk '{if($3 == "B6") print $0;}' FILE | Find string in specific column
+
+
+## Cut Command
+Cut out sections from each line of files and print to stdout.  
+`cut OPTIONS FILES`
+
+Options                | Description
+--                     | --
+-b                     | Cut by byte
+-c                     | Cut by character
+-f                     | Cut by Field, tab is default delimiter, use -d to specify delimiter
+--complement           | Complement the result
+--output-delimiter='$' | Change the delimiter to $ in the output printed result
+
+Commands                | Description  
+--                      | --
+cut -b 1,2,3 file       | Display byte 1,2,3 of each line
+cut -b 1-3,5-7 file     | Display byte 1-3,5-7 of each line
+cut -b 1- file          | Display byte from 1st to end
+cut -c 1,2,3 file       | Display character 1,2,3 of each line
+cut -d " " -f 1 file    | delimiter set to space. Display field 1, i.e. first word of each line
+
+## Head Command & Tail Command
+Head: Print top N numbers of file, default 10  
+Tail: Print bottom N numbers of file  
+It can be used as a filter  
+`head OPTIONS FILE`  
+
+
+Commands                | Description  
+--                      | -- 
+head -n 5 file          | Print first 5 lines of the file
+head -c 3 file          | Print first 3 character of the file
+`head -n 20 file | tail -10`    | Print lines 10-20
+
+
 
 ## Regular Expression
 
@@ -1091,6 +1137,32 @@ Reads the files and searches for the pattern provided.
 
 `grep PATTERN FILEs` (from stdin if no file indicated)  
 `grep -r `     # supports directories, it will search all files in this directories
+
+
+Options             | Description  
+--                  | --  
+-c                  | Print only the count of lines matching the pattern
+-i                  | Ignore case
+-n                  | Display matched lines and their line numbers
+-v                  | Print all lines that don't match the pattern
+-l                  | Display list of filenames only
+-w                  | Must match whole, substring won't be matched
+-e                  | For multiple patterns, used to specify expressions
+
+
+
+Command                 | Description  
+--                      | --  
+grep -l PATTERN *       | Display file containing this pattern
+grep "^PATTERN" file    | Display lines that start with the pattern
+grep -e "PATTERN1" -e "PATTERN2" file | Use multiple patterns
+grep -A1 PATTERN file   | Display matched lines and 1 line after result
+grep -B1 PATTERN file   | Display matched lines and 1 line before result
+grep -C1 PATTERN file   | Display matched lines and 1 line before and after result
+
+
+
+
 
 
 In the following command, two indenpendent FDs point to the same file.
