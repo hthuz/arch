@@ -4,15 +4,38 @@ This is my learning note of all kinds of things as I'm trying to be familiar wit
 
 ## Pacman  
 
+-S supports search/query in the sync database  
+-Q supports search/query in the local database  
+
 CMD                     | Description
 -----------------       | -------------
-```pacman -Rs```        | Remove package and dependency 
-```pacman -Ss <name>``` | Search remote package
-```pacman -Q <name>```  | Search local package
+```pacman -Rs```        | --recursive, Remove package and dependency(not required by other packages)
+```pacman -Sg```        | --group, list package groups(sync)
+```pacman -Si```        | --info, Extensive search, (sync)
+```pacman -Ss```        | --search, Detailed search package, supports regexp(sync)
+```pacman -Su```        | --sysupgrade, Update all out-of-date packages
+```pacman -Sy```        | --refresh, download a fresh copy of master package database from server, pass two to force
+```pacman -F <name>```  | Query the file database, -F means --files
+```pacman -Q <name>```  | Search local package, query the package database
 ```pacman -Q```         | List all local packages
-```pacman -Qs ```       | Detailed search local packages
-```pacman -Qi <name>``` | Extensive search local packages
+```pacman -Qc ```       | --changelog
+```pacman -Qd```        | --deps, list packages installed as depedencies
+```pacman -Qg```        | --groups, list package groups(local)
+```pacman -Qi ```       | --info, Extensive search local packages
+```pacman -Ql```        | --l, list all files owned by the package
+```pacman -Qm```        | --foreign, list packages not found in sync database(from AUR, for example)
+```pacman -Qo <file>``` | --own, Search for packages that owns this file
+```pacman -Qs <regexp>```| --search, Detailed search local packages, supports search by regexp
+```pacman -Qt```        | --unrequired, list packages not required by ohter packages
+```pacman -Qu```        | --upgrade, list out-of-date packages
 
+
+Options                 | Description  
+--                      | --  
+--ignore pkg1,pkg2      | Applies to -S,-U, ignore upgrades even if there is one available
+
+local database: `/var/lib/pacman/local`  
+sync database: `/var/lib/pacman/sync`
 pacman mirrorlist: `/etc/pacman.d/mirrorlist`  
 `pacman -Syyu` to sync modified mirrolist  
 pacman configuration file: `/etc/pacman.conf`
@@ -402,6 +425,47 @@ objects = foo.o bar.o all.o
 all:{Obejcts}
 
 ${objects}: %.o : %.c
+```
+
+### Target-specific variables  
+One can define variables for specific targets or patterns
+```
+all: var = hello world
+
+all:
+    echo "var is set: ${var}"
+other:
+    echo "var is nothing: ${var}"
+```
+```
+%.c: var = hello world
+
+blah.c:
+    echo "var is set: ${var}"
+other:
+    echo "var is nothing: ${var}"
+```
+
+### Makefile Condition  
+```
+foo = ok
+
+all:
+ifeq (${foo},ok)
+    COMMANDS
+else
+    COMMANDS
+endif
+```  
+```
+# Check if a variable is defined
+all:
+ifdef var
+    COMMANDS
+endif
+ifndef var
+    COMMANDS
+endif
 ```
 
 ## picom  
