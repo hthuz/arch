@@ -1,8 +1,8 @@
-# Arch Linux Note  
+# Arch Linux Note 
 
 This is my learning note of all kinds of things as I'm trying to be familiar with Linux as a rookie. Some contents may not be written in detail as I'm already familiar with relevent concepts. So the learning note is somewhat personalized. Also note that some materials are cited from some books/websites. Because of my laziness I won't cite them in this note but I do appreciate all of these materials.
 
-## Pacman  
+## Pacman
 
 -S supports search/query in the sync database  
 -Q supports search/query in the local database  
@@ -57,6 +57,7 @@ CMD                                   | DESCRIPTION
 `systemctl disable unit`              | no longer start at boot
 `systemctl mask unit`                 | impossible to start
 `systemctl unmask unit`               |
+
 
 
 ## Environment Variables  
@@ -207,6 +208,22 @@ r--     | members of the same group's permission
 r--     | all other users' permission
 
 
+## pandoc
+Convert from one markup format to another  
+
+|----------------------------------------|----------------------------------------------------------|
+| CMD                                    | Description                                              |
+|----------------------------------------|----------------------------------------------------------|
+| pandoc -o output.html input.md         | -o to specify the output, only produce document fragment |
+|----------------------------------------|----------------------------------------------------------|
+| pandoc -s -o output.html input.md      | --standalone, produce complete document                  |
+|----------------------------------------|----------------------------------------------------------|
+| pandoc -f markdown -t latex hello.txt  | --from, --to, specify the input/output format            |
+|----------------------------------------|----------------------------------------------------------|
+| pandoc test.txt -o test.pdf            | Create a PDF file                                        |
+|----------------------------------------|----------------------------------------------------------|
+| pandoc -f html -t markdown www.xxx.com | Read from a website                                      |
+|----------------------------------------|----------------------------------------------------------|
 
 
 
