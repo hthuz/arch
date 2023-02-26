@@ -1495,6 +1495,13 @@ If you use the dot operation, the script will run in current shell's environment
 
 
 
+## LaTex
+
+### Commonly used package
+
+tikz: create graphic elements 
+graphicx: include figures
+
 
 
 
