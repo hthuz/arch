@@ -62,25 +62,27 @@ CMD                                   | DESCRIPTION
 
 ## Environment Variables  
 
-CMD                             | Description
---                              | --
-`printenv <var>`                | print one variable
-`printenv`                      | print all environment variables
-`set`                           | print all variables(including shell var etc)
-`set <myvar>`                   | set a var(not env)
-`export <myvar>`                | set <myvar> to env, only change env var of my child processes
-`export MYVAR=content`          | directly set env var (temporary)
-add env var in /etc/environment | persistent env var(system-wide)
-add env var in /etc/profile     | persistent env var(for this profile)
+| CMD                             | Description                                                                 |
+|---------------------------------|-----------------------------------------------------------------------------|
+| `printenv <var>`                | print one variable                                                          |
+| `printenv`                      | print all environment variables                                             |
+| `set`                           | print all variables(including shell var etc)                                |
+| `set <myvar>`                   | set a var(not env)                                                          |
+| `export <myvar>`                | set <myvar> to env, only change env var of my child processes               |
+| `export MYVAR=content`          | directly set env var (temporary)                                            |
+| add env var in /etc/environment | persistent env var(system-wide)                                             |
+| add env var in /etc/profile     | persistent env var(user-wide), need to source this file         |
+| add script in /etc/profile.d    | /etc/profile.d is a dir containing script export PATH                       |
+| add env var in /etc/bashrc      | env var for bash shell only                                                 |
+| add env var in ~/.bash_profile  | env var for bash shell only, this file is executed only once on sys startup |
 
 Environment varialbe $PATH: list of directories to be searched when executing command  
 
 In command-line, you can add `VAR=value` in front of the command to temporarily change the environmental variable for this command. Example:`LANG=C ls .`
 
 
-
 ## DWM  
-Require:  st, dmenu, dwm  
+Better to Add:  st, dmenu, dwm  
 Use git clone and make install
 /usr/share/xsessions/dwm.desktop content:  
 ```
@@ -104,6 +106,10 @@ alt+p                       | open dmenu
 alt+enter                   | set current window as master window  
 alt+m/t                     | change full screen
 alt+1-9                     | change tag             
+alt+f                       | change current window to floating mode
+alt + m                     | change current window to full screen
+alt + t                     | recover mode
+alt + i                     | Change layout of clients to equal mode
 
 Apply patches 'patch --merge -i <patch.diff>'
 
@@ -164,9 +170,13 @@ Option "TapButton1" "1"
 
 ## Battery   
 Check battery: acpi
+Or using the command `cat /sys/class/power_supply/BAT0/capacity`
 
-Get: fetch data from specified resources  
-Post: submit data to a specified resource
+
+## Font  
+
+System-wide font directory:'/usr/local/share/fonts'  
+System-wide font directory:`/usr/share/fonts`, for pacman, shouldn't be modifies manually
 
 
 ## VScode  
@@ -510,7 +520,7 @@ Use `:` followed by commands
 CMDs              | Description
 --                | --
 `:bulkrename`     | Rename in bulk
-`:open_with`       | Open a select file with your choosen program
+`:open_with`       | Open a select file with your chosen program
 `:touch FILENAME` | create new file
 `:mkdir FILENAME` | create new directory
 `:shell COMMANDS` | run commands in a shell
@@ -708,6 +718,20 @@ equivalent to
 .long 0
 .long 0
 ```
+
+## Find Command
+`find [where to start searching] [expression to find] [-options] [what to find]`
+
+|-------------------------------------------|--------------------------------------|
+| Cmd                                       | Description                          |
+|-------------------------------------------|--------------------------------------|
+| find . -name sample.txt                   | Find sample.txt in current directory |
+|-------------------------------------------|--------------------------------------|
+| find . -name *.txt                        | Find *.txt in current directory      |
+|-------------------------------------------|--------------------------------------|
+| find . -name sample.txt -exec rm -i {} \; | Confirm if delete or not             |
+|-------------------------------------------|--------------------------------------|
+
 
 ## Sed Command  
 Sed stands for stream editor. Used for inserting, deleting, searching or replacing sth in file and print the result to stdout. It WON'T modify the original file
@@ -949,7 +973,7 @@ Character | Description
 ### Quotation
 
 Double quotes can be used for strings containing spaces. Some times, it's not necessary to wrap a variable with double quotation like `"$var"`,but it is always a good idea to do so.  
-Single quote will cause Bash to interrept string literally  
+Single quote will cause Bash to interpret string literally  
 Back quote allow us to execute command  
 
 ```
@@ -1354,6 +1378,7 @@ Ignore error message.
 
 
 
+
 ### grep
 Reads the files and searches for the pattern provided.
 
@@ -1524,6 +1549,28 @@ graphicx: include figures
 |------------------------|-----------|----------------|------------------|
 | typewritter(monospace) | \texttt{} | \ttfamily      |                  |
 |------------------------|-----------|----------------|------------------|
+
+
+
+## Escape Character  
+
+Many characters have special meaning. To treat this character as normal characer, add \
+Shell as example, which I often confuse with other things.  
+
+| Command                     | Output                                                          |
+| `mkdir double dir`          | Will create two directories                                     |
+| `mkdir double\ dir`         | Will create one directory named 'double dir', '\ ' escape space |
+| `echo "\"`                  | Won't echo anything                                             |
+| `echo "\\"`                 | print `\`                                                       |
+| `echo "called "amazing""`   | print "called amazing"                                          |
+| `echo "called \"amazing\""` | print "called "amazing"                                         |
+| `echo what's`               | Won't work                                                      |
+| `echo what\'s`              | Print "what's"                                                  |
+| `echo "what's"`             | Print "what's"                                                  |
+| `grep -R that's .`          | Won't work                                                      |
+| 'grep -R that\'s .'         | Works properly
+| `grep -R "that's" .`        | Works properly                                                  |
+
 
 
 
