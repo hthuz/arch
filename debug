@@ -1,5 +1,0 @@
-#!/bin/sh
-# "qemu-system-i386" -hda "/home/autentico/Downloads/ece391/ece391_share/work/vm/test.qcow" -m 512 -name test -gdb tcp:127.0.0.1:1234 -S
-"qemu-system-i386" -hda "/home/autentico/Downloads/ece391/ece391_share/work/mp3/student-distrib/mp3.img" -m 256 -gdb tcp:127.0.0.1:1234 -name mp3
-
-# "qemu-system-i386" -hda "/home/autentico/Downloads/ece391/ece391_share/work/ECE391/Mp/mp3/student-distrib/mp3.img" -m 256 -gdb tcp:127.0.0.1:1234 -name mp3

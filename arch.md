@@ -533,24 +533,24 @@ Placeholder         | Description
 
 #### Usual Commands
 
-CMDs           | Description
---             | --
-`i`            | Preview File
-`r`            | Open File
-`zh/backspace` | View hidden files
-`gh`           | Go to home directory
-`g/`           | Go to root directory
-`cw`           | Rename File
-`yy`           | Copy file
-`dd`           | cut file
-`dD`           | delete file
-`pp`           | paste file
-`z + letter`   | Changing settings
-`g + letter`   | Go directly to one directory and create/delete/move tab
-`c + letter`   |
-`y + letter`   |
-`d + letter`   |
-`p + letter`   | Different paste mode
+| CMDs                    | Description               |
+|-------------------------|---------------------------|
+| `i`                     | Preview File              |
+| `r`                     | Open File                 |
+| `zh/backspace` or <c-h> | toggling hidden files     |
+| `gh`                    | Go to home directory      |
+| `g/`                    | Go to root directory      |
+| `cw`                    | Rename File               |
+| `yy`                    | Copy file                 |
+| `dd`                    | cut file                  |
+| `dD`                    | delete file               |
+| `pp`                    | paste file                |
+| `z + letter`            | Changing settings         |
+| `g + letter`            | Go to dir or operate tabs |
+| `c + letter`            |                           |
+| `y + letter`            |                           |
+| `d + letter`            |                           |
+| `p + letter`            | Different paste mode      |
 
 #### Image Preview  
 `set preview_images true`  in `rc.conf` and change `preview_images_method`
