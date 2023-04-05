@@ -1576,6 +1576,21 @@ Shell as example, which I often confuse with other things.
 
 
 
+## RAM
+
+- RAM
+    - DRAM (Dynamic RAM) uses capacitor. Needs refreshing. High capacity, speed low, cost low. Used as main memory
+        - ADRAM (Asynchronous DRAM). No synchronization so there may delay in memory response.
+        - SDRAM (Synchronous DRAM). System clock Synchronizes memory access.
+    - SRAM (Static RAM), uses flip-flop. Long term storage. Low capacity, speed high, cost high. Used as cache
+
+
+
+
+
+
+
+
 
 
 

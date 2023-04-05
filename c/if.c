@@ -15,7 +15,7 @@ int main()
     a = 0;
     c = test(a);
 
-
     b = a ? 100 : 50;
     printf("%d \n",b);
+
 }
