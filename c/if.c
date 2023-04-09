@@ -18,4 +18,5 @@ int main()
 
     b = a ? 100 : 50;
     printf("%d \n",b);
+
 }
