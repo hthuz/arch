@@ -1,18 +1,26 @@
 import socket
+import pickle
+
+class Message:
+    def __init__(self, size):
+        self.size = size
+    def increase(self):
+        self.size += 1
 
 
 if __name__ == "__main__":
     server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    host = socket.gethostname()
-    print(host)
 
-    server.bind(('130.126.143.111',12000))
-
+    server.bind(('127.0.0.1',1101))
     server.listen()
 
     while True:
         c,addr = server.accept()
 
-        print("GOt connection from ",addr)
+        print("Got connection from ",addr)
+        data = c.recv(1024)
+        print(data)
+        print(len(data))
+        print(pickle.loads(data).size)
 
-        c.send("Message from arch".encode())
+        # c.send("Message from arch".encode())

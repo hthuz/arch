@@ -2,14 +2,15 @@
 
 
 class Cookie:
-    def __init__(self, name, size):
-        self.name = name;
-        self.size = size;
+    def __init__(self):
+        self.name = None;
+        self.size = None;
 
     def bake(self):
+        self.size = 1;
         self.size += 1;
 
-cookie = Cookie("Chocolate",4)
+cookie = Cookie()
 cookie.bake()
 
 print(cookie.name)

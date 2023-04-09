@@ -7,6 +7,7 @@ int test(int a)
     return a * a;
 }
 
+
 int main()
 {
     int a;
@@ -14,7 +15,6 @@ int main()
     int c;
     a = 0;
     c = test(a);
-
 
     b = a ? 100 : 50;
     printf("%d \n",b);
