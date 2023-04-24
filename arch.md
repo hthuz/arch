@@ -667,17 +667,46 @@ xrandr --output <MONITOR NAME> --mode <resolution> --rate <refresh rate> | Chang
 ## pamixer  
 Aka amixer. But can be configured with pacman. A volume level controller
 
-
-## curl  
+## curl
+Client URL
 Used to transfer data to/from a server
-`curl [options] [URL...]`  
+`curl [options] [URL...]`
 
 
-Command                     | Description  
---                          | --  
-curl URL                    | Display content of a website
+Command                     | Description
+--                          | --
+curl URL                    | Display content of a website(Get request to server)
 curl -o FILE URL            | Save the downloaded file in local file
 curl -O URL                 | Save the downloaded file in a file with the same name as URL
+
+Example
+
+1. Save the website, Note that `https//` can't be ignored
+```
+curl -o kernel.html https://www.kernel.org
+```
+2. Download a file in the website. Sed txt and pdf example here
+```
+curl -O https://www.gnu.org/software/sed/manual/sed.txt
+curl -O https://www.gnu.org/software/sed/manual/sed.pdf
+```
+3. Redirects, no https/ (-I displays only the request header)
+```
+curl -I www.kernel.org
+```
+The command will say 301 moved permanently. The useful Location is
+presented as `https://www.kernel.org` with Location key in the output
+
+Use `--location (-L)` to redo the request with new position. This will represent the result
+```
+curl -L www.kernel.org
+```
+
+4. Combined together
+```
+curl -o -L kernel.html www.kernel.org
+```
+
 
 ## cat  
 
