@@ -3,3 +3,6 @@ c/*.out
 c/*.o
 
 java/*.class
+
+python/django/mysite/*
+!python/django/mysite/polls/
