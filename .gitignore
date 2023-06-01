@@ -4,5 +4,6 @@ c/*.o
 
 java/*.class
 
+python/*/__pycache__/*
 python/django/mysite/*
 !python/django/mysite/polls/
