@@ -1,11 +1,32 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views import generic
 
 
 from .models import Question,Choice
 
 # Create your views here.
+
+# Generic ListView: display a list of objects
+class IndexView(generic.ListView):
+    template_name = "polls/index.html"
+    context_object_name = "latest_question_list"
+    
+    def get_queryset(self):
+        return Question.objects.order_by("-pub_date")[:5]
+
+# Generic DetailView: display a detail page or a particular type of object
+# It expects primary key value captured from URL to be called "pk"
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = "polls/detail.html"
+
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = "polls/results.html"
+
+
 
 def index(request):
     latest_question_list = Question.objects.order_by("-pub_date")[:5]
