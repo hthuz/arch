@@ -1607,6 +1607,7 @@ Shell as example, which I often confuse with other things.
 
 ## RAM
 
+
 - RAM
     - DRAM (Dynamic RAM) uses capacitor. Needs refreshing. High capacity, speed low, cost low. The refreshing takes time so it slows down. Used as main memory
         - ADRAM (Asynchronous DRAM). No synchronization so there may delay in memory response.
