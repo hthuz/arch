@@ -5,6 +5,11 @@
 local mod = require('mod')
 
 mod.sayHello()
+print(mod)
+
+for k,v in pairs(mod) do
+    print(k,v)
+end
 
 
 
