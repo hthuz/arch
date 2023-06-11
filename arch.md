@@ -178,6 +178,11 @@ Or using the command `cat /sys/class/power_supply/BAT0/capacity`
 System-wide font directory:'/usr/local/share/fonts'  
 System-wide font directory:`/usr/share/fonts`, for pacman, shouldn't be modifies manually
 
+ttf is a kind of font
+
+Make sure you have `pacman -S fontconfig` installed.
+And then you can use `fc-list` to list all fonts
+
 
 ## VScode  
 Format code: `Ctrl + Shift + I`
