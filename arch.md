@@ -45,6 +45,7 @@ pacman configuration file: `/etc/pacman.conf`
 PID 1, system and service manager  
 Units: service, mount, device, socket  
 
+
 CMD                                   | DESCRIPTION
 --                                    | --
 `systemctl status`                    |
