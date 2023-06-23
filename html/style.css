@@ -1,0 +1,25 @@
+
+table.table5-col td.col2 {
+    min-width: 155px;
+    width: 29%;
+    padding-right: 10px;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    vertical-align: top;
+}
+
+td {
+    display: table-cell;
+    vertical-align: inherit;
+    word-wrap: break-word;
+}
+table.table5-col {
+    min-width: 540px;
+    max-width: 945px;
+    width: 100%;
+}
+table {
+    display: table;
+    border-collapse: separate;
+    table-layout: fixed
+}
