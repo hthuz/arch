@@ -1,26 +1,9 @@
 
-local function tprint(table)
-    for k,v in pairs(table) do
-        print(k,v)
-    end
-end
+local array = {5,11,3,4,2,1,5}
 
--- Use require to run the file mod.lua
--- Note that if you require this mod multiple times, it is only run once
-local mod = require('mod')
-
-mod.sayHello()
-print(mod)
-
-for k,v in pairs(mod) do
+local res = require("sort").bsort(array)
+for k,v in pairs(res) do
     print(k,v)
 end
 
-
-local t = {}
-t[1] = 12
-t[2] = 34
-t[4] = 33
-
-tprint(t)
 
