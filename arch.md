@@ -1623,6 +1623,10 @@ Shell as example, which I often confuse with other things.
 Dynamic - Refreshing - Slow
 
 
+## Pip
+
+Pip externally-managed-environment error:
+Remove `/usr/lib/python3.x/EXTERNALLY-MANAGED`
 
 
 
