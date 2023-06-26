@@ -1,0 +1,15 @@
+button {
+    height:36px;
+    width:100px;
+}
+
+/* Holds for all input elements */
+input {
+    height: 30px;
+    width:300px;
+}
+
+/* Holds only for elements with class submit-button */
+.submit-button {
+    color: red;
+}
