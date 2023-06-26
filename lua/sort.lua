@@ -1,7 +1,10 @@
 
 local M = {}
+M.array = {}
 
-function M.bsort(array)
+
+function M.bsort()
+    local array = M.array
     local len = #array
     for i = 1,len do
         for j = 1, len - 1 do
@@ -14,5 +17,6 @@ function M.bsort(array)
     end
     return array
 end
+
 
 return M
