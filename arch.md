@@ -965,7 +965,17 @@ $              | planet$         | End of the string
 \t             |                 | Tab character
 
 
+### Greedy match and Non-greedy match
 
+Taking Python re as an example, `.*` is greedy match, trying to match the longest possible sequence of characters that are allowed to match   
+`.*?` is non-greedy match, trying to match shortest possible sequence of characters that are allowed to match
+
+For example
+```
+text = "Hello World"
+H.*o => Hello Wo
+H.*?o => Hello
+```
 
 
 
