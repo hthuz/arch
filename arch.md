@@ -40,6 +40,19 @@ pacman mirrorlist: `/etc/pacman.d/mirrorlist`
 `pacman -Syyu` to sync modified mirrolist  
 pacman configuration file: `/etc/pacman.conf`
 
+### Cache Clean
+
+Cache directory in `/var/cache/pacman/pkg/`
+
+Use `paccache` from `pacman-contrib`
+
+| Cmd            | Description                                                      |
+|----------------+------------------------------------------------------------------|
+| paccache -ruk0 | Remove all uninstalled package cache                             |
+| paccache -r    | Remove package cache, keep cache of latest 3 versions by default |
+| paccache -rk2  | 2 specifies keep latest 2 versions only                          |
+
+
 ## systemmd  
 
 PID 1, system and service manager  
