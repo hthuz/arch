@@ -1590,6 +1590,19 @@ Remove `/usr/lib/python3.x/EXTERNALLY-MANAGED`
 
 
 
+## Du
+
+Estimate file space usage
+```
+du -sh
+```
+
+| Common flags | Description                     |
+|--------------+---------------------------------|
+| -a           | Count for all files             |
+| -h           | --human-readable                |
+| -s           | --summarize. Only display total |
+
 
 
 
