@@ -167,6 +167,11 @@ libinput list-devices           | show devices
 **Note**: this method can't change touchpad to natural scrolling for my laptop
 
 ## xf86-input-synaptics
+`sudo pacman -S xf86-input-synaptics`
+
+Use synaptics driver for touchpad.
+
+Synaptics is a human interface hardware and software manufacturer.
 
 Default configuration file: `/usr/share/X11/xorg.conf.d/70-synaptics.conf`  
 Copy to `/etc/X11/xorg.conf.d/` and edit here
