@@ -245,19 +245,20 @@ r--     | all other users' permission
 ## pandoc
 Convert from one markup format to another  
 
-|----------------------------------------|----------------------------------------------------------|
-| CMD                                    | Description                                              |
-|----------------------------------------|----------------------------------------------------------|
-| pandoc -o output.html input.md         | -o to specify the output, only produce document fragment |
-|----------------------------------------|----------------------------------------------------------|
-| pandoc -s -o output.html input.md      | --standalone, produce complete document                  |
-|----------------------------------------|----------------------------------------------------------|
-| pandoc -f markdown -t latex hello.txt  | --from, --to, specify the input/output format            |
-|----------------------------------------|----------------------------------------------------------|
-| pandoc test.txt -o test.pdf            | Create a PDF file                                        |
-|----------------------------------------|----------------------------------------------------------|
-| pandoc -f html -t markdown www.xxx.com | Read from a website                                      |
-|----------------------------------------|----------------------------------------------------------|
+|------------------------------------------------------+------------------------------------------------------------|
+| CMD                                                  | Description                                                |
+| ----------------------------------------             | ---------------------------------------------------------- |
+| pandoc -o output.html input.md                       | -o to specify the output, only produce document fragment   |
+| ----------------------------------------             | ---------------------------------------------------------- |
+| pandoc -s -o output.html input.md                    | --standalone, produce complete document                    |
+| ----------------------------------------             | ---------------------------------------------------------- |
+| pandoc -f markdown -t latex hello.txt                | --from, --to, specify the input/output format              |
+| ----------------------------------------             | ---------------------------------------------------------- |
+| pandoc test.txt -o test.pdf                          | Create a PDF file                                          |
+| ----------------------------------------             | ---------------------------------------------------------- |
+| pandoc -f html -t markdown www.xxx.com               | Read from a website                                        |
+| ----------------------------------------             | ---------------------------------------------------------- |
+| pandoc --extract-media ./img input.docx -o output.md | Docx to md with images                                     |
 
 
 
@@ -925,7 +926,17 @@ $              | planet$         | End of the string
 \t             |                 | Tab character
 
 
+### Greedy match and Non-greedy match
 
+Taking Python re as an example, `.*` is greedy match, trying to match the longest possible sequence of characters that are allowed to match   
+`.*?` is non-greedy match, trying to match shortest possible sequence of characters that are allowed to match
+
+For example
+```
+text = "Hello World"
+H.*o => Hello Wo
+H.*?o => Hello
+```
 
 
 
