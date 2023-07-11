@@ -274,14 +274,22 @@ Autologin: ```/etc/sddm.conf.d/autologin.conf```
 
 
 ##  Processes
+
 ### Show Processes   
-```top```  Display processes and memory use
-```up/down``` to navigate  
-```k``` to kill  
+
+`top` or `htop`  Display processes and memory use
+`up/down` to navigate  
+`k` to kill  
+
+On top right, it shows info of command `uptime` and number of tasks,threads,kernel threads. 
+And how many are running. See explanation of this command for details.
+
+Press `F5` to see process tree(Which is parent proc and which is child proc)
+
 Attribute | Description  
 ----------| ----------
 VIRT      | Amount of virtual memory
-RES       | Amount of physical memory  
+RES       | Resident size. Amount of physical memory  
 SHR       | Amount of memory shared  
 S         | State of process
 TIME+     | Total CPU time consumed by process
@@ -308,6 +316,41 @@ CMD                 | Description
 `kill -L`           | list all signals
 `killall [pname]`     | kill a process
 
+
+### nproc
+
+`nproc` returns number of cores in CPU.
+
+### Uptime
+Information from `/proc/uptime` and `/proc/loadavg`
+
+Content of `/proc/loadavg`
+```shell
+0.74 0.56 0.42 1/417 316088
+```
+Average of number of processes being executed or in waiting state of last 1,5,15 minutes. 1 task running and 417 tasks in total. Last process id is 316088.
+
+Note that one core in CPU can only execute one process at a time.
+So if there's only one core in CPU, average load of 1 means 1 process was running on the CPU over last 1 minute, which means CPU was fully utilized.  
+If load average is 0.4 for 5 minute period, it means CPU was idle by 60%.
+If load average is 3.35 for 15 minute period, it means 2.35 process were waiting for CPU.
+
+If the CPU has two cores, 
+1.00 for 1 minute period means 1 core was being used one 1 core was idle.
+0.40 for 5 minute period means CPU was idle by 160% on average.
+3.35 for 15 minute minutes means 1.35 processes were waiting for CPU.
+
+
+```shell
+$ uptime
+ 13:10:42 up  4:38,  1 user,  load average: 0.76, 1.19, 0.95
+```
+which says system has been up for 4h38m.
+Load average: average system load over a period of time.
+
+### Process tree
+
+Command `pstree` or `F5` in `htop`
 
 ## Vim  
 
@@ -1603,7 +1646,24 @@ du -sh
 
 
 
+## Markdown
 
+Some common markdown supported language
+- bash(*.sh)
+- c(*.c,*.h)
+- cpp(*.cpp)
+- css
+- html
+- ini(*.ini)
+- java
+- js(*.js)
+- lua(*.lua)
+- make(Makefile)
+- python
+- sql(*.sql)
+- tex(*.tex)
+- text(*.txt)
+- vim(*.vim,.vimrc)
 
 
 
