@@ -9,25 +9,25 @@ This is my learning note of all kinds of things as I'm trying to be familiar wit
 
 CMD                     | Description
 -----------------       | -------------
-```pacman -Rs```        | --recursive, Remove package and dependency(not required by other packages)
-```pacman -Sg```        | --group, list package groups(sync)
-```pacman -Si```        | --info, Extensive search, (sync)
-```pacman -Ss```        | --search, Detailed search package, supports regexp(sync)
-```pacman -Su```        | --sysupgrade, Update all out-of-date packages
-```pacman -Sy```        | --refresh, download a fresh copy of master package database from server, pass two to force
-```pacman -F <name>```  | Query the file database, -F means --files
-```pacman -Q <name>```  | Search local package, query the package database
-```pacman -Q```         | List all local packages
-```pacman -Qc ```       | --changelog
-```pacman -Qd```        | --deps, list packages installed as depedencies
-```pacman -Qg```        | --groups, list package groups(local)
-```pacman -Qi ```       | --info, Extensive search local packages
-```pacman -Ql```        | --l, list all files owned by the package
-```pacman -Qm```        | --foreign, list packages not found in sync database(from AUR, for example)
-```pacman -Qo <file>``` | --own, Search for packages that owns this file
-```pacman -Qs <regexp>```| --search, Detailed search local packages, supports search by regexp
-```pacman -Qt```        | --unrequired, list packages not required by ohter packages
-```pacman -Qu```        | --upgrade, list out-of-date packages
+`pacman -Rs`        | --recursive, Remove package and dependency(not required by other packages)
+`pacman -Sg`        | --group, list package groups(sync)
+`pacman -Si`        | --info, Extensive search, (sync)
+`pacman -Ss`        | --search, Detailed search package, supports regexp(sync)
+`pacman -Su`        | --sysupgrade, Update all out-of-date packages
+`pacman -Sy`        | --refresh, download a fresh copy of master package database from server, pass two to force
+`pacman -F <name>`  | Query the file database, -F means --files
+`pacman -Q <name>`  | Search local package, query the package database
+`pacman -Q`         | List all local packages
+`pacman -Qc `       | --changelog
+`pacman -Qd`        | --deps, list packages installed as depedencies
+`pacman -Qg`        | --groups, list package groups(local)
+`pacman -Qi `       | --info, Extensive search local packages
+`pacman -Ql`        | --l, list all files owned by the package
+`pacman -Qm`        | --foreign, list packages not found in sync database(from AUR, for example)
+`pacman -Qo <file>` | --own, Search for packages that owns this file
+`pacman -Qs <regexp>`| --search, Detailed search local packages, supports search by regexp
+`pacman -Qt`        | --unrequired, list packages not required by ohter packages
+`pacman -Qu`        | --upgrade, list out-of-date packages
 
 
 Options                 | Description  
@@ -99,7 +99,7 @@ In command-line, you can add `VAR=value` in front of the command to temporarily 
 Better to Add:  st, dmenu, dwm  
 Use git clone and make install
 /usr/share/xsessions/dwm.desktop content:  
-```
+```txt
 [Desktop Entry]
 Encoding=UTF-8
 Name=dwm
@@ -107,8 +107,8 @@ Comment=Dynamic Window Manager
 Exec=dwm
 Icon=dwm
 Type=xsession
-
 ```
+
 
 Shortcut                    | Description  
 --                          | --
@@ -131,7 +131,6 @@ Apply patches 'patch --merge -i <patch.diff>'
 ## xorg
 
 
-
 ### xinit
 Used to start window managers  
 Default configuration file: `etc/X11/xinit/xinitrc`  
@@ -142,7 +141,7 @@ To start, run `startx` or set auto start
 
 #### Autostart
 Add the following in `~/.bash_profile`
-```
+```txt
 if [-z "${DISPLAY}" && ["${XDG_VTNR}" -eq 1]] then
     exec startx
 fi
@@ -236,36 +235,31 @@ CMD                                | Description
 
 Part    | Description
 --      | -- 
--       | type of file(d for directory, s for special, - for regular file)
-rw-     | owner's permission to file
-r--     | members of the same group's permission
-r--     | all other users' permission
+`-`       | type of file(d for directory, s for special, - for regular file)
+`rw-`     | owner's permission to file
+`r--`     | members of the same group's permission
+`r--`     | all other users' permission
 
 
 ## pandoc
 Convert from one markup format to another  
 
-|------------------------------------------------------+------------------------------------------------------------|
-| CMD                                                  | Description                                                |
-| ----------------------------------------             | ---------------------------------------------------------- |
-| pandoc -o output.html input.md                       | -o to specify the output, only produce document fragment   |
-| ----------------------------------------             | ---------------------------------------------------------- |
-| pandoc -s -o output.html input.md                    | --standalone, produce complete document                    |
-| ----------------------------------------             | ---------------------------------------------------------- |
-| pandoc -f markdown -t latex hello.txt                | --from, --to, specify the input/output format              |
-| ----------------------------------------             | ---------------------------------------------------------- |
-| pandoc test.txt -o test.pdf                          | Create a PDF file                                          |
-| ----------------------------------------             | ---------------------------------------------------------- |
-| pandoc -f html -t markdown www.xxx.com               | Read from a website                                        |
-| ----------------------------------------             | ---------------------------------------------------------- |
-| pandoc --extract-media ./img input.docx -o output.md | Docx to md with images                                     |
+| CMD                                                    | Description                                                |
+| ------------------------------------------------------ | ---------------------------------------------------------- |
+| pandoc -o output.html input.md                         | -o to specify the output, only produce document fragment   |
+| pandoc -s -o output.html input.md                      | --standalone, produce complete document                    |
+| pandoc -f markdown -t latex hello.txt                  | --from, --to, specify the input/output format              |
+| pandoc test.txt -o test.pdf                            | Create a PDF file                                          |
+| pandoc -f html -t markdown www.xxx.com                 | Read from a website                                        |
+| pandoc --extract-media ./img input.docx -o output.md   | Docx to md with images                                     |
 
 
 
 ### keyboard
 
-CMD                 | Description
-`setxkbmap -print -verbose 10` | see X kb settings
+| CMD                            | Description         |
+|--------------------------------|---------------------|
+| `setxkbmap -print -verbose 10` | see X keyboard settings |
 
 
 ## KDE  
@@ -331,6 +325,7 @@ Cmd                     | Description
 `G`                     | Go to end of file
 
 ## Makefile  
+
 ```
 targets: prerequisites
     command
@@ -347,17 +342,21 @@ hello:
 If no arguments are provided to `make` command, it will run the first target by default. If you provide an argument, it will only run the target with the same name as argument and necessary dependencies.
 
 Notice the differences of the following two versions:  
+
 ```
 blah:
   cc blah.c -o blah  # It won't recompile after blah.c is modified
-```  
+```
+
 ```
 blah: blah.c
   cc blah.c -o blah  # It will recompile after blah.c is modified
-```  
+```
+
 **IMPORTANT**: Make only run blah if blah doesn't exits or blah.c is newer than blah, which means it's better to add header file in the prequisite since editing header file may affect the compilation.
 
 A more common template
+
 ```
 blah: blah.o
   cc blah.o -o blah
@@ -367,7 +366,8 @@ clean:
   rm -f *.o blah
 ```
 
-### Variables  
+### Variables
+
 Variables can only be strings.  
 ```
 files := file1 file2  # Or file = file1 file2, Note quote is not required
@@ -435,10 +435,12 @@ Implicit rule will be applied for
 ```
 foo: foo.o bar.o
     cc -o foo foo.o bar.o
-```  
+```
+
 ```
 foo.o: foo.c  # Implicit rules will be used
 ```
+
 Variabels | Description  
 --        | --  
 CC        | Program for compiling C, usually `cc`
@@ -470,8 +472,8 @@ all:${objects}
 foo.o: foo.c
 bar.o: bar.c
 all.o: all.c
-
 ```
+
 ```
 objects = foo.o bar.o all.o
 all:{Obejcts}
@@ -480,7 +482,9 @@ ${objects}: %.o : %.c
 ```
 
 ### Target-specific variables  
+
 One can define variables for specific targets or patterns
+
 ```
 all: var = hello world
 
@@ -489,6 +493,7 @@ all:
 other:
     echo "var is nothing: ${var}"
 ```
+
 ```
 %.c: var = hello world
 
@@ -499,6 +504,7 @@ other:
 ```
 
 ### Makefile Condition  
+
 ```
 foo = ok
 
@@ -508,9 +514,11 @@ ifeq (${foo},ok)
 else
     COMMANDS
 endif
-```  
 ```
-# Check if a variable is defined
+
+### Check if a variable is defined
+
+```
 all:
 ifdef var
     COMMANDS
@@ -521,6 +529,7 @@ endif
 ```
 
 ## picom  
+
 Default configuration file: `/etc/xdg/picom.conf`
 
 ## xwallpaper  
@@ -578,7 +587,7 @@ Placeholder         | Description
 | `p + letter`            | Different paste mode      |
 
 #### Image Preview  
-`set preview_images true`  in `rc.conf` and change `preview_images_method`
+`set preview_images true` in `rc.conf` and change `preview_images_method`
 
 #### PDF Preview
 Uncomment the following part in "scope.sh"
@@ -595,11 +604,8 @@ Image viewer in terminal
 `display filename`
 
 
-
 ## MariaDB
 `mariadb -u root (-h) -p`
-34.66.142.241
-
 
 ## fcitx5
 
@@ -620,6 +626,7 @@ Path                                                       | Description
 
 
 ## xrandr  
+
 Used to manage output of a screen including resolution and refresh rate
 Can be used to enable multiple monitors.  
 
@@ -649,28 +656,28 @@ curl -O URL                 | Save the downloaded file in a file with the same n
 Example
 
 1. Save the website, Note that `https//` can't be ignored
-```
+```bash
 curl -o kernel.html https://www.kernel.org
 ```
 2. Download a file in the website. Sed txt and pdf example here
-```
+```bash
 curl -O https://www.gnu.org/software/sed/manual/sed.txt
 curl -O https://www.gnu.org/software/sed/manual/sed.pdf
 ```
 3. Redirects, no https/ (-I displays only the request header)
-```
+```bash
 curl -I www.kernel.org
 ```
 The command will say 301 moved permanently. The useful Location is
 presented as `https://www.kernel.org` with Location key in the output
 
 Use `--location (-L)` to redo the request with new position. This will represent the result
-```
+```bash
 curl -L www.kernel.org
 ```
 
 4. Combined together
-```
+```bash
 curl -o -L kernel.html www.kernel.org
 ```
 
@@ -688,7 +695,7 @@ CMD                    | Description
 
 
 ## x86 Assembly  
-```
+```text
 .data                      # readable/writable
 data_item:                 # data_items points to 3
 .long 3,5,6,7              # declare an array of numbers with 4bytes(consecutive)
@@ -709,6 +716,7 @@ _start:                    # entry to instruction
 .endr           # repeat sequence of lines 3 times
 ```
 equivalent to 
+
 ```
 .long 0
 .long 0
@@ -716,17 +724,15 @@ equivalent to
 ```
 
 ## Find Command
+
 `find [where to start searching] [expression to find] [-options] [what to find]`
 
-|-------------------------------------------|--------------------------------------|
+
 | Cmd                                       | Description                          |
 |-------------------------------------------|--------------------------------------|
 | find . -name sample.txt                   | Find sample.txt in current directory |
-|-------------------------------------------|--------------------------------------|
 | find . -name *.txt                        | Find *.txt in current directory      |
-|-------------------------------------------|--------------------------------------|
 | find . -name sample.txt -exec rm -i {} \; | Confirm if delete or not             |
-|-------------------------------------------|--------------------------------------|
 
 
 ## Sed Command  
@@ -814,30 +820,30 @@ It can be used as a filter
 
 Commands                | Description  
 --                      | -- 
-head -n 5 file          | Print first 5 lines of the file
-head -c 3 file          | Print first 3 character of the file
-`head -n 20 file | tail -10`    | Print lines 10-20
+`head -n 5 file`          | Print first 5 lines of the file
+`head -c 3 file`          | Print first 3 character of the file
+`head -n 20 file \| tail -10`    | Print lines 10-20
 
 
 
 ## Regular Expression
 
 Example 1:
-```
+```bash
 $echo 'abc' | sed 's/./xyz/g'
 xyzxyzxyz  
 ```
 Here a dot means **any character**  
 
 Example 2:  
-```
+```bash
 $echo 'abc' | sed 's/\./xyz/g'
 abc
 ```
 Use back slash to avoid interrept dot as regular expression
 
 Example 3:  
-```
+```bash
 $echo 'a..b..c' | sed 's/[\.b]/d/g'
 adddddc
 $echo 'a..b..c' | sed 's/[\.b]\+/d/g'
@@ -853,14 +859,14 @@ ddd
 
 
 Example 4:
-```
+```bash
 $echo "have a nice day" | sed 's/$/ you all/'
 have a nice day you all
 ```
 `$`: means end of line
 
 Example 5:  
-```
+```bash
 $echo "sample+" | sed 's/[a-e]+/_/g'
 sampl_  # Here + is just a +
 $echo "sample+" | sed -E 's/[a-e]+/_/g'
@@ -869,7 +875,7 @@ s_mpl_+ # Here + is not a +
 -E: Enable Extended Regex.  In extended regex, + just means /+
 
 Example 6:
-```
+```bash
 $echo "abcdefghijklmnopqrstuvwxyz ABCDEFG 0123456789" | sed -E 's/([a-o]+).*([A-Z]+)/\2 \1/'  
 G abcdefghijklmno 0123456789
 ```
@@ -877,7 +883,7 @@ G abcdefghijklmno 0123456789
 `\2 \1`: Change the order of lower-case letters(first search pattern) and upper-case letters( second search pattern )
 
 Example 7 (Easier version of Example 6):  
-```
+```bash
 $echo "have a nice day " | sed 's/e.*e//g'
 hav day
 $echo "have a nice day " | sed 's/e.*//g'
@@ -890,14 +896,14 @@ $echo "have a nice day " | sed 's/e.*[a-d]//g'
 havy 
 ```
 Example 8:  
-```
+```bash
 $echo "abcdefghijklmnopqrstuvwxyz ABCDEFG 0123456789" | sed -E 's/[^ ]*/_/'
 _ ABCDEFG 0123456789
 ```
 `[^ ]*`: Match any non-space character, 0 or more times. ^ in [] means not
 
 Example 9:
-```
+```bash
 $ echo "have a nice day" | sed -E 's/[^ ]+ [^ ]+//'
  nice day
 ```
@@ -910,8 +916,8 @@ Metacharacters | Example         | Description
 []             | [a-m],[0-9AF-Z] | A set of characters
 [^ ]           | [^A-Za-z]       | Outside the selected range
 .              | he..o           | Any character
-*              | he.*o*          | Zero or more occurences, usually followed by other metacharacters like .*
-+              | he.+o           | One or more occurences
+\*              | he.*o*          | Zero or more occurences, usually followed by other metacharacters like .*
+\+              | he.+o           | One or more occurences
 ?              | he.?o           | Zero or one occurences
 {}             | he.{2}o         | Exactly specified number of occurences
 ^              | ^hello          | Start of the string
@@ -937,9 +943,6 @@ text = "Hello World"
 H.*o => Hello Wo
 H.*?o => Hello
 ```
-
-
-
 
 
 
@@ -982,7 +985,7 @@ Double quotes can be used for strings containing spaces. Some times, it's not ne
 Single quote will cause Bash to interpret string literally  
 Back quote allow us to execute command  
 
-```
+```bash
 echo $var         - > hello world
 echo "$var"       - > hello world (a better habit)
 echo '$var'       - > $var
@@ -1090,9 +1093,9 @@ Glob=normal character + metacharacter
 
 Metacharacter               | Description  
 --                          | --  
-*                           | Match any string
+\*                           | Match any string
 ?                           | Match any single character
-[...]                       | Match any one of enclosed character
+\[...]                       | Match any one of enclosed character
 
 ### Extended Glob  
 Enable extended glob using `shopt -s extglob`
@@ -1106,7 +1109,7 @@ Metacharacter   | Description
 !(list)         | Match anything but given patterns
 
 list: list of (extended) globs separated by `|`  
-```
+```bash
 $ ls
 names.txt  tokyo.jpg  california.bmp
 $ echo !(*jpg|*bmp)
@@ -1114,7 +1117,7 @@ names.txt
 ```
 
 ### Brace Expansion
-```
+```bash
 $ echo th{e,a}n
 then than
 $ echo {/home/*,/root}/.*profile
@@ -1137,17 +1140,18 @@ Each command has an exit status. Range 0-255, 0 means success. `$?` to get exit 
 ### Grouping Statements
 Use `{}` to group statements and the group is considered as one statement instead of several.  
 Example. Without grouping, which will execute `echo` even though the first command fails:
-```
+```bash
 $ grep -q goodword "$file" && ! grep -q badword "$file" && rm "$file" || echo "Couldn't delete: $file" >&2
-```  
-With grouping, which is correct:
 ```
+With grouping, which is correct:
+```bash
 $ grep -q goodword "$file" && ! grep -q badword "$file" && { rm "$file" || echo "Couldn't delete: $file" >&2; }
 ```
 
 ### Conditional Blocks
+
 `if` will check the exit code of `COMMAND1`. If it's 0, it will execute the `then` part  
-```
+```bash
 if COMMAND1
 then COMMAND2
 elif COMMAND3
@@ -1186,7 +1190,8 @@ STRING =~ REGEX   | if string matches the regex
 
 
 ### Conditional Loops
-```
+
+```bash
 while COMMAND
 do COMMAND
 done
@@ -1201,7 +1206,7 @@ done
 ```
 
 ### Choices  
-```
+```bash
 case $LANG in 
     en*) COMMAND ;;
     fr*) COMMAND ;;
@@ -1213,7 +1218,7 @@ esac
 If use `;&`, the block of next code will be executed no matter if pattern for that choice matches or not  
 If use `;;*`, the block of next code will be executed depending on if the condition satisfies
 
-```
+```bash
 select choice in A B C
 do
 echo "Your choice $choice"
@@ -1234,29 +1239,30 @@ done
 In order to parse stream(e.g. Output of a command) into elements of array, we can use NUL byte to indicate where each element starts and ends. As output of a command often can make its output separated by NUL.
 
 #### Print a (array) variable
-```
+
+```bash
 $declare -p names
 declare -a names=([0]="Bob,Peter,Big John")
 ```
-
-```
+```bash
 echo "${file[@]}"
 echo "${file[0]}"
 echo "${#file[@]}"  # Length of an array
 ```
 
-```
+```bash
 printf '%s\n' "${file[@]}"   # $@: Expands to a list of words, with each array element as one word. 
 ```
 
-```
+```bash
 for file in "${file[@]}"
 do COMMAND
 done
 ```
 
 Remember always to quote properly!  
-```
+
+```bash
 $for name in ${names[@]}; do echo $name; done
 Bob
 Peter
@@ -1281,21 +1287,22 @@ Bob Peter Big John  # If you use *, it will be a string
 
 
 #### Expanding Indices  
-```
+```bash
 $echo "${!names[@]}"
 0 1 2       # In this way, you get the index of an array and can possibly use a for loop iterating indices.
 ```
 
 #### Associative Array
-```
+```bash
 declare -A fullNames    # declare an associate array
 fullNames=( ["Bob"]="Bobbe Lorry" ["Peter"]="Pettery Parker" )
 declare -p fullNames
 echo "${fullNames['Bob']}"
 ```
-Context in [...] in a indexed array is arithmetic, you can do math here without wrapping using $((...)).  
+Context in \[...] in a indexed array is arithmetic, you can do math here without wrapping using \$((...)).  
+
 For indexed array, index in [...] part doesn't need a dollar sign$, but for associated array, an dollar sign is required. 
-```
+```bash
 $ indexedArray=( "one" "two" )
 
 $ declare -A associativeArray=( ["foo"]="bar" ["alpha"]="omega" )
@@ -1379,12 +1386,6 @@ Ignore error message.
 ### File Descriptor Manipulation
 
 
-
-
-
-
-
-
 ### grep
 Reads the files and searches for the pattern provided.
 
@@ -1414,10 +1415,6 @@ grep -B1 PATTERN file   | Display matched lines and 1 line before result
 grep -C1 PATTERN file   | Display matched lines and 1 line before and after result
 
 
-
-
-
-
 In the following command, two indenpendent FDs point to the same file.
 The second FD points to beginning of `proud.log` and it will overwrite the information.  
 `grep proud file not_file > proud.log 2> proud.log`  
@@ -1440,7 +1437,7 @@ grep: not_file: No such file or directory
 
 Embed short blocks of multi-line data in to the command  
 Example of heredoc:
-```
+```bash
 cat << CONTENT  
 >This is
 >Really
@@ -1483,7 +1480,7 @@ If you use redirection to a command group, the file FD point to will only open o
 
 
 ### Arithmatic Evaluation  
-```
+```bash
 $a=2+3         # a is '2+3'
 $let a=2+3     # a is 5
 $let a='2 + 3' # a is 5
@@ -1495,14 +1492,14 @@ $echo $((a*b)) # arithmatic substitution
 
 
 ### Functions
-```
+```bash
 sum(){
     echo "$1 + $2 = $(($1 + $2))"
 }
 $sum 1 3
 1 + 3 = 4
 ```
-```
+```bash
 #!/bin/bash
 count() {
     local i         # Local variable in the function
@@ -1524,13 +1521,11 @@ If you use the dot operation, the script will run in current shell's environment
 
 
 
-
-
 ## LaTex
 
 ### Commonly used package
 
-tikz: create graphic elements 
+tikz: create graphic elements  
 graphicx: include figures
 
 
@@ -1538,23 +1533,17 @@ graphicx: include figures
 ### Common fonts
 
 
-|-------------------------------------------|---------------------------|
 | Commands                                  | Description               |
 |-------------------------------------------|---------------------------|
 | \renewcommand{\familydefault}{\rmdefault} | Set default font to roman |
-|-------------------------------------------|---------------------------|
 | \renewcommand{\familydefault}{\sfdefault} | Set default font to sans  |
 
 
-|------------------------|-----------|----------------|------------------|
 | Font                   | Command   | Switch Command | Decription       |
 |------------------------|-----------|----------------|------------------|
 | roman serif            | \textrm{} | \rmfamily      | Default for text |
-|------------------------|-----------|----------------|------------------|
 | sans serif             | \textsf{} | \sffamily      |                  |
-|------------------------|-----------|----------------|------------------|
 | typewritter(monospace) | \texttt{} | \ttfamily      |                  |
-|------------------------|-----------|----------------|------------------|
 
 
 
@@ -1564,6 +1553,7 @@ Many characters have special meaning. To treat this character as normal characer
 Shell as example, which I often confuse with other things.  
 
 | Command                     | Output                                                          |
+|-----------------------------|-----------------------------------------------------------------|
 | `mkdir double dir`          | Will create two directories                                     |
 | `mkdir double\ dir`         | Will create one directory named 'double dir', '\ ' escape space |
 | `echo "\"`                  | Won't echo anything                                             |
@@ -1574,11 +1564,8 @@ Shell as example, which I often confuse with other things.
 | `echo what\'s`              | Print "what's"                                                  |
 | `echo "what's"`             | Print "what's"                                                  |
 | `grep -R that's .`          | Won't work                                                      |
-| 'grep -R that\'s .'         | Works properly
+| `grep -R that\'s .`         | Works properly
 | `grep -R "that's" .`        | Works properly                                                  |
-
-
-
 
 
 
@@ -1609,7 +1596,7 @@ du -sh
 ```
 
 | Common flags | Description                     |
-|--------------+---------------------------------|
+|--------------|---------------------------------|
 | -a           | Count for all files             |
 | -h           | --human-readable                |
 | -s           | --summarize. Only display total |
