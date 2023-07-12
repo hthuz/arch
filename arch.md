@@ -110,7 +110,7 @@ Type=xsession
 ```
 
 
-Shortcut                    | Description  
+Default Shortcut                    | Description  
 --                          | --
 shift+alt+enter             | open st
 shift+alt+c                 | close window
