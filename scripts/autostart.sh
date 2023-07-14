@@ -4,7 +4,7 @@
 
 setxkbmap -option caps:escape
 
-xwallpaper --zoom ~/picture/wall2.jpg
+xwallpaper --zoom ~/picture/wall3.jpg
 
 yakuake &
 
