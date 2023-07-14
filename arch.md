@@ -304,7 +304,8 @@ Autologin: ```/etc/sddm.conf.d/autologin.conf```
 `setxkbmap -option caps:swapescape`. Add this to `.xinitrc`
 Note that is requires $DISPLAY available
 
-Alternative ways:
+Alternative ways, this set swap permanently:
+
 `loadkeys keys.conf`,
 
 Content of keys.conf as follows:
