@@ -221,6 +221,13 @@ ttf is a kind of font
 Make sure you have `pacman -S fontconfig` installed.
 And then you can use `fc-list` to list all fonts
 
+## Setfont
+
+`setfont` to set font in cli mode.
+Example as follows:
+`setfont /usr/share/kbd/consolefonts`
+
+
 
 ## VScode  
 Format code: `Ctrl + Shift + I`
@@ -297,6 +304,16 @@ Autologin: ```/etc/sddm.conf.d/autologin.conf```
 `setxkbmap -option caps:swapescape`. Add this to `.xinitrc`
 Note that is requires $DISPLAY available
 
+Alternative ways:
+`loadkeys keys.conf`,
+
+Content of keys.conf as follows:
+
+```text
+keycode 1 = Caps_Lock
+keycode 58 = Escape
+
+```
 
 ##  Processes
 
