@@ -1,6 +1,8 @@
 
 c/*.out
 c/*.o
+cpp/*.out
+
 
 java/*.class
 
