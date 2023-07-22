@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 void reverse(int*, int);
+void reverse2(int*, int*);
 
 void reverse(int* array, int array_len)
 {
@@ -14,7 +15,7 @@ void reverse(int* array, int array_len)
         array[array_len - 1 - i] = tmp;
     }
 
-};
+}
 
 
 int main()
@@ -26,6 +27,11 @@ int main()
 
     for(int i = 0; i < len; i++)
         printf("%d ", array[i]);
+    printf("\n");
+    
+
+    for(int* elt = array; elt < (array + len); elt++)
+        printf("%d ", *elt);
     printf("\n");
 
 };
