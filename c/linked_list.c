@@ -12,6 +12,7 @@ typedef struct list_t {
 
 list_t* set_list(int*, int len );
 list_t* reverse_list(list_t*);
+void insert_head(list_t**, int);
 
 list_t* set_list(int* arr, int len)
 {
@@ -44,8 +45,17 @@ list_t* reverse_list(list_t* list)
     }
 
     return cur;
-
 }
+
+void insert_head(list_t** head, int val)
+{
+    list_t* new_head = malloc(sizeof(list_t));
+    new_head->val = val;
+    new_head->next = *head;
+    *head = new_head;
+}
+
+
 
 int main()
 {
@@ -53,8 +63,8 @@ int main()
     int arr[] = {3,4,5,7,10,1};
     int len = 6;
     list_t* list = set_list(arr, len);
-    list = reverse_list(list);
-
+    // list = reverse_list(list);
+    insert_head(&list, 2);
 
     list_t* elt = list;
     while(elt != NULL)
