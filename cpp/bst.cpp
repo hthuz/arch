@@ -2,6 +2,7 @@
 #include <iostream>
 
 using namespace std;
+#define SPACE 2
 
 class Node{
 public:
@@ -25,6 +26,7 @@ public:
     void insert(int);
     void _insert(Node**, Node*);
     void print();
+    void _print(Node*, int);
 };
 
 void BST::insert(int val){
@@ -37,51 +39,40 @@ void BST::_insert(Node** parent, Node* node){
         *parent = node;
         return;
     }
-
     if (node->val <= (*parent)->val)
         _insert(&(*parent)->left, node);
     if (node->val > (*parent)->val)
         _insert(&(*parent)->right, node);
 };
 
-int main(){
-    BST* tree = new BST();
-    tree->insert(2);
-    tree->insert(1);
-    tree->insert(3);
-    cout << tree->root->val << endl;
-    cout << tree->root->left->val << endl;
-    cout << tree->root->right->val << endl;
-
+void BST::print(){
+    _print(this->root,SPACE);
 }
 
+void BST::_print(Node* node, int space){
+    if (!node)
+        return;
+    space += SPACE;
+    _print(node->right, space);
+    cout << endl;
+    for (int i = SPACE; i < space; i++)
+        cout << " ";
+    cout << node->val << endl;
+    _print(node->left, space);
+}
 
+int main(){
+    BST* tree = new BST();
+    tree->insert(5);
+    tree->insert(1);
+    tree->insert(3);
+    tree->insert(2);
+    tree->insert(6);
+    tree->insert(4);
+    // cout << tree->root->val << endl;
+    // cout << tree->root->left->val << endl;
+    tree->print();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
