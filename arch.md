@@ -820,6 +820,7 @@ equivalent to
 | find . -name sample.txt                   | Find sample.txt in current directory |
 | find . -name *.txt                        | Find *.txt in current directory      |
 | find . -name sample.txt -exec rm -i {} \; | Confirm if delete or not             |
+| find * -not -type f -regex ".*sth.*\|.*sth2.*" -delete   | Find all files in cur dir and subdir that do not match required regex pattern (and delete them using pipeline)|
 
 
 ## Sed Command  
