@@ -1711,4 +1711,7 @@ Some common markdown supported language
 - vim(*.vim,.vimrc)
 
 
+## Trash
+directory of Trash: `~/.local/share/Trash/`
+
 
