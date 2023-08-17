@@ -1714,4 +1714,21 @@ Some common markdown supported language
 ## Trash
 directory of Trash: `~/.local/share/Trash/`
 
+## wc 
+
+wc -- print new line, word and byte counts for each file
+
+newline: -l
+
+Count number of files in current directory
+```
+ls | wc -l
+```
+
+
+
+
+
+
+
 
