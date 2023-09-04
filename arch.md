@@ -100,6 +100,7 @@ bash->startx(in `.bash_profile`, exec cmds in `.xinitrc`)->chadwm start script
 | `printenv <var>`                | print one variable                                                          |
 | `printenv`                      | print all environment variables                                             |
 | `set`                           | print all variables(including shell var etc)                                |
+| `unset <var>`                       | Delete a environment variable |
 | `set <myvar>`                   | set a var(not env)                                                          |
 | `export <myvar>`                | set <myvar> to env, only change env var of my child processes               |
 | `export MYVAR=content`          | directly set env var (temporary)                                            |
@@ -113,6 +114,10 @@ Environment varialbe $PATH: list of directories to be searched when executing co
 
 In command-line, you can add `VAR=value` in front of the command to temporarily change the environmental variable for this command. Example:`LANG=C ls .`
 
+To remove one directory in $PATH, run
+```bash
+PATH=$(echo "$PATH" | sed -e 's/:\/home\/autentico\/sthsth$//')
+```
 
 ## DWM  
 Better to Add:  st, dmenu, dwm  
@@ -1617,9 +1622,7 @@ tikz: create graphic elements
 graphicx: include figures
 
 
-
 ### Common fonts
-
 
 | Commands                                  | Description               |
 |-------------------------------------------|---------------------------|
@@ -1658,7 +1661,6 @@ Shell as example, which I often confuse with other things.
 
 
 ## RAM
-
 
 - RAM
     - DRAM (Dynamic RAM) uses capacitor. Needs refreshing. High capacity, speed low, cost low. The refreshing takes time so it slows down. Used as main memory
@@ -1712,6 +1714,7 @@ Some common markdown supported language
 
 
 ## Trash
+
 directory of Trash: `~/.local/share/Trash/`
 
 ## wc 
