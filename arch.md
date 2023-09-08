@@ -1613,7 +1613,6 @@ When a script finishes its execution, its environment is discarded.
 If you use the dot operation, the script will run in current shell's environment. So Current shell's variables, working directory, functions etc will be changed.
 
 
-
 ## LaTex
 
 ### Commonly used package
