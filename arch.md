@@ -318,8 +318,10 @@ Content of keys.conf as follows:
 ```text
 keycode 1 = Caps_Lock
 keycode 58 = Escape
-
 ```
+
+Linux version of VSC doen't respect remapping with xkbmap. To solve it, 
+add `"keyboard.dispath": "keyCode"` in `settings.json`
 
 ##  Processes
 
