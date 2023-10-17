@@ -1728,8 +1728,17 @@ ls | wc -l
 ```
 
 
+## ssh
 
+To generate ssh 
+```
+ssh-keygen -t ed25519 -C "your_mail"
+```
 
+```
+ssh_keygen -t rsa -C "your_mail"
+
+```
 
 
 
