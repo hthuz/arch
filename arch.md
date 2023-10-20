@@ -284,9 +284,51 @@ Convert from one markup format to another
 | pandoc -o output.html input.md                         | -o to specify the output, only produce document fragment   |
 | pandoc -s -o output.html input.md                      | --standalone, produce complete document                    |
 | pandoc -f markdown -t latex hello.txt                  | --from, --to, specify the input/output format              |
+| pandoc sample.md -f gfm -o sample.pdf                  | --from github style markdown to                            |
 | pandoc test.txt -o test.pdf                            | Create a PDF file                                          |
 | pandoc -f html -t markdown www.xxx.com                 | Read from a website                                        |
 | pandoc --extract-media ./img input.docx -o output.md   | Docx to md with images                                     |
+| pandoc --highlight-style pygments                      | Add syntax highlighting                                    |
+| pandoc --print=hightlight-sytle pygments > my.theme    | Print a theme, and edit it!                                |
+| pandoc sample.md --highlight-style my.theme -o out.pdf | Use my edited theme file                                   |
+| pandoc --toc --toc-depth <3> -V toc-title=<your_title> | Add table of contents with depth 3 and your content title  |
+| pandoc --template eisvogel                             | Use a template, path from `~/.local/share/pandoc/templates`|
+
+Some syntax highlight styles: `pygments, kate, monochrome, espresso, haddock, tango, zenburn`  
+
+### Add chapter breaks
+
+ `-H` `(--include-in-header)`, with tex file `chapter_break.tex` and content as follows 
+
+```
+\usepackage{sectsty}
+\sectionfont{\clearpage}
+```
+
+With command `pandoc sample.md -f gfm -H chapter_break.tex -o sample.pdf`
+
+
+### Change settings
+
+`-V` `--variable`
+
+```sh
+#!/bin/bash
+pandoc "$1" \
+    -f gfm \
+    --include-in-header chapter_break.tex \
+    -V linkcolor:blue \
+    -V geometry:a4paper \
+    -V geometry:margin=2cm \
+    -V mainfont="DejaVu Serif" \      # Normal text
+    -V monofont="DejaVu Sans Mono" \  # Code snippet
+    -V fontsize=12 \
+    --pdf-engine=xelatex \
+    -o "$2"
+```
+
+
+
 
 
 
