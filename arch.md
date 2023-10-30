@@ -761,6 +761,14 @@ Path                                                       | Description
 `git config --global core.editor vim`                      | set editor
 
 
+### Branches
+
+| Commands                               | Description              |
+|----------------------------------------|--------------------------|
+| `git branch -r`                        | Show all remote branches |
+| `git push origin --delete branch_name` | Delete remote branch     |
+
+
 ## xrandr  
 
 Used to manage output of a screen including resolution and refresh rate
