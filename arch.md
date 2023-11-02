@@ -289,7 +289,7 @@ Convert from one markup format to another
 | pandoc -f html -t markdown www.xxx.com                 | Read from a website                                        |
 | pandoc --extract-media ./img input.docx -o output.md   | Docx to md with images                                     |
 | pandoc --highlight-style pygments                      | Add syntax highlighting                                    |
-| pandoc --print=hightlight-sytle pygments > my.theme    | Print a theme, and edit it!                                |
+| pandoc --print-highlight-sytle=pygments > my.theme    | Print a theme, and edit it!                                |
 | pandoc sample.md --highlight-style my.theme -o out.pdf | Use my edited theme file                                   |
 | pandoc --toc --toc-depth <3> -V toc-title=<your_title> | Add table of contents with depth 3 and your content title  |
 | pandoc --template eisvogel                             | Use a template, path from `~/.local/share/pandoc/templates`|
@@ -761,12 +761,13 @@ Path                                                       | Description
 `git config --global core.editor vim`                      | set editor
 
 
-### Branches
+### Useful commands
 
 | Commands                               | Description              |
 |----------------------------------------|--------------------------|
 | `git branch -r`                        | Show all remote branches |
 | `git push origin --delete branch_name` | Delete remote branch     |
+| 'git show <commit hash>'              | Show details of a commit |
 
 
 ## xrandr  
@@ -1792,6 +1793,12 @@ ssh_keygen -t rsa -C "your_mail"
 
 ```
 
+## GDB
+
+If a program has forked some processes and to track the forked process  
+```
+(gdb) set follow-fork-mode child(parent)
+```
 
 
 
