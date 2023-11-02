@@ -1800,5 +1800,9 @@ If a program has forked some processes and to track the forked process
 (gdb) set follow-fork-mode child(parent)
 ```
 
-
+## tee
+Read from stdin and write to both stdout and file
+```
+echo "Hello" | tee myfile
+```
 
