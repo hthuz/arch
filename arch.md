@@ -1806,3 +1806,6 @@ Read from stdin and write to both stdout and file
 echo "Hello" | tee myfile
 ```
 
+## C 
+
+C headfer files located in `/usr/include/`
