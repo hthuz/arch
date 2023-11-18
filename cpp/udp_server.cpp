@@ -13,6 +13,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
+#include <fcntl.h>
 
 using namespace std;
 
@@ -42,10 +43,20 @@ int main(){
         exit(EXIT_FAILURE);
     }
 
+    // Optional 1: set option for timeout
+    // timeval timeout;
+    // timeout.tv_sec = 1;
+    // timeout.tv_usec = 0;
+    // setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &timeout,sizeof(timeout)) ;
+
+    // Optional 2: set non-blocking socket
+    // fcntl(s, F_SETFL, O_NONBLOCK);
+
     socklen_t len;
     int n; // Size read from client
     char buf[BUFLEN];
     // Step4: receive message from client
+    cout << "Server started" << endl;
     while(true)
     {
         if((n = recvfrom(s, &buf, BUFLEN,0, (struct sockaddr* )&cliaddr, &len)) == -1){
