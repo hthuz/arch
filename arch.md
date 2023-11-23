@@ -768,6 +768,7 @@ Path                                                       | Description
 | `git branch -r`                        | Show all remote branches |
 | `git push origin --delete branch_name` | Delete remote branch     |
 | 'git show <commit hash>'              | Show details of a commit |
+| 'git push -f origin <branch> '       | force remote commit to be same as local(used to reset remote commit) |
 
 
 ## xrandr  
@@ -1791,6 +1792,11 @@ ssh-keygen -t ed25519 -C "your_mail"
 ```
 ssh_keygen -t rsa -C "your_mail"
 
+```
+
+ssh server without password
+```
+ssh-copy-id -i ~/.ssh/id_rsa.pub <server_ip>
 ```
 
 ## GDB
