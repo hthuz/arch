@@ -881,6 +881,12 @@ equivalent to
 | find . -name sample.txt -exec rm -i {} \; | Confirm if delete or not             |
 | find * -not -type f -regex ".*sth.*\|.*sth2.*" -delete   | Find all files in cur dir and subdir that do not match required regex pattern (and delete them using pipeline)|
 
+Find using multiple conditions, e.g.
+```
+find . -name \( -name '*.sv' -o -name '*.v' \) -not -name '*parameters.sv'
+```
+`-o` means `-or`, `-a` means `-and`. Not the use of `\( \)` to enforce precedance, which is necessary.
+
 
 ## Sed Command  
 Sed stands for stream editor. Used for inserting, deleting, searching or replacing sth in file and print the result to stdout. It WON'T modify the original file
