@@ -518,7 +518,6 @@ file2:
 
 ```
 
-### Multiple Targets
 
 ```
 all: f1.o f2.o
@@ -1821,6 +1820,28 @@ echo "Hello" | tee myfile
 ## C 
 
 C headfer files located in `/usr/include/`
+
+
+## (IP) Internel Protocol
+
+`sudo pacman -S net-tools bind`
+
+Private IP range:  
+10.0.0.0 to 10.255.255.255  
+172.16.0.0 to 172.31.255.255  
+192.168.0.0 to 192.168.255.255  
+
+
+| Cmd                                           | Remark                        |
+|-----------------------------------------------|-------------------------------|
+| `ip addr`                                     | Private IP                    |
+| `ifconfig`                                    | Private IP                    |
+| `host myip.opendns.com resolver1.opendns.com` | Public IP, shown at last line |
+
+
+
+
+
 
 
 
