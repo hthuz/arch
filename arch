@@ -355,7 +355,6 @@ Alternative ways, this set swap permanently:
 
 `loadkeys keys.conf`,
 
-Content of keys.conf as follows:
 
 ```text
 keycode 1 = Caps_Lock
@@ -1832,19 +1831,13 @@ Private IP range:
 192.168.0.0 to 192.168.255.255  
 
 
-### Check  IP
 | Cmd                                           | Remark                        |
 |-----------------------------------------------|-------------------------------|
 | `ip addr`                                     | Private IP                    |
 | `ifconfig`                                    | Private IP                    |
 | `host myip.opendns.com resolver1.opendns.com` | Public IP, shown at last line |
 
-### Change IP
-| CMD                                          | Remark                                     |
-|----------------------------------------------|--------------------------------------------|
-| `sudo ip addr add [ip_addr] dev [interface]` | Add Private IP, interface is, e.g. wlp2s0, |
-| `sudo ip addr del [ip_addr] dev [interface]` | Del Private IP                             |
-| No easy way to change public IP              |                                            |
+
 
 
 
