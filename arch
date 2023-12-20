@@ -1847,4 +1847,36 @@ Private IP range:
 | `sudo ip addr del [ip_addr] dev [interface]` | Del private IP |
 | Not easy to change public ip                 |                |
 
+## NIC
+
+To check NIC devices, ip and mac.
+
+| Cmd            |
+|----------------|
+| `netstat -i`   |
+| `ip link` |
+| `ifconfig`     |
+
+mtu: max transfer unit
+
+
+For example, I have three NICs  
+1. enp0s31f6, en. it means ethernet, bus number 0 (p0) and slot number 31 (s31)
+and function nuber 6 (f6), This is ethernet interface.
+2. lo, local. it means loopback device with ip addr 127.0.0.1. If you run a webserver on your machine
+and browse it using browser with the same machine, it uses this device.
+3. wlp2s0, wl. it means wlan(wireless local area network).  bus nubmer 2 and slot nubmer 0
+
+## LAN
+
+- LAN
+    - Wired: ethernet, using coaxial cable
+        - bus : popular last century
+        - switched: popular today
+    - Wireless: WLAN, wifi
+
+
+
+
+
 
