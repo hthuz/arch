@@ -1833,6 +1833,18 @@ Private IP range:
 172.16.0.0 to 172.31.255.255  
 192.168.0.0 to 192.168.255.255  
 
+port: 65535 ports in total (16 bits).   
+Restircted: 0 - 1023
+
+Common ports:  
+22: secure shell  
+53: DNS
+80: HTTP
+179: border gateway protocol
+443: HTTPS
+8080: web server
+3360: TCP/IP
+
 
 ## Check IP
 
@@ -1872,6 +1884,8 @@ and browse it using browser with the same machine, it uses this device.
 
 ## LAN
 
+LAN usually spans a building or campus
+
 - LAN
     - Wired: ethernet, using coaxial cable
         - bus : popular last century
@@ -1909,13 +1923,18 @@ Test to sepolia network
 
 JSON-RPC
 ```
-curl -X POST --data \
+curl -X POST -H "Content-Type: application/json"
+    127.0.0.1:8545 --data \
     '{"jsonrpc":"2.0", \
     "method":eth_accounts}, \
     "params": [], \
     "id": 1 }'  \
-    127.0.0.1:8545
 ```
+
+curl -H "Content-Type: application/json" -X POST localhost:8545 --data '{"jsonrpc":"2.0","method":"debug_traceTransaction","params":["0x2059dd53ecac9827faad14d364f9e04b1d5fe5b506e3acc886eff7a6f88a696a"],"id":1}'
+
+curl -H "Content-Type: application/json" -X POST localhost:8545 --data '{"jsonrpc":"2.0","method":"debug_traceBlockByNumber","params":["0x11fce84",{"disableStorage":false,"enableMemory":true,"enableReturnData":true}],"id":1}'
+
 
 
 
