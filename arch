@@ -1854,6 +1854,10 @@ Common ports:
 | `ifconfig`                                    | Private IP                    |
 | `host myip.opendns.com resolver1.opendns.com` | Public IP, shown at last line |
 
+IP of router (access point) that you are connected to
+In windows: default gateway
+In linux: `route -n`
+
 ## Change IP
 
 | Cmd                                          | Remark         |
@@ -1891,6 +1895,34 @@ LAN usually spans a building or campus
         - bus : popular last century
         - switched: popular today
     - Wireless: WLAN, wifi
+
+Check devices that are in the same LAN as you
+1. `arp-scan --localnet`
+2. `nmap <ip_range>`, e.g. `nmap 192.168.100.0-254`
+3. use `ipscan`
+4. use advanced ip scanner
+
+It's better to use several tools together to find info, as some results are incomplete.
+
+
+## IW
+
+manipulate wireless devices
+
+| CMD                       | Description                    |
+|---------------------------|--------------------------------|
+| `iw dev`                  | get name of wireless interface |
+| `iw dev <interface> link` | show link status               |
+| `iw dev <interface> scan` | search access points<messy info>           |
+
+
+## ip cmd
+
+| CMD                          | Description                        |
+|------------------------------|------------------------------------|
+| `ip link show`               | similar to ifconfig                |
+| `ip link show <interface>`   | show status of a certain interface |
+| `sudo ip link set <interface> up/down` | activate/deactiviate interface                 |
 
 
 ## Geth
@@ -1937,6 +1969,12 @@ curl -H "Content-Type: application/json" -X POST localhost:8545 --data '{"jsonrp
 
 
 
+## lspci
+
+| CMD        | Comment                                   |
+|------------|-------------------------------------------|
+| `lspci`    | list pci devices                          |
+| `lspci -k` | show kernel drivers handling each devices |
 
 
 
