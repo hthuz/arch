@@ -1902,8 +1902,9 @@ Check devices that are in the same LAN as you
 3. use `ipscan`
 4. use advanced ip scanner
 
-It's better to use several tools together to find info, as some results are incomplete.
+It's better to use several tools together to find info, as some results are incomplete.  
 
+Common Ethernet interface type: RJ45.
 
 ## IW
 
