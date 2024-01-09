@@ -1806,6 +1806,15 @@ ssh server without password
 ssh-copy-id -i ~/.ssh/id_rsa.pub <server_ip>
 ```
 
+ssh transfer file
+
+```
+scp <src> dest
+```
+```
+scp user@remote_host:/path/to/file /local/path/to/file
+```
+
 ## GDB
 
 If a program has forked some processes and to track the forked process  
