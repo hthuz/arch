@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+usage() {
+    echo "Arguments: [ge]neral [cm]d [ba]sh"
+
+}
+open() {
+    path="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+    case "$1" in 
+        ge|general)
+            nvim ${path}/doc/general
+            ;;
+        cm|cmd)
+            nvim ${path}/doc/cmd
+            ;;
+        ba|bash)
+            nvim ${path}/doc/bash
+            ;;
+        *)
+            usage
+            ;;
+    esac
+}
+
+
+open "$@"
+

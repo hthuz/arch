@@ -1736,6 +1736,10 @@ Dynamic - Refreshing - Slow
 Pip externally-managed-environment error:
 Remove `/usr/lib/python3.x/EXTERNALLY-MANAGED`
 
+## python
+
+pip install path: `~/.local/lib/python<version>/site-packages/`
+if some packages provide a binary executable, its path is `~/.local/bin`
 
 
 ## Du
