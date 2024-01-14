@@ -2,7 +2,7 @@
 
 
 usage() {
-    echo "Arguments: [ge]neral [cm]d [ba]sh"
+    echo "Arguments: [ge]neral [cm]d [kn]owledge [ba]sh [so]ftware [ma]kefile"
 
 }
 open() {
@@ -14,8 +14,17 @@ open() {
         cm|cmd)
             nvim ${path}/doc/cmd
             ;;
+        kn|knowledge)
+            nvim ${path}/doc/knowledge
+            ;;
         ba|bash)
             nvim ${path}/doc/bash
+            ;;
+        so|software)
+            nvim ${path}/doc/software
+            ;;
+        ma|makefile)
+            nvim ${path}/doc/makefile
             ;;
         *)
             usage

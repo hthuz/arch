@@ -1,2 +1,379 @@
 # General
 
+General staff
+
+## Environment Variables  
+
+| CMD                             | Description                                                                 |
+|---------------------------------|-----------------------------------------------------------------------------|
+| `printenv <var>`                | print one variable                                                          |
+| `printenv`                      | print all environment variables                                             |
+| `set`                           | print all variables(including shell var etc)                                |
+| `unset <var>`                       | Delete a environment variable |
+| `set <myvar>`                   | set a var(not env)                                                          |
+| `export <myvar>`                | set <myvar> to env, only change env var of my child processes               |
+| `export MYVAR=content`          | directly set env var (temporary)                                            |
+| add env var in /etc/environment | persistent env var(system-wide)                                             |
+| add env var in /etc/profile     | persistent env var(user-wide), need to source this file         |
+| add script in /etc/profile.d    | /etc/profile.d is a dir containing script export PATH                       |
+| add env var in /etc/bashrc      | env var for bash shell only                                                 |
+| add env var in ~/.bash_profile  | env var for bash shell only, this file is executed only once on sys startup |
+
+Environment varialbe $PATH: list of directories to be searched when executing command  
+
+In command-line, you can add `VAR=value` in front of the command to temporarily change the environmental variable for this command. Example:`LANG=C ls .`
+
+To remove one directory in $PATH, run
+```bash
+PATH=$(echo "$PATH" | sed -e 's/:\/home\/autentico\/sthsth$//')
+```
+
+
+## DWM  
+
+Better to Add:  st, dmenu, dwm  
+Use git clone and make install
+/usr/share/xsessions/dwm.desktop content:  
+```txt
+[Desktop Entry]
+Encoding=UTF-8
+Name=dwm
+Comment=Dynamic Window Manager  
+Exec=dwm
+Icon=dwm
+Type=xsession
+```
+
+Default Shortcut                    | Description  
+--                          | --
+shift+alt+enter             | open st
+shift+alt+c                 | close window
+shift+alt+q                 | quit dwm
+alt+j/k                     | change window
+alt+p                       | open dmenu
+alt+enter                   | set current window as master window  
+alt+m/t                     | change full screen
+alt+1-9                     | change tag             
+alt+f                       | change current window to floating mode
+alt + m                     | change current window to full screen
+alt + t                     | recover mode
+alt + i                     | Change layout of clients to equal mode
+
+Apply patches 'patch --merge -i <patch.diff>'
+
+## xorg
+
+Check if it's X11 or wayland: `echo $XDG_SESSION_TYPE`
+
+### xinit
+Used to start window managers  
+Default configuration file: `/etc/X11/xinit/xinitrc`  
+Configuration file in home directory :`~/.xinitrc`  
+Note commands after `exec` won't be executed  
+
+To start, run `startx` or set auto start 
+
+#### Autostart
+Add the following in `~/.bash_profile`
+```txt
+if [-z "${DISPLAY}" && ["${XDG_VTNR}" -eq 1]] then
+    exec startx
+fi
+```
+
+
+### xorg-xinput  
+A tool to manage input devices
+CMD                             | DEScription  
+--                              | --  
+xinput list                     | show devices
+
+
+## libinput  
+A library to handle input devices  
+Default configuration file is in `/usr/share/X11/xorg.conf.d/40-libinput.conf`
+
+CMD                             | Description
+--                              | --  
+libinput list-devices           | show devices
+
+**Note**: this method can't change touchpad to natural scrolling for my laptop
+
+## xf86-input-synaptics
+`sudo pacman -S xf86-input-synaptics`
+
+Use synaptics driver for touchpad.
+
+Synaptics is a human interface hardware and software manufacturer.
+
+Default configuration file: `/usr/share/X11/xorg.conf.d/70-synaptics.conf`  
+Copy to `/etc/X11/xorg.conf.d/` and edit here
+
+### Touchpad Natural Scorrling  
+In `/etc/X11/xorg.conf.d/70-synaptics.conf` file, add following to identifer 'touchpad catchall'
+```
+Option "VertScrollDelta" "-111"
+Option "HorizScrollDelta" "-111"
+```
+### Touchpad one-click confirm
+```
+Option "TapButton1" "1"
+```
+
+## Battery   
+Check battery: acpi
+Or using the command `cat /sys/class/power_supply/BAT0/capacity`
+
+
+## Font  
+
+System-wide font directory:'/usr/local/share/fonts'  
+System-wide font directory:`/usr/share/fonts`, for pacman, shouldn't be modifies manually
+
+ttf is a kind of font
+
+Make sure you have `pacman -S fontconfig` installed.
+And then you can use `fc-list` to list all fonts
+
+## Setfont
+
+`setfont` to set font in cli mode.
+Example as follows:
+`setfont /usr/share/kbd/consolefonts`
+
+
+
+## picom  
+
+Default configuration file: `/etc/xdg/picom.conf`
+
+## xwallpaper  
+`xwallpaper --zoom filename`
+
+# PDF  
+ application/pdf)
+    pdftoppm -f 1 -l 1 \
+
+```
+
+## imagemagick
+Image viewer in terminal
+
+`display filename`
+
+
+## MariaDB
+`mariadb -u root (-h) -p`
+
+## fcitx5
+
+
+
+## Pip
+
+Pip externally-managed-environment error:
+Remove `/usr/lib/python3.x/EXTERNALLY-MANAGED`
+
+## python
+
+pip install path: `~/.local/lib/python<version>/site-packages/`
+if some packages provide a binary executable, its path is `~/.local/bin`
+
+
+## Du
+
+Estimate file space usage
+```
+du -sh
+```
+
+| Common flags | Description                     |
+|--------------|---------------------------------|
+| -a           | Count for all files             |
+| -h           | --human-readable                |
+| -s           | --summarize. Only display total |
+
+
+
+## Markdown
+
+Some common markdown supported language
+- bash(*.sh)
+- c(*.c,*.h)
+- cpp(*.cpp)
+- css
+- html
+- ini(*.ini)
+- java
+- js(*.js)
+- lua(*.lua)
+- make(Makefile)
+- python
+- sql(*.sql)
+- tex(*.tex)
+- text(*.txt)
+- vim(*.vim,.vimrc)
+
+
+## Trash
+
+directory of Trash: `~/.local/share/Trash/`
+
+
+## C 
+C headfer files located in `/usr/include/`
+
+
+## (IP) Internel Protocol
+
+`sudo pacman -S net-tools bind`
+
+Private IP range:  
+10.0.0.0 to 10.255.255.255  
+172.16.0.0 to 172.31.255.255  
+192.168.0.0 to 192.168.255.255  
+
+port: 65535 ports in total (16 bits).   
+Restircted: 0 - 1023
+
+Common ports:  
+22: secure shell  
+53: DNS
+80: HTTP
+179: border gateway protocol
+443: HTTPS
+8080: web server
+3360: TCP/IP
+
+
+## Check IP
+
+| Cmd                                           | Remark                        |
+|-----------------------------------------------|-------------------------------|
+| `ip addr`                                     | Private IP                    |
+| `ifconfig`                                    | Private IP                    |
+| `host myip.opendns.com resolver1.opendns.com` | Public IP, shown at last line |
+
+IP of router (access point) that you are connected to
+In windows: default gateway
+In linux: `route -n`
+
+## Change IP
+
+| Cmd                                          | Remark         |
+|----------------------------------------------|----------------|
+| `sudo ip addr add [ip_addr] dev [interface]` | Add private IP |
+| `sudo ip addr del [ip_addr] dev [interface]` | Del private IP |
+| Not easy to change public ip                 |                |
+
+## NIC
+
+To check NIC devices, ip and mac.
+
+| Cmd            |
+|----------------|
+| `netstat -i`   |
+| `ip link` |
+| `ifconfig`     |
+
+mtu: max transfer unit
+
+
+For example, I have three NICs  
+1. enp0s31f6, en. it means ethernet, bus number 0 (p0) and slot number 31 (s31)
+and function nuber 6 (f6), This is ethernet interface.
+2. lo, local. it means loopback device with ip addr 127.0.0.1. If you run a webserver on your machine
+and browse it using browser with the same machine, it uses this device.
+3. wlp2s0, wl. it means wlan(wireless local area network).  bus nubmer 2 and slot nubmer 0
+
+## LAN
+
+LAN usually spans a building or campus
+
+- LAN
+    - Wired: ethernet, using coaxial cable
+        - bus : popular last century
+        - switched: popular today
+    - Wireless: WLAN, wifi
+
+Check devices that are in the same LAN as you
+1. `arp-scan --localnet`
+2. `nmap <ip_range>`, e.g. `nmap 192.168.100.0-254`
+3. use `ipscan`
+4. use advanced ip scanner
+
+It's better to use several tools together to find info, as some results are incomplete.  
+
+Common Ethernet interface type: RJ45.
+
+## IW
+
+manipulate wireless devices
+
+| CMD                       | Description                    |
+|---------------------------|--------------------------------|
+| `iw dev`                  | get name of wireless interface |
+| `iw dev <interface> link` | show link status               |
+| `iw dev <interface> scan` | search access points<messy info>           |
+
+
+## ip cmd
+
+| CMD                          | Description                        |
+|------------------------------|------------------------------------|
+| `ip link show`               | similar to ifconfig                |
+| `ip link show <interface>`   | show status of a certain interface |
+| `sudo ip link set <interface> up/down` | activate/deactiviate interface                 |
+
+
+## Geth
+
+geth default port: 8545  
+simulation mode
+
+| CMD                                                                                            | Comment                               |
+|------------------------------------------------------------------------------------------------|---------------------------------------|
+| `geth --datadir <SOME_DIR> account new`                                                        | create new account, key in ./keystore |
+| `geth --datadir <SOME_DIR> account new`                                                        | create another one                    |
+| `geth --datadir <SOME_DIR> --dev --password ./secret.txt`                                      |                                       |
+| On anther terminal `geth attach <ipc_addr>`                                                    | ipc_addr show according to above cmd  |
+| in console, `eth`                                                                              | show relevant functions               |
+| `eth.accounts`                                                                                 | display accounts                      |
+| `eth.coinbase`                                                                                 |                                       |
+| `eth.getBalance(eth.accounts[0])`                                                              | show balance                          |
+| `eth.sendTransaction({from:eth.accounts[0], to:eth.accounts[1], value:web3.toWei(1.5,"Ether")})` | transfer,node will show tx hash       |
+
+Test to sepolia network
+
+`curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh && chmod +x prysm.sh`
+
+| CMD                                                                       | Comment              |
+|---------------------------------------------------------------------------|----------------------|
+| `geth --datadir <SOME_DIR>  --sepolia --http -http.api eth,net,web,admin` |                      |
+| `eth.syncing`                                                             | check if syncing     |
+| `eth.blockNumber`                                                         | lastest block number |
+| `curl http://localhost:3500/eth/v1/node/syncing`                    | check beacon node sync status          |
+
+JSON-RPC
+```
+curl -X POST -H "Content-Type: application/json"
+    127.0.0.1:8545 --data \
+    '{"jsonrpc":"2.0", \
+    "method":eth_accounts}, \
+    "params": [], \
+    "id": 1 }'  \
+```
+
+curl -H "Content-Type: application/json" -X POST localhost:8545 --data '{"jsonrpc":"2.0","method":"debug_traceTransaction","params":["0x2059dd53ecac9827faad14d364f9e04b1d5fe5b506e3acc886eff7a6f88a696a"],"id":1}'
+
+curl -H "Content-Type: application/json" -X POST localhost:8545 --data '{"jsonrpc":"2.0","method":"debug_traceBlockByNumber","params":["0x11fce84",{"disableStorage":false,"enableMemory":true,"enableReturnData":true}],"id":1}'
+
+
+
+## lspci
+
+| CMD        | Comment                                   |
+|------------|-------------------------------------------|
+| `lspci`    | list pci devices                          |
+| `lspci -k` | show kernel drivers handling each devices |
+
