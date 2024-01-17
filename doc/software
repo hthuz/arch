@@ -1,0 +1,131 @@
+# Software
+
+Notes for some "advanced" softwares instead of just common ones
+
+## VScode  
+Format code: `Ctrl + Shift + I`
+
+## pandoc
+Convert from one markup format to another  
+
+| CMD                                                    | Description                                                |
+| ------------------------------------------------------ | ---------------------------------------------------------- |
+| pandoc -o output.html input.md                         | -o to specify the output, only produce document fragment   |
+| pandoc -s -o output.html input.md                      | --standalone, produce complete document                    |
+| pandoc -f markdown -t latex hello.txt                  | --from, --to, specify the input/output format              |
+| pandoc sample.md -f gfm -o sample.pdf                  | --from github style markdown to                            |
+| pandoc test.txt -o test.pdf                            | Create a PDF file                                          |
+| pandoc -f html -t markdown www.xxx.com                 | Read from a website                                        |
+| pandoc --extract-media ./img input.docx -o output.md   | Docx to md with images                                     |
+| pandoc --highlight-style pygments                      | Add syntax highlighting                                    |
+| pandoc --print-highlight-sytle=pygments > my.theme    | Print a theme, and edit it!                                |
+| pandoc sample.md --highlight-style my.theme -o out.pdf | Use my edited theme file                                   |
+| pandoc --toc --toc-depth <3> -V toc-title=<your_title> | Add table of contents with depth 3 and your content title  |
+| pandoc --template eisvogel                             | Use a template, path from `~/.local/share/pandoc/templates`|
+
+Some syntax highlight styles: `pygments, kate, monochrome, espresso, haddock, tango, zenburn`  
+
+### Add chapter breaks
+
+ `-H` `(--include-in-header)`, with tex file `chapter_break.tex` and content as follows 
+
+```
+\usepackage{sectsty}
+\sectionfont{\clearpage}
+```
+
+With command `pandoc sample.md -f gfm -H chapter_break.tex -o sample.pdf`
+
+
+### Change settings
+
+`-V` `--variable`
+
+```sh
+#!/bin/bash
+pandoc "$1" \
+    -f gfm \
+    --include-in-header chapter_break.tex \
+    -V linkcolor:blue \
+    -V geometry:a4paper \
+    -V geometry:margin=2cm \
+    -V mainfont="DejaVu Serif" \      # Normal text
+    -V monofont="DejaVu Sans Mono" \  # Code snippet
+    -V fontsize=12 \
+    --pdf-engine=xelatex \
+    -o "$2"
+```
+
+## Vim  
+
+### ColorScheme
+`:colorscheme <scheme>`  Change color scheme  
+Options:
+blue       delek     evening    morning   peachpuff   slate  
+darkblue   desert    industry   murphy    ron         torte  
+default    elflord   koehler    pablo     shine       zellner  
+
+
+Cmd                     | Description  
+--                      | -- 
+`gg`                    | Go to start of file
+`G`                     | Go to end of file
+
+
+## ranger
+Copy default configuration to `~/.config/ranger`: `ranger --copy-config=all`  
+In `~/.config/ranger`, there are following files
+
+file            | Description  
+--              | --
+`rc.conf`       | Keybinding and settings
+`commands.py`   | commands launced with :
+`rifle.conf`    | application used when given type of file is launced
+`scope.sh`      | File Preview Settings
+
+
+#### Console Commands  
+Use `space` to select files  
+Use `:` followed by commands
+
+CMDs              | Description
+--                | --
+`:bulkrename`     | Rename in bulk
+`:open_with`       | Open a select file with your chosen program
+`:touch FILENAME` | create new file
+`:mkdir FILENAME` | create new directory
+`:shell COMMANDS` | run commands in a shell
+`:delete`         | Delete files
+
+Placeholder         | Description  
+--                  | --
+`%s`                | Currently select file
+`%d`                | Current directory
+
+#### Usual Commands
+
+| CMDs                    | Description               |
+|-------------------------|---------------------------|
+| `i`                     | Preview File              |
+| `r`                     | Open File                 |
+| `zh/backspace` or <c-h> | toggling hidden files     |
+| `gh`                    | Go to home directory      |
+| `g/`                    | Go to root directory      |
+| `cw`                    | Rename File               |
+| `yy`                    | Copy file                 |
+| `dd`                    | cut file                  |
+| `dD`                    | delete file               |
+| `pp`                    | paste file                |
+| `z + letter`            | Changing settings         |
+| `g + letter`            | Go to dir or operate tabs |
+| `c + letter`            |                           |
+| `y + letter`            |                           |
+| `d + letter`            |                           |
+| `p + letter`            | Different paste mode      |
+
+#### Image Preview  
+`set preview_images true` in `rc.conf` and change `preview_images_method`
+
+#### PDF Preview
+Uncomment the following part in "scope.sh"
+```
