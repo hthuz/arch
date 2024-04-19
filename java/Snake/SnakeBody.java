@@ -7,5 +7,8 @@ public class SnakeBody extends BaseElement {
         super(x,y);
         this.image = new ImageIcon(Parameters.RES_PATH + "Body.png").getImage();
     }
+    public SnakeBody(int x, int y, String imageName) {
+        super(x, y, imageName);
+    }
     
 }

@@ -1,6 +1,9 @@
 
 import java.awt.event.KeyListener;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 public class GameFrame extends JFrame {
@@ -29,18 +32,30 @@ public class GameFrame extends JFrame {
             }
         });
 
-        // Main loop
-        while(true) {
-            try{
-                Thread.sleep(1000);
-                snake.action();
-                snake.eat(food);
-                panel.repaint();
-            }
-            catch(InterruptedException e){
-                System.err.println(e.toString());
-            }
-        }
+        // Game Content
+        Utils.task(400, () -> {
+            snake.action();
+            snake.eat(food);
+        });
+
+        // Panel update
+        Utils.task(5, () -> {
+            panel.repaint();
+        });
+
+        // Timer timer = new Timer();
+        // timer.schedule(new TimerTask() {
+        //     @Override
+        //     public void run() {
+        //         snake.action();
+        //         snake.eat(food);
+        //         panel.repaint();
+        //         if(!snake.isAlive()) {
+        //             timer.cancel();
+        //         }
+        //     }
+        // },0,400);
+
     }
 
     public static void main(String[] argv) {

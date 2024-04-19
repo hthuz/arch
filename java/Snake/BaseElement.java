@@ -29,6 +29,16 @@ public class BaseElement {
         this.direction = Direction.DOWN;
         this.image = new ImageIcon(Parameters.RES_PATH + "Background.png").getImage();       
     }
+    public BaseElement(int x, int y, String imageName) {
+        this.x = x;
+        this.y = y;
+        this.xStep = Parameters.BASE_SIZE;
+        this.yStep = Parameters.BASE_SIZE;
+        this.width = Parameters.BASE_SIZE;
+        this.height = Parameters.BASE_SIZE;
+        this.direction = Direction.DOWN;
+        this.image = new ImageIcon(Parameters.RES_PATH + imageName).getImage();       
+    }
     public void setX(int x) {
         this.x = x;
     }
@@ -37,6 +47,9 @@ public class BaseElement {
     }
     public void setDirection(Direction d) {
         this.direction = d;
+    }
+    public void setImage(String imageName) {
+        this.image = new ImageIcon(Parameters.RES_PATH + imageName).getImage();
     }
     public int getX() {
         return this.x;
