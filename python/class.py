@@ -21,3 +21,4 @@ print(cookie.name)
 print(cookie.size)
 
 
+print(FrozenSet())

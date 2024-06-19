@@ -281,6 +281,9 @@ xrandr --output <MONITOR NAME> --mode <resolution> --rate <refresh rate> | Chang
 ## pamixer  
 Aka amixer. But can be configured with pacman. A volume level controller
 
+## disk
+check disk usage: `df -h`
+
 ## curl
 Client URL
 Used to transfer data to/from a server

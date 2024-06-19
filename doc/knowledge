@@ -244,3 +244,20 @@ Shell as example, which I often confuse with other things.
 | `grep -R that's .`          | Won't work                                                      |
 | `grep -R that\'s .`         | Works properly
 | `grep -R "that's" .`        | Works properly                                                  |
+
+
+
+## Architecture ISA
+
+1. x86: Intel & AMD
+	Processors include Intel 8086, 80386 etc
+	Intel 80386 is 32bits. Aka x86_32
+	64 bit processor with x86 architecture: aka x86_64 or x64 or AMD64
+
+
+2. ARM: Apple
+3. RISV-V:
+
+i386 or 386: microprocessor Intel 80386
+i686 : 32 bit Intel x86 arch
+

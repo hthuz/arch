@@ -10,7 +10,7 @@ def reset():
     
 def show(msg):
     print(f"==={msg}===")
-
+    
 
 show("original matrix")
 reset()
@@ -55,21 +55,7 @@ print(A * B.transpose())
 
 
 show("list to matrix")
-reset()
-a = [1,2,3,4]
-A = np.array(a)
-print(A)
 
-a = [[1,2,3],[4,5,6]]
-A = np.array(a)
-print(A)
-
-show("stacking two matrics")
-reset()
-B = A[0,:]
-print(np.vstack((A,B)))
-B = A[:,0:1]
-print(np.hstack((A,B)))
 
 
 
