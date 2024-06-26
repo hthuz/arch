@@ -655,4 +655,16 @@ Commands                | Description
 `head -n 20 file \| tail -10`    | Print lines 10-20
 
 
+## nohup
+
+no hang up
+
+keep the process running after exiting terminal. Useful for running a process on server 
+
+A common usage:
+`nohup ./a.out > output.log 2>&1 &`
+
+
+
+
 
