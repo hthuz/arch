@@ -261,3 +261,18 @@ Shell as example, which I often confuse with other things.
 i386 or 386: microprocessor Intel 80386
 i686 : 32 bit Intel x86 arch
 
+
+## Boot
+
+BIOS:two mode
+	- Legacy, MBR partition type
+	- UEFI, GPT disk partition type, EFI: system partition in GPT (aka ESP)
+
+
+## File Systems
+
+- FAT (File Allocation Table): classical in Windows. FAT16, FAT32 are variants of FAT
+- NFTS: most widely used in Windows
+- ext4: in Linux
+
+
