@@ -666,5 +666,18 @@ A common usage:
 
 
 
+## Read system info
+
+architecture: `uname -a`
+cpu: `lscpu`
+disk: `df -h` or `lsblk` or `fdisk -l`
+PCI peripheries: `lspci`
+memory: `free -h`
+
+Or `dmidecode` 
+
+
+
+
 
 

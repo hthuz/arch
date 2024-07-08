@@ -17,3 +17,4 @@ python/django/mysite/polls/__pycache__
 python/django/mysite/polls/migrations/__pycache__
 python/*.png
 python/*.jpg
+.vscode
