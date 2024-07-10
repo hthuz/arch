@@ -5,6 +5,9 @@ Notes for some "advanced" softwares instead of just common ones
 ## VScode  
 Format code: `Ctrl + Shift + I`
 
+enable esc and capslock swap for vim extension:
+add "keyboard.dispatch": "keyCode" in settings.json
+
 ## pandoc
 Convert from one markup format to another  
 
@@ -132,3 +135,44 @@ Uncomment the following part in "scope.sh"
 
 ### Onedrive
 onedrive on linux: insync with aur. Works but slow
+
+
+## Docker
+
+List of frequently used commands and flags
+
+| command                                          | Description                                                           |
+|--------------------------------------------------|-----------------------------------------------------------------------|
+| docker run -d -p 80:80 --name my_container nginx | run container from image, -d: in background mode, --name: assign name |
+| docker pull ubuntu                               | pull an image                                                         |
+| docker build -t my_image:latest -f Dockerfile .  | build an image from Dockerfile. -t: tag, -f: name of dockerfile,      |
+| docker images                                    | list images                                                           |
+| docker ps -a                                     | list containers, -a to show all containers (including inactive)       |
+| docker stop my_container                         | stop a container                                                      |
+| docker start my_container                        | start a container                                                     |
+| docker rm my_contianer                           | remove a container (won't in ps -a any more), -f: force               |
+| docker rmi my_image:latest                       | remove a image, -f: force                                             |
+| docker save my_image -o my_image.tar             | save a image to a tar (which can be loaded afterwards)                |
+| docker load -i my_image.tar                      | load a tar to a image                                                 |
+| docker exec my_container ls                      | run a command in running container                                    |
+| docker exec -it my_container /bin/bash           | -it: interactive terminal mode, so you can run bash cmds in docker    |
+| docker logs my_container                         | show current logs of a container                                      |
+| docker logs -f my_contiainer                     | -f: follow. new logs will be printed as well                          |
+| docker system/container/network/image prune      | remove unused container/network/image                                 |
+| docker system/container/network/image            | show a list of commands related to system/container/network/image     |
+
+Steps for docker push
+1. docker login
+2. docker tag myapp:latest username/myapp:latest
+3. docker push username/myapp:latest
+
+
+
+
+
+
+
+
+
+
+
