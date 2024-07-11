@@ -1,0 +1,24 @@
+
+// compile using command
+// protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative person.proto
+syntax = "proto3";
+package pb;
+
+option go_package = ".";
+message Person {
+	string name = 1;
+	int32 age = 2;
+
+}
+
+message SearchRequest {
+	string name = 1;
+}
+
+message SearchResponse {
+	Person person = 1;
+}
+
+service SearchService {
+	rpc Search (SearchRequest) returns (SearchResponse);
+}
