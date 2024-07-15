@@ -14,10 +14,18 @@ func main() {
 	defer conn.Close()
 	client := pb.NewSearchServiceClient(conn)
 
-	req := &pb.SearchRequest{Name: "John"}
+	nameReq := &pb.SearchNameRequest{Name: "John"}
 	// Search is the rpc defined in proto service, which receives SearchRequest and returns SearchResponse
-	resp, _ := client.Search(context.Background(), req)
+	nameResp, _ := client.SearchName(context.Background(), nameReq)
+	fmt.Println(nameResp)
 
-	fmt.Println(resp)
+	// Search age
+	ageReq := &pb.SearchAgeRequest{Age: -1}
+	ageResp, err := client.SearchAge(context.Background(), ageReq)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(ageResp)
 
 }

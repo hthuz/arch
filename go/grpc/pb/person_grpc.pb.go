@@ -22,7 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SearchServiceClient interface {
-	Search(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error)
+	SearchName(ctx context.Context, in *SearchNameRequest, opts ...grpc.CallOption) (*SearchNameResponse, error)
+	SearchAge(ctx context.Context, in *SearchAgeRequest, opts ...grpc.CallOption) (*SearchAgeResponse, error)
 }
 
 type searchServiceClient struct {
@@ -33,9 +34,18 @@ func NewSearchServiceClient(cc grpc.ClientConnInterface) SearchServiceClient {
 	return &searchServiceClient{cc}
 }
 
-func (c *searchServiceClient) Search(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error) {
-	out := new(SearchResponse)
-	err := c.cc.Invoke(ctx, "/pb.SearchService/Search", in, out, opts...)
+func (c *searchServiceClient) SearchName(ctx context.Context, in *SearchNameRequest, opts ...grpc.CallOption) (*SearchNameResponse, error) {
+	out := new(SearchNameResponse)
+	err := c.cc.Invoke(ctx, "/pb.SearchService/SearchName", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *searchServiceClient) SearchAge(ctx context.Context, in *SearchAgeRequest, opts ...grpc.CallOption) (*SearchAgeResponse, error) {
+	out := new(SearchAgeResponse)
+	err := c.cc.Invoke(ctx, "/pb.SearchService/SearchAge", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +56,8 @@ func (c *searchServiceClient) Search(ctx context.Context, in *SearchRequest, opt
 // All implementations must embed UnimplementedSearchServiceServer
 // for forward compatibility
 type SearchServiceServer interface {
-	Search(context.Context, *SearchRequest) (*SearchResponse, error)
+	SearchName(context.Context, *SearchNameRequest) (*SearchNameResponse, error)
+	SearchAge(context.Context, *SearchAgeRequest) (*SearchAgeResponse, error)
 	mustEmbedUnimplementedSearchServiceServer()
 }
 
@@ -54,8 +65,11 @@ type SearchServiceServer interface {
 type UnimplementedSearchServiceServer struct {
 }
 
-func (UnimplementedSearchServiceServer) Search(context.Context, *SearchRequest) (*SearchResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Search not implemented")
+func (UnimplementedSearchServiceServer) SearchName(context.Context, *SearchNameRequest) (*SearchNameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchName not implemented")
+}
+func (UnimplementedSearchServiceServer) SearchAge(context.Context, *SearchAgeRequest) (*SearchAgeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchAge not implemented")
 }
 func (UnimplementedSearchServiceServer) mustEmbedUnimplementedSearchServiceServer() {}
 
@@ -70,20 +84,38 @@ func RegisterSearchServiceServer(s grpc.ServiceRegistrar, srv SearchServiceServe
 	s.RegisterService(&SearchService_ServiceDesc, srv)
 }
 
-func _SearchService_Search_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SearchRequest)
+func _SearchService_SearchName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchNameRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SearchServiceServer).Search(ctx, in)
+		return srv.(SearchServiceServer).SearchName(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.SearchService/Search",
+		FullMethod: "/pb.SearchService/SearchName",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SearchServiceServer).Search(ctx, req.(*SearchRequest))
+		return srv.(SearchServiceServer).SearchName(ctx, req.(*SearchNameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SearchService_SearchAge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchAgeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SearchServiceServer).SearchAge(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SearchService/SearchAge",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SearchServiceServer).SearchAge(ctx, req.(*SearchAgeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -96,8 +128,12 @@ var SearchService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*SearchServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Search",
-			Handler:    _SearchService_Search_Handler,
+			MethodName: "SearchName",
+			Handler:    _SearchService_SearchName_Handler,
+		},
+		{
+			MethodName: "SearchAge",
+			Handler:    _SearchService_SearchAge_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

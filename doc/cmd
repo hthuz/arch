@@ -290,11 +290,15 @@ Used to transfer data to/from a server
 `curl [options] [URL...]`
 
 
-Command                     | Description
---                          | --
-curl URL                    | Display content of a website(Get request to server)
-curl -o FILE URL            | Save the downloaded file in local file
-curl -O URL                 | Save the downloaded file in a file with the same name as URL
+| Command          | Description                                                  |
+|------------------|--------------------------------------------------------------|
+| curl URL         | Display content of a website(Get request to server)          |
+| curl -o FILE URL | Save the downloaded file in local file                       |
+| curl -O URL      | Save the downloaded file in a file with the same name as URL |
+| curl -i URL      | Get the header of response                                   |
+| curl -I URL      | Only get the header of response                              |
+| curl -v URL      | verbose, show the header for both request and response       |
+| curl -X POST     | change from GET to POST, -X is the same as --request         |
 
 Example
 

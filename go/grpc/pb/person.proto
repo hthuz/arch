@@ -4,21 +4,32 @@
 syntax = "proto3";
 package pb;
 
-option go_package = ".";
+// pb will be the package name for generated go files
+option go_package = "grpc/pb";
 message Person {
-	string name = 1;
-	int32 age = 2;
-
+	int32 id = 1;
+	string name = 2;
+	int32 age = 3;
 }
 
-message SearchRequest {
-	string name = 1;
+message SearchNameRequest {
+	string name = 1; // Name of the person to search
 }
 
-message SearchResponse {
-	Person person = 1;
+message SearchNameResponse {
+	repeated Person persons = 1;
+}
+
+message SearchAgeRequest {
+	int32 age = 1; // Age of people to search
+}
+
+message SearchAgeResponse {
+	repeated Person persons = 1;
 }
 
 service SearchService {
-	rpc Search (SearchRequest) returns (SearchResponse);
+	rpc SearchName (SearchNameRequest) returns (SearchNameResponse);
+	rpc SearchAge  (SearchAgeRequest) returns (SearchAgeResponse);
 }
+
