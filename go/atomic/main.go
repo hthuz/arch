@@ -9,6 +9,13 @@ import (
 	"time"
 )
 
+// IncreRaw may have repetition or skip some numbers
+// e.g. 160 161 161 163 164 165 166
+// or 30 31 32 36 36 36 36 37 38
+// IncreAtomic has every occurence of number but the order may not be correct
+// e.g. 61 62 63 64 65 68 66 67 69 70 71 72 73
+// IncreLock and IntreLockAndAtomic always give the continuous result
+
 var counter int64
 var list []int64
 var mu sync.Mutex
@@ -29,6 +36,10 @@ func (t *Tester) testOneTime() (bool, int64) {
 		go t.WorkerFunc(&wg)
 	}
 	wg.Wait()
+	if ok, pos := isContinuous(list); !ok {
+		fmt.Println(list)
+		fmt.Println(pos)
+	}
 	return isContinuous(list)
 }
 
@@ -44,14 +55,14 @@ func (t *Tester) Test() bool {
 
 func main() {
 	tester := Tester{}
-	tester.WorkerFunc = increRaw
-	fmt.Println(tester.Test())
-	tester.WorkerFunc = increLock
-	fmt.Println(tester.Test())
+	// tester.WorkerFunc = increRaw
+	// fmt.Println(tester.Test())
+	// tester.WorkerFunc = increLock
+	// fmt.Println(tester.Test())
 	tester.WorkerFunc = increAtomic
 	fmt.Println(tester.Test())
-	tester.WorkerFunc = increLockAndAtomic
-	fmt.Println(tester.Test())
+	// tester.WorkerFunc = increLockAndAtomic
+	// fmt.Println(tester.Test())
 }
 
 func increRaw(wg *sync.WaitGroup) {
@@ -79,9 +90,9 @@ func increLock(wg *sync.WaitGroup) {
 func increAtomic(wg *sync.WaitGroup) {
 	defer wg.Done()
 	for i := 0; i < IncreTimes; i++ {
-		val := atomic.AddInt64(&counter, 1)
+		atomic.AddInt64(&counter, 1)
 		mu.Lock()
-		list = append(list, val)
+		list = append(list, counter)
 		mu.Unlock()
 		time.Sleep(1 * time.Millisecond)
 	}
@@ -91,8 +102,8 @@ func increLockAndAtomic(wg *sync.WaitGroup) {
 	defer wg.Done()
 	for i := 0; i < IncreTimes; i++ {
 		mu.Lock()
-		val := atomic.AddInt64(&counter, 1)
-		list = append(list, val)
+		atomic.AddInt64(&counter, 1)
+		list = append(list, counter)
 		mu.Unlock()
 		time.Sleep(1 * time.Millisecond)
 	}
