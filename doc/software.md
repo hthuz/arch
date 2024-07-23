@@ -131,7 +131,6 @@ Placeholder         | Description
 
 #### PDF Preview
 Uncomment the following part in "scope.sh"
-```
 
 ### Onedrive
 onedrive on linux: insync with aur. Works but slow

@@ -2,30 +2,33 @@
 
 
 usage() {
-    echo "Arguments: [ge]neral [cm]d [kn]owledge [ba]sh [so]ftware [ma]kefile"
+    echo "Arguments: [ge]neral [cm]d [kn]owledge [ba]sh [so]ftware [ma]kefile [ne]twork"
 
 }
 open() {
     path="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
     case "$1" in 
         ge|general)
-            nvim ${path}/doc/general
+            nvim ${path}/doc/general.md
             ;;
         cm|cmd)
-            nvim ${path}/doc/cmd
+            nvim ${path}/doc/cmd.md
             ;;
         kn|knowledge)
-            nvim ${path}/doc/knowledge
+            nvim ${path}/doc/knowledge.md
             ;;
         ba|bash)
-            nvim ${path}/doc/bash
+            nvim ${path}/doc/bash.md
             ;;
         so|software)
-            nvim ${path}/doc/software
+            nvim ${path}/doc/software.md
             ;;
         ma|makefile)
-            nvim ${path}/doc/makefile
+            nvim ${path}/doc/makefile.md
             ;;
+		ne|net|network)
+			nvim ${path}/doc/network.md
+			;;
         *)
             usage
             ;;
