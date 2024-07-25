@@ -166,6 +166,17 @@ Steps for docker push
 2. docker tag myapp:latest username/myapp:latest
 3. docker push username/myapp:latest
 
+### Using specified network when building images, to fix the issue of no network
+`docker build --network host`
+or in docker-compose:
+```
+web:
+    build:
+        context: .
+        network: host
+```
+
+
 
 
 

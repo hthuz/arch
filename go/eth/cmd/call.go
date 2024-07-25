@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"context"
+	"eth/config"
 	"fmt"
 	"log"
 
@@ -72,7 +73,7 @@ func call() {
 }
 
 func callContract(to string, method string) []byte {
-	client, err := ethclient.Dial("https://bsc-rpc.publicnode.com")
+	client, err := ethclient.Dial(config.PublicNode)
 	if err != nil {
 		log.Fatal(err)
 	}
