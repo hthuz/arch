@@ -24,6 +24,23 @@ LAN
 
 ### Physical Layer
 
+## HTTP
+
+1. HTTP/0.9
+Has only GET method
+2. HTTP/1.0 
+Add: **Header, Status code, Content-Type, POST and HEAD method**
+HEAD: only get metadata about a document
+POST: transfer data from client to server
+Each req/resp requires opening a new connection
+3. HTTP/1.1
+**Persistent connection**
+Add methods: PUT, PATCH, DELETE, CONNECT, TRACE, OPTIONS
+4. HTTP/2.0
+**Request multiplexing**: in 1.1 single request at a time. in 2.0, multiple requests at a time and receive resp asynchronously
+**Automatic Gzip compressing**
+**Binary protocol instead of plain text**
+
 ## (IP) Internel Protocol
 
 `sudo pacman -S net-tools bind`
