@@ -8,6 +8,7 @@ import (
 )
 
 func SetClientLogger(serviceURL string, clientServiceName string) {
+	// Reset the log method for standard log
 	stlog.SetPrefix(fmt.Sprintf("[%v] - ", clientServiceName))
 	stlog.SetFlags(0)
 	stlog.SetOutput(&clientLogger{url: serviceURL})
@@ -19,7 +20,7 @@ type clientLogger struct {
 
 func (cl clientLogger) Write(data []byte) (int, error) {
 	buf := bytes.NewBuffer(data)
-	resp, err := http.Post(cl.url, "text/plain", buf)
+	resp, err := http.Post(cl.url+"/log", "text/plain", buf)
 	if err != nil {
 		return 0, err
 	}

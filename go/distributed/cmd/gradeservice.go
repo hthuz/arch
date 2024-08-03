@@ -3,8 +3,10 @@ package cmd
 import (
 	"context"
 	"distributed/grades"
+	"distributed/log"
 	"distributed/registry"
 	"distributed/service"
+	"fmt"
 	stlog "log"
 )
 
@@ -16,20 +18,17 @@ func GradeServiceMain() {
 		ServiceURL:       "http://localhost:4000",
 		ServiceUpdateURL: "http://localhost:4000/services",
 		HeartbeatURL:     "http://localhost:4000/heartbeat",
-		// RequiredServices: []string{"Log Service"},
+		RequiredServices: []string{"Log Service"},
 	}
 	ctx, err := service.Start(context.Background(), r, grades.RegisterHandlers)
 	if err != nil {
 		stlog.Fatal(err)
 	}
 	// Need required service
-	// logProvider, err := registry.GetProvider("Log Service")
-	// if err != nil {
-	// 	stlog.Println("dependent log service not found")
-	// 	stlog.Fatal(err)
-	// }
-
-	// log.SetClientLogger(logProvider, r.ServiceName)
+	if logProvider, err := registry.GetProvider("Log Service"); err == nil {
+		fmt.Printf("Log service found at %v\n", logProvider)
+		log.SetClientLogger(logProvider, r.ServiceName)
+	}
 
 	<-ctx.Done()
 	service.Stop(r)

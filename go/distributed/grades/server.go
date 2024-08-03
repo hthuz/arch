@@ -24,6 +24,7 @@ func gradeHandler(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			log.Println(err)
 		}
+		log.Println("Get Students Req")
 		w.Header().Add("Content-Type", "application/json")
 		w.Write(data)
 		return
