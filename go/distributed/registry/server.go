@@ -30,7 +30,7 @@ func registryHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		registryInst.Add(reg)
-		log.Printf("Adding service %v with URL %s\n", reg.ServiceName, reg.GetURL())
+		log.Printf("Adding service %v with URL %s\n", reg.ServiceName, reg.ServiceURL)
 	case http.MethodDelete:
 		msg, err := io.ReadAll(r.Body)
 		defer r.Body.Close()

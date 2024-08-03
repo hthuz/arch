@@ -18,6 +18,8 @@ func main() {
 		cmd.GradeServiceMain()
 	case "registry":
 		cmd.RegistryServiceMain()
+	case "portal":
+		cmd.PortalServiceMain()
 	default:
 		log.Fatal("invalid cmd")
 	}

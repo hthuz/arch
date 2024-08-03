@@ -4,7 +4,6 @@ import (
 	"context"
 	"distributed/registry"
 	"fmt"
-	"log"
 	"net/http"
 	"time"
 )
@@ -42,10 +41,6 @@ func startService(ctx context.Context, r registry.Registration) context.Context 
 		for s != "exit" {
 			fmt.Scanln(&s)
 		}
-		// Unregister from registry service
-		if err := registry.UnregisterService(r.GetURL()); err != nil {
-			log.Println(err)
-		}
 		srv.Shutdown(ctx)
 		cancel()
 	}()
@@ -54,12 +49,12 @@ func startService(ctx context.Context, r registry.Registration) context.Context 
 		// Stop by server error
 		err := srv.ListenAndServe()
 		fmt.Println(err)
-		// Unregister from registry service
-		if err := registry.UnregisterService(r.GetURL()); err != nil {
-			log.Println(err)
-		}
 		cancel()
 	}()
 
 	return ctx // Return context for propagation
+}
+
+func Stop(r registry.Registration) error {
+	return registry.UnregisterService(r.ServiceURL)
 }
