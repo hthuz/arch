@@ -2,8 +2,6 @@
 c/*.out
 c/*.o
 cpp/*.out
-cpp/
-!cpp/*.cpp
 
 
 java/*.class
