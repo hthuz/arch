@@ -658,6 +658,13 @@ Commands                | Description
 `head -c 3 file`          | Print first 3 character of the file
 `head -n 20 file \| tail -10`    | Print lines 10-20
 
+## Grep
+
+`grep -e "sth"`, with `-e`, |, +, ? etc needs to be escaped
+`grep -E "sth`, with -E, no need to escape
+
+
+
 
 ## nohup
 
