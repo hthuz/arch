@@ -192,6 +192,17 @@ CMD     | Description
 `ps`    | start
 `ps -u` | more information
 `ps -A` | display all processes
+`ps aux` | 
+
+Example: 
+```
+root      3339  0.0  0.0 119428   972 pts/19   S+   16:26   0:00 grep --color=auto cmd
+root     28020 26.3  0.0 1440780 55712 pts/17  Sl+  15:59   7:05 ./cmd
+```
+15:59 means the start time of this process. If it started at 24 hours ago, the format will be like "Oct18"
+
+7:05 means the accumulated cpu time (user + system) for this process is 7 minutes and 5 seconds. The format is MMM:SS.
+It's not the total running time of the proces up to now.
 
 ### Kill Processes
 CMD                 | Description

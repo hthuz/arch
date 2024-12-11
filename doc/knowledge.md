@@ -276,3 +276,31 @@ BIOS:two mode
 - ext4: in Linux
 
 
+## Character Encoding
+
+### ASCII
+
+- 1963
+- only 7 bits
+- Support up to 128 characters.
+- Stored as 1 byte, the highest bit is 0.
+
+### ANSI
+
+- 1980s.
+- 8 bits.
+- First 128 characters are the same as ASCII.
+- Additional 128 characters for special langauge patterns.
+- Mainly used in DOS and Windows.
+
+### Unicode
+
+- 1991
+- more than 1 miiilion characters.
+- Different storage methods, including UTF-8, UTF-16, UTF-32.
+
+### UTF-8
+
+- size is 1 to 4 bytes.
+- most commonly used
+
