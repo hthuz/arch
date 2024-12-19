@@ -40,6 +40,10 @@ pacman mirrorlist: `/etc/pacman.d/mirrorlist`
 `pacman -Syyu` to sync modified mirrolist  
 pacman configuration file: `/etc/pacman.conf`
 
+If there are signature which is unknown trust, try
+`pacman-key --refresh-keys` or `pacman -Sy archlinux-keyring`
+
+
 ### Cache Clean
 
 Cache directory in `/var/cache/pacman/pkg/`
@@ -692,6 +696,7 @@ A common usage:
 
 architecture: `uname -a`
 cpu: `lscpu`
+cpu usage: `uptime` 1, 5 , 15 minutes interval
 disk: `df -h` or `lsblk` or `fdisk -l`
 PCI peripheries: `lspci`
 memory: `free -h`
