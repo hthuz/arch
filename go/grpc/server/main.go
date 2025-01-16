@@ -2,12 +2,13 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"grpc/pb"
 	"net"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+    "google.golang.org/grpc/status"
 )
 
 // Your implemented server
@@ -40,7 +41,7 @@ func (s *server) SearchAge(ctx context.Context, in *pb.SearchAgeRequest) (*pb.Se
 	age := in.Age
 	// This error will be returned as rpc error
 	if age <= 0 {
-		return nil, errors.New("Age can't be smaller than 0")
+		return nil, status.Error(codes.NotFound, "Age can't be smaller than 0")
 	}
 	fmt.Println("Get Req", *in)
 	var resp pb.SearchAgeResponse

@@ -230,3 +230,15 @@ C headfer files located in `/usr/include/`
 | `lspci`    | list pci devices                          |
 | `lspci -k` | show kernel drivers handling each devices |
 
+
+## cisco
+
+dependency for cisco:
+`libsoup`
+`webkit2git`
+
+
+
+
+
+

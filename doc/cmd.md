@@ -314,6 +314,7 @@ Used to transfer data to/from a server
 | curl -I URL      | Only get the header of response                              |
 | curl -v URL      | verbose, show the header for both request and response       |
 | curl -X POST     | change from GET to POST, -X is the same as --request         |
+| curl -L -O URL   | common use to download a file                                |
 
 Example
 
