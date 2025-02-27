@@ -39,7 +39,7 @@ fn main() {
 
     // == 2. Convert a JsonValue into map
     if let Some(map2) = json.as_object() {
-        println!("{:?}", map2);
+    println!("{:?}", map2);
     }
 
 

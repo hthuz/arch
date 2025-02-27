@@ -704,7 +704,10 @@ memory: `free -h`
 
 Or `dmidecode` 
 
-
+`dmidecode`
+`dmesg`
+`fwupd`
+`lspci`
 
 
 

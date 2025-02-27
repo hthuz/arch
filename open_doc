@@ -2,7 +2,7 @@
 
 
 usage() {
-    echo "Arguments: [ge]neral [cm]d [kn]owledge [ba]sh [so]ftware [ma]kefile [ne]twork"
+    echo "Arguments: [ge]neral [cm]d [kn]owledge [ba]sh [so]ftware [ma]kefile [ne]twork [pa]th"
 
 }
 open() {
@@ -28,6 +28,9 @@ open() {
             ;;
 		ne|net|network)
 			nvim ${path}/doc/network.md
+			;;
+		pa|path)
+			nvim ${path}/doc/path.md
 			;;
         *)
             usage
