@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"time"
 
+	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 )
 
@@ -16,13 +18,17 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	// Read from viper
-	// Transfer into a map
-	fmt.Println(x.Get("open"))
-	x.Set("open.0x8888", "open")
-	x.Set("notopen.0x8888", "open")
+
+	x.OnConfigChange(func(e fsnotify.Event) {
+		fmt.Println("config changed")
+	})
+
+	x.WatchConfig()
+
 	fmt.Println(x.AllSettings())
 
-	// write to config
-	x.WriteConfig()
+	time.Sleep(10 * time.Second)
+
+	fmt.Println(x.AllSettings())
+
 }

@@ -680,6 +680,22 @@ Commands                | Description
 `grep -E "sth`, with -E, no need to escape
 
 
+# Uncompress
+
+`unzip some.zip`
+`unzip -P password some.zip`
+`unzip some.zip some.zip -d /path/to/dest`
+
+`7z x some.zip`
+`7z x some.zip -p<some_password>` note that no space in between
+`7z x some.zip -o/path/to/dest`
+
+
+# Compress
+
+`zip -r target.zip file_or_folder`
+
+`7z a target.zip file_or_folder `
 
 
 ## nohup

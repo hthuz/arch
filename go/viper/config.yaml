@@ -9,3 +9,5 @@ open:
     "0x2345": not open
     "0x4456": not open
     "0x8888": open
+    "0x99999": open
+    "0x89999": open
