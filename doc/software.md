@@ -146,6 +146,7 @@ List of frequently used commands and flags
 | docker run -d -p 80:80 -p 81:81 -v /local/path:/app/data/data.csv | -v: mount local path                                                  |
 | docker pull ubuntu                                                | pull an image                                                         |
 | docker build -t my_image:latest -f Dockerfile .                   | build an image from Dockerfile. -t: tag, -f: name of dockerfile,      |
+| docker build -t my_iamge:latest . --network=host                  | if network issue during build                                         |
 | docker images                                                     | list images                                                           |
 | docker ps -a                                                      | list containers, -a to show all containers (including inactive)       |
 | docker stop my_container                                          | stop a container                                                      |
@@ -156,6 +157,7 @@ List of frequently used commands and flags
 | docker load -i my_image.tar                                       | load a tar to a image                                                 |
 | docker exec my_container ls                                       | run a command in running container                                    |
 | docker exec -it my_container /bin/bash                            | -it: interactive terminal mode, so you can run bash cmds in docker    |
+| docker run -it my_image /bin/bash                                 | run bash from image directly                                          |
 | docker logs my_container                                          | show current logs of a container                                      |
 | docker logs -f my_contiainer                                      | -f: follow. new logs will be printed as well                          |
 | docker system/container/network/image prune                       | remove unused container/network/image                                 |
@@ -178,8 +180,32 @@ web:
 
 
 
+## mysql
 
 
+| Cmd                                  | Desc                                                                   |
+|--------------------------------------|------------------------------------------------------------------------|
+| SELECT ROW_COUNT()                   | Number of rows last deleted                                            |
+| SHOW TABLE STATUS                    | show stsatus of all tables                                             |
+| SHOW TABLE STATUS WHERE Name = "xxx" | show status of specific table, including engine, row number , data length etc |
+| SHOW PROCESSLIST                     | show executing tasks                                                   |
+| SHOW INDEX FROM table_name           |                                                                        | 
+
+
+
+###  information_schema (require root)
+
+| SELECT * FROM INNODB_TRX   | show txs, locks |
+| SELECT * FROM INNODB_LOCKS | show locks      |
+ 
+
+
+
+performance_schema (require root)
+
+
+
+- adding index does make DELETE with where faster
 
 
 
