@@ -162,10 +162,11 @@ Metacharacters | Example         | Description
 \+              | he.+o           | One or more occurences
 ?              | he.?o           | Zero or one occurences
 {}             | he.{2}o         | Exactly specified number of occurences
+()             |                 | group
 ^              | ^hello          | Start of the string
 $              | planet$         | End of the string
 `|`            | `fall|stays`    | Either or
-\d             |                 | One digit
+\d             |                 | One digit, equivalent to [0-9]
 \D             |                 | One non-digit
 \s             |                 | One whitespace
 \S             |                 | One non-whitespace

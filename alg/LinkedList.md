@@ -11,6 +11,59 @@
 
   
 
+## removal of an elemnt
+
+
+For example
+
+dummy->a->b->c
+
+If index is 1, 
+iterate once, with cur being a, changing it to a->c, thereby removing b
+
+```go 
+func remove(index int, head *ListNode) {
+    dummy := &ListNode{
+        Val: 0,
+        Next: head,
+    }
+    cur := dummy
+    for range index {
+        cur := cur.Next
+    }
+
+    cur.Next = cur.Next.Next
+    return dummy.Next
+}
+```
+
+
+## add of an elemnt
+
+dummy->a->b->c
+If index is 0
+
+
+```go
+func add(index int, head *ListNode, val int) {
+    dummy := &ListNode {
+        Val: 0,
+        Next: head,
+    }
+    cur := dummy
+    for range index {
+        cur := cur.Next
+    }
+
+    node := &ListNode {
+        Val: val,
+        Next: cur.Next
+    }
+    cur.Next = node
+    return dummy.Next
+}
+```
+
 
 
 ## Reverse List
@@ -76,8 +129,24 @@ func middleNode(head *ListNode) *ListNode {
 }
 1->2->3->4->5 return 3
 1->2->3->4->5->6 return 4
+
+
+
 ```
 
+```cpp
+ListNode* getMedian(ListNode* left, ListNode* right) {
+    ListNode* fast = left;
+    ListNode* slow = left;
+    while (fast != right && fast->next != right) {
+        fast = fast->next;
+        fast = fast->next;
+        slow = slow->next;
+    }
+    return slow;
+}
+
+```
 
 
 
