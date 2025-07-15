@@ -725,6 +725,34 @@ Or `dmidecode`
 `fwupd`
 `lspci`
 
+## wc
+
+wc read newline, word, byte couts of a file
+
+| Cmd                | Desc                                                |
+|--------------------|-----------------------------------------------------|
+| `wc -l file.txt`   | newline counts only, this will also print file name |
+| `wc -l < file.txt` | print line counts, this won't print file name       |
+| `wc -c file.txt`   | byte counts only                                    |
+| `wc -m file.txt`   | character counts only                               | 
+ 
+
+
+## firewall
+
+```bash
+firewall-cmd --zone=public --add-port=8080/tcp --permanent
+firewall-cmd --zone=public --remove-port=8080/tcp --permanent
+firewall-cmd --reload
+firewall-cmd --list-all
+
+```
+
+
+
+
+
+
 
 
 

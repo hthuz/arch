@@ -201,6 +201,23 @@ $ grep -q goodword "$file" && ! grep -q badword "$file" && { rm "$file" || echo 
 
 ### Conditional Blocks
 
+Examples
+
+```bash
+if [ "$num" -lt 12 ]; then
+    echo "$num smaller than 12"
+fi
+
+if [[ $num -lt 12 ]]; then
+    echo "$num smaller than 12"
+fi
+
+if [[ $num -ge 5 && $num -lt 12 ]]; then
+    echo "$num between 5 and 12"
+fi
+
+```
+
 `if` will check the exit code of `COMMAND1`. If it's 0, it will execute the `then` part  
 ```bash
 if COMMAND1

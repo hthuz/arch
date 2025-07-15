@@ -32,6 +32,9 @@ open() {
 		pa|path)
 			nvim ${path}/doc/path.md
 			;;
+		sq|sql)
+			nvim ${path}/doc/sql.md
+			;;
         *)
             usage
             ;;
