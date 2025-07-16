@@ -25,3 +25,10 @@ system wide: `/usr/lib/node_modules`
 ## C/C++
 
 system wide: `/usr/include`
+
+## Desktop Entries
+
+system wide: `/usr/share/applications/`
+
+per user: `~/.local/share/applications/`
+

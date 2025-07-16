@@ -130,14 +130,6 @@ func traverse(nodes []*TreeNode) {
 
 
 
-
-
-
-
-
-
-
-
 ## Two ways of thinking for binary tree
 
 1. Whether you can solve the problem by traversing the tree

@@ -240,5 +240,28 @@ dependency for cisco:
 
 
 
+## XDG
+
+X Desktop Group, specifications for interoperability
+XDG Base Directory Specification (XDG BDS)
+
+
+User directories
+
+| Vars            | Desc                             | Default            |
+|-----------------|----------------------------------|--------------------|
+| XDG_CONFIG_HOME | user-specific configuration      | $HOME/.config      |
+| XDG_CACHE_HOME  | user-specific cached data        | $HOME/.cache       |
+| XDG_DATA_HOEME  | user-specific data files         | $HOME/.local/share |
+| XDG_STATE_HOME  | user-specific state files        | $HOME/.local/state |
+| XDG_RUNTIME_DIR | user-specific sockets, pipes etc | /run/user/$UID     |
+
+System directories
+
+| Vars            | Desc         | Default                     |
+|-----------------|--------------|-----------------------------|
+| XDG_DATA_DIRS   | data files   | /usr/local/share:/usr/share |
+| XDG_CONFIG_DIRS | config files | /etc/xdg                    |
+
 
 

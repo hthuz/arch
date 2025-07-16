@@ -748,6 +748,23 @@ firewall-cmd --list-all
 
 ```
 
+## pkexec
+
+let user execute programs as other users, default to *root* if not specified
+
+```bash
+pkexec [--user username] PROGRAM [args]
+```
+
+the env will be a minimal env, requiring to you specifiy DISPLAY, XAUTHORITY etc 
+if the program requires setting of X11/wayland display etc
+
+So to run an application as root, find its Desktop entry in `/usr/share/applications`
+and replace Exec with 
+
+```
+Exec=pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY PROGRAM
+```
 
 
 
