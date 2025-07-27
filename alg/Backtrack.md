@@ -293,3 +293,113 @@ func isvalid(chess []string, row int, col int) bool {
 }
 ```
 
+
+## combineSum
+
+Given `candidates`, each element unique, find all combinations that sum to `target` (leetcode 39)
+you can use the same element for multiple times.
+
+For example, candidates: [2,3,6,7], target: 7
+The problem is that there may be repetition, for example, [2,2,3], [2,3,2], [3,2,2] so you need to check for repetition, which is inefficient
+
+```go
+func combinationSum(candidates []int, target int) [][]int {
+    path := make([]int, 0)
+    res := make([][]int, 0)
+
+    var backtrack func(int, []int)
+    backtrack = func(s int, path []int) {
+        if s == target {
+            slices.Sort(path)
+            if is_sub(&path, &res) {
+                return 
+            }
+            temp := make([]int, len(path))
+            copy(temp, path)
+            res = append(res, temp)
+
+            return
+        }
+        if s > target {
+            return
+        }
+        
+        for _, c := range candidates {
+            path = append(path, c)
+            // note that you need to make a copy here, otherwise the answer is not correct
+            temp := make([]int, len(path))
+        	copy(temp, path)
+			backtrack(s+c, temp)
+            path = path[:len(path)-1]
+        }
+    }
+    backtrack(0, path)
+    return res
+}
+
+func is_sub(arr *[]int, arrs *[][]int) bool {
+    for _, sub := range *arrs {
+        same := true 
+        if len(*arr) != len(sub) {
+            same = false
+            continue
+        }
+        for i := range len(*arr) {
+            if (*arr)[i] != sub[i] {
+                same = false 
+                break
+            }
+        }
+        if same {
+            return true
+        }
+    }
+    return false
+
+}
+
+```
+
+A wiser way
+
+
+```go
+func combinationSum(candidates []int, target int) [][]int {
+
+	path := make([]int, 0)
+	res := make([][]int, 0)
+
+	var backtrack func(int, int)
+	backtrack = func(s int, index int) {
+
+		if index >= len(candidates) {
+			return
+		}
+
+		if s == target {
+			res = append(res, append([]int{}, path...))
+			return
+		}
+
+		if s > target {
+			return
+		}
+
+		// move index forward
+		backtrack(s, index+1)
+
+		// keep the index
+		path = append(path, candidates[index])
+		backtrack(s+candidates[index], index)
+		path = path[:len(path)-1]
+
+	}
+	backtrack(0, 0)
+
+	return res
+}
+
+```
+
+
+

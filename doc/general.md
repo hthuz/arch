@@ -219,9 +219,6 @@ Some common markdown supported language
 directory of Trash: `~/.local/share/Trash/`
 
 
-## C 
-C headfer files located in `/usr/include/`
-
 
 ## lspci
 
@@ -262,6 +259,14 @@ System directories
 |-----------------|--------------|-----------------------------|
 | XDG_DATA_DIRS   | data files   | /usr/local/share:/usr/share |
 | XDG_CONFIG_DIRS | config files | /etc/xdg                    |
+
+## terminal shortcut
+
+`alt+b` move cursor backword
+`alt+f` move cursor forward
+
+
+
 
 
 

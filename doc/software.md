@@ -180,35 +180,6 @@ web:
 
 
 
-## mysql
-
-
-| Cmd                                  | Desc                                                                   |
-|--------------------------------------|------------------------------------------------------------------------|
-| SELECT ROW_COUNT()                   | Number of rows last deleted                                            |
-| SHOW TABLE STATUS                    | show stsatus of all tables                                             |
-| SHOW TABLE STATUS WHERE Name = "xxx" | show status of specific table, including engine, row number , data length etc |
-| SHOW PROCESSLIST                     | show executing tasks                                                   |
-| SHOW INDEX FROM table_name           |                                                                        | 
-
-
-
-###  information_schema (require root)
-
-| SELECT * FROM INNODB_TRX   | show txs, locks |
-| SELECT * FROM INNODB_LOCKS | show locks      |
- 
-
-
-
-performance_schema (require root)
-
-
-
-- adding index does make DELETE with where faster
-
-
-
 
 
 

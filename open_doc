@@ -2,7 +2,7 @@
 
 
 usage() {
-    echo "Arguments: [ge]neral [cm]d [kn]owledge [ba]sh [so]ftware [ma]kefile [ne]twork [pa]th"
+    echo "Arguments: [ge]neral [cm]d [kn]owledge [ba]sh [so]ftware [ma]kefile [ne]twork [pa]th [sq]l"
 
 }
 open() {

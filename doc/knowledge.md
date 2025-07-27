@@ -305,3 +305,29 @@ BIOS:two mode
 - size is 1 to 4 bytes.
 - most commonly used
 
+
+## AMD GPU
+
+### OpenGL
+
+a cross-platform 2D and 3D vector graphics API, ceased now
+
+### Vulkan
+a cross-platform 3D graphics and compute API, successor of OpenGL
+
+`vulkaninfo # with vulkan-tools installed`
+
+amdvlk, vulkan-radeon
+
+### mesa
+
+ open source implementation of OpenGL, OpenGL SE, Vulkan, OpenCL
+
+
+### Proton
+
+compatibility layer between Windows and Linux
+
+
+
+

@@ -26,3 +26,19 @@ func traverse(row, col int) {
 
 
 ```
+
+## Deletion of an element from an array
+
+By recording the updated length
+
+```go
+ 
+func del(nums []int, index int, length *int) {
+    for i := index; i < length - 1; i++ {
+        nums[i] = nums[i+1]
+    }
+    (*length)--
+}
+```
+
+

@@ -493,8 +493,8 @@ Path                                                       | Description
 |----------------------------------------|--------------------------|
 | `git branch -r`                        | Show all remote branches |
 | `git push origin --delete branch_name` | Delete remote branch     |
-| 'git show <commit hash>'              | Show details of a commit |
-| 'git push -f origin <branch> '       | force remote commit to be same as local(used to reset remote commit) |
+| `git show <commit hash>`              | Show details of a commit |
+| `git push -f origin <branch>`       | force remote commit to be same as local(used to reset remote commit) |
 
 
 
@@ -680,7 +680,7 @@ Commands                | Description
 `grep -E "sth`, with -E, no need to escape
 
 
-# Uncompress
+## Uncompress
 
 `unzip some.zip`
 `unzip -P password some.zip`
@@ -691,7 +691,7 @@ Commands                | Description
 `7z x some.zip -o/path/to/dest`
 
 
-# Compress
+## Compress
 
 `zip -r target.zip file_or_folder`
 
@@ -766,6 +766,16 @@ and replace Exec with
 Exec=pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY PROGRAM
 ```
 
+
+
+## solana
+
+
+solana validators
+solana validators get 
+solana stakes <vote>
+solana config get 
+solana config set --url 'mainnet-beta'
 
 
 
