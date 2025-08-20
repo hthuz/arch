@@ -186,3 +186,12 @@ performance_schema (require root)
 
 
 
+## table size
+
+```sql
+SELECT table_schema, table_name, round(((data_length + index_length) / 1024 / 1024), 2) `table_size_mb` 
+FROM information_schema.TABLES 
+ORDER BY (data_length + index_length) DESC;
+```
+
+

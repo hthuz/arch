@@ -2,7 +2,7 @@
 
 
 usage() {
-    echo "Arguments: [ge]neral [cm]d [kn]owledge [ba]sh [so]ftware [ma]kefile [ne]twork [pa]th [sq]l"
+    echo "Arguments: [ge]neral [cm]d [kn]owledge [ba]sh [so]ftware [ma]kefile [ne]twork [pa]th [sq]l [de]vop"
 
 }
 open() {
@@ -34,6 +34,9 @@ open() {
 			;;
 		sq|sql)
 			nvim ${path}/doc/sql.md
+			;;
+		de|devop)
+			nvim ${path}/doc/devop.md
 			;;
         *)
             usage
