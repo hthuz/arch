@@ -71,8 +71,12 @@ sudo systemctl start myapp
 journalctl --no-pager   # without pager, just like print to stdout
 journalctl -u myapp -f  # -u <unit> specified app
 journalctl -n <N>       # check lastest N lines of log
-journalctl -p <level>   # 
+journalctl -p <level>   # print all levels above) emerg 0, alert 1, crit 2, err 3, warning 4, notice 5, info 6, debug 7
 journalctl -r           # check in reverse order
+journalctl -b           # only this boot
+journalctl --grep="pattern"
+journalctl --grep="(Started|Stopped)" # check start/stop log
+journalctl -u myapp | grep "Stopped" -B 10 # check 10 lines before service Stopped, useful for checking restart information
 ```
 
 ## firewall

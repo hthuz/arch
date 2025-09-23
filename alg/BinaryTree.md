@@ -56,7 +56,7 @@ postorder: execute after you exit a node
 
 ## Level order traversal
 
-using queue
+using queueOrder
 
 ```go
 func levelOrder(root *TreeNode) [][]int {

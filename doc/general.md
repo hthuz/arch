@@ -266,6 +266,19 @@ System directories
 `alt+f` move cursor forward
 
 
+## keyboard
+
+`kbd`, `localectl status` `loadkeys` `kbd rate`
+
+PS/2: personal system 2. port for mouse and keyboard
+
+
+- keyboard sends scancode
+- kernel maps scancode into keycode
+- keyboard layout maps keycode to a symbol or keysym
+
+
+
 
 
 

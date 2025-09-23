@@ -60,6 +60,53 @@ Examples
 
 
 
+3 sum problem. Given `nums`, find all`nums[i], nums[j], nums[k]`(no repetitive) such that their sum is `0`
+
+given `[-1, 0, 1, 2, -1, -4]` return
+
+`[-1, -1, 2]`, `[-1, 0, 1]`
+
+```go
+func threeSum(nums []int) [][]int {
+    slices.Sort(nums)
+    res := make([][]int, 0)
+
+    for i, _ := range nums {
+        target := -nums[i]
+        if i - 1 >= 0 && nums[i-1] == nums[i] {
+            continue
+        }
+        left := i + 1
+        right := len(nums) - 1
+        for left < right {
+            sum := nums[left] + nums[right]
+            if sum < target {
+                left++
+            } else if sum > target {
+                right--
+            } else {
+                res = append(res, []int{nums[i], nums[left], nums[right]})
+                left++
+                right--
+                for left < right && nums[left-1] == nums[left] {
+                    left++
+                }
+                for left < right && nums[right] == nums[right + 1] {
+                    right--
+                }
+                
+            }
+        }
+    }
+    return res
+
+}
+```
+
+
+
+
+
 
 ## Sliding Window
 

@@ -13,16 +13,25 @@ HTTP, cookies, proxy server, DNS
 device: router
 routing
 IP address
+ARP (address resolution protocol)
 
 ### Link Layer
 device: switch
 MAC address
-ARP (address resolution protocol)
 LAN
  - Wired: Ethernet
  - Wireless: WLAN
+ CSMA/CD
 
 ### Physical Layer
+
+
+## TCP
+
+SYN 
+SYN-ACK
+ACK
+
 
 ## HTTP
 
@@ -49,6 +58,8 @@ Private IP range:
 10.0.0.0 to 10.255.255.255  
 172.16.0.0 to 172.31.255.255  
 192.168.0.0 to 192.168.255.255  
+
+IP: 32 bits, MAC: 48 bits
 
 port: 65535 ports in total (16 bits).   
 Restircted: 0 - 1023

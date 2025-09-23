@@ -184,8 +184,72 @@ delta = (-3,1,-2,5)
 
 This is actually equilvaent/similar to computing maxsubArray sum of delta, 
 
-
 if dp(i) = max(dp(i-1), dp(i-1) - prices(i-1) + prices(i)), it becomes leetcode 122. 
 Max profit by holding at most one stock
 dp(i) = max(dp(i-1), dp(i-1) + delta(i))
+
+
+
+
+
+## Jumping game
+
+给定一个长度为 `n` 的 **0 索引**整数数组 `nums`。初始位置在下标 0。
+
+每个元素 `nums[i]` 表示从索引 `i` 向后跳转的最大长度。换句话说，如果你在索引 `i` 处，你可以跳转到任意 `(i + j)` 处：
+
+- `0 <= j <= nums[i]` 且
+- `i + j < n`
+
+返回到达 `n - 1` 的最小跳跃次数。测试用例保证可以到达 `n - 1`。
+
+
+
+e.g. given `nums = [2,3,1,1,4]`, return 2
+
+```go
+func jump(nums []int) int {
+    dp := make([]int, len(nums))
+ 	
+    for i := 1; i < len(nums); i++ {
+        min_val := len(nums)
+        for j := 0; j < i; j++ {
+            if nums[j] + j >= i {
+                min_val = min(min_val, dp[j] + 1)
+            }
+        }
+        dp[i] = min_val
+    }
+    return dp[len(nums)-1]
+}
+```
+
+以上方法复杂度仍会达到`O(n^2)`
+
+
+
+A better method
+
+记录能达到的最远边界, 贪心
+
+```go
+func jump(nums []int) int {
+    farthest := 0
+    cur_position := 0
+    steps := 0
+    // 最后一个位置不需要
+    for i := 0; i < len(nums)-1; i++ {
+        farthest = max(farthest, nums[i] + i)
+        // 只有在你到达你当前能跳到最远的地方时，你才跳
+        if cur_position == i {
+            steps++
+            // 你跳到了你现在能到达的最远的地方
+            cur_position = farthest
+        }
+    }
+    return steps
+}w
+```
+
+
 

@@ -56,6 +56,12 @@ Use `paccache` from `pacman-contrib`
 | paccache -r    | Remove package cache, keep cache of latest 3 versions by default |
 | paccache -rk2  | 2 specifies keep latest 2 versions only                          |
 
+yay clean cache
+
+`yay -Sc`
+`yay -Scc` remove all cache in `~/.cache/yay`
+`yay -Ps` print 
+
 ## systemmd  
 
 PID 1, system and service manager  
@@ -779,7 +785,18 @@ solana config set --url 'mainnet-beta'
 
 
 
+## stty
 
+(set terminal options)
+change and print terminal line settings
+
+`stty -a`
+
+
+`TERM=xterm-256color ssh user@aws-server-ip` if backspace not working in AWS ssh
+(set TERM to xterm in server)
+
+or set `export TERM=xterm-256color` in remote `.bashrc`/`.profile`
 
 
 
