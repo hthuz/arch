@@ -112,3 +112,48 @@ func threeSum(nums []int) [][]int {
 
 
 
+找到满足xx条件的最xxx的区间/子串/子数组
+
+
+
+- 设置窗口 [left, right) (一开始为[0, 0), 窗口为空)
+- **寻找可行解**：右移right，知道窗口满足xx条件
+- **寻找最优解**： 右移left， 直到窗口不满足xx条件，
+- 直到right到达end
+
+
+
+```go
+
+left := 0
+right := 0
+for right < len(nums) {
+    // move right, update window
+    
+    for (window satisfying condition) {
+        // update global data
+        
+       	// move left, update window
+    }
+}
+
+```
+
+
+
+e.g. 最小覆盖子串
+
+给你一个字符串 `s` 、一个字符串 `t` 。返回 `s` 中涵盖 `t` 所有字符的最小子串。如果 `s` 中不存在涵盖 `t` 所有字符的子串，则返回空字符串 `""` 。
+
+```
+输入：s = "ADOBECODEBANC", t = "ABC"
+输出："BANC"
+```
+
+
+
+
+
+```go
+```
+

@@ -19,6 +19,7 @@ ARP (address resolution protocol)
 device: switch
 MAC address
 LAN
+
  - Wired: Ethernet
  - Wireless: WLAN
  CSMA/CD
@@ -152,6 +153,145 @@ manipulate wireless devices
 | `ip link show`               | similar to ifconfig                |
 | `ip link show <interface>`   | show status of a certain interface |
 | `sudo ip link set <interface> up/down` | activate/deactiviate interface                 |
+
+
+
+## Network Debug
+
+`ping/traceroute `
+
+`nslookup/dig` => if domain name can be resolved as ip
+
+
+
+### DNS record
+
+DNS resource records (RR): `(name, value, type, ttl)`
+
+| type  | desc                                                    |
+| ----- | ------------------------------------------------------- |
+| A     | name: domain name, value: IPv4 address                  |
+| AAAA  | name: domain name, value: IPv6 address                  |
+| CNAME | name: domain name, value: canonical name of domain name |
+|       |                                                         |
+
+
+
+### nslookup
+
+default query type: A record
+
+```bash
+nslookup www.xxx.com
+
+# response
+Server:         130.126.2.131    # DNS server used to query
+Address:        130.126.2.131#53 # DNS server + port
+
+Non-authoritative answer:		 # result from cache
+www.baidu.com   canonical name = www.a.shifen.com.
+www.a.shifen.com        canonical name = www.wshifen.com.
+Name:   www.wshifen.com
+Address: 103.235.46.102
+Name:   www.wshifen.com
+Address: 103.235.46.115 		# multiple servers, possibly for load babalancing
+```
+
+
+
+| Cmd                                 | Desc                    |
+| ----------------------------------- | ----------------------- |
+| `nslookup www.baidu.com`            | common use              |
+| `nslookup <domain> <dns server ip>` | query use specified ip  |
+| `nslookup -type=mx <domain>`        | query mx record         |
+| `nslookup -type=ptr 8.8.8.8`        | find domain name use ip |
+
+
+
+### dig
+
+```bash
+dig <domain> <DNS server> <type>
+default type: A
+```
+
+```bash
+# response
+; <<>> DiG 9.20.4 <<>> www.baidu.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 30657
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 8134d6d04d65906b0100000068da24592a7898103a801b18 (good)
+;; QUESTION SECTION:
+;www.baidu.com.                 IN      A
+
+;; ANSWER SECTION:
+www.baidu.com.          441     IN      CNAME   www.a.shifen.com.
+www.a.shifen.com.       24      IN      CNAME   www.wshifen.com.
+www.wshifen.com.        233     IN      A       103.235.46.102
+www.wshifen.com.        233     IN      A       103.235.46.115
+
+;; Query time: 361 msec
+;; SERVER: 130.126.2.131#53(130.126.2.131) (UDP)
+;; WHEN: Mon Sep 29 14:16:56 CST 2025
+;; MSG SIZE  rcvd: 161
+```
+
+
+
+### traceroute
+
+```bash
+traceroute [options] <destination>
+```
+
+| Flags          | Desc                                |
+| -------------- | ----------------------------------- |
+| `-n`           | skip DNS resolution                 |
+| `-m <max_ttl>` | max number of hops, default 30      |
+| `-q <queries>` | number of probes per hop, default 3 |
+| `-I`           | use ICMP                            |
+| `-T`           | use TCP                             |
+| `-w <timeout>` | timeout for responses in seconds    |
+
+### ping
+
+send ICMP echo request
+
+
+
+| CMD                         | Desc                                         |
+| --------------------------- | -------------------------------------------- |
+| `ping -c 4 www.baidu.com`   | send  4 packets                              |
+| `ping -i 0.2 www.baidu.com` | time interval between packets is 0.2 seconds |
+| `ping -w 5 www.baidu.com`   | set timeout to 5 seconds                     |
+| `ping -s 128 www.baidu.com` | set packet size to 128 bytes                 |
+| `ping -t 3 www.baidu.com`   | set TTL to 3                                 |
+| `ping -4 www.baidu.com`     | force use of IPv4                            |
+| `ping -6 www.baidu.com`     | force use of IPv6                            |
+
+
+
+### telnet
+
+```bash
+telnet [domain name/ip address] port
+```
+
+replaced by ssh, typically only used for connectivity test
+
+
+
+
+
+
+
+
+
 
 
 ## Geth

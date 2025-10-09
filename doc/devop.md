@@ -1,6 +1,6 @@
 # DevOp Quick Ref
 
-## Top
+## top
 
 top - 19:48:06 up 90 days, 58 min,  4 users,  load average: 0.66, 0.84, 1.31
 Tasks: 258 total,   1 running, 257 sleeping,   0 stopped,   0 zombie
@@ -77,6 +77,12 @@ journalctl -b           # only this boot
 journalctl --grep="pattern"
 journalctl --grep="(Started|Stopped)" # check start/stop log
 journalctl -u myapp | grep "Stopped" -B 10 # check 10 lines before service Stopped, useful for checking restart information
+
+journactl ---since 2025-09-28 --until 2025-09-29
+journalctl --since "2025-09-28 08:00:00" --until "2025-09-28 09:00"
+journalctl --since "2025-09-28 8:0" --until "2025-09-28 9:0"
+journalctl --since "1 hour ago"
+journalctl --since "yesterday" --until "today"
 ```
 
 ## firewall
@@ -132,7 +138,6 @@ in .bashrc
 
 Ctrl+R: reverse search
 Ctrl+S: forward search
-
 
 
 

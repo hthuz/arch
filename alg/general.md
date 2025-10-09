@@ -84,7 +84,7 @@ digital certificate = 明文 + 数字签名， 用数字签名验证明文hash�
 
 浏览器保有CA的公钥
 
-![https](/home/autentico/arch/alg/img/https.jpg)
+![https](img/https.jpg)
 
 整体流程
 
@@ -101,17 +101,17 @@ digital certificate = 明文 + 数字签名， 用数字签名验证明文hash�
 | Layer       | Items                                                        | Unit                                |
 | ----------- | ------------------------------------------------------------ | ----------------------------------- |
 | Application |                                                              | Message/Data                        |
-| Transport   | 端口，网关                                                   | segment段 - TCP；datagram数据报-UDP |
+| Transport   | 端口，网关，端到端                                           | segment段 - TCP；datagram数据报-UDP |
 | Network     | IP, 路由器，ARP (Address Resolution Protocol translate from IP to MAC )， ICMP （用于ping） | packet包；数据报datagram            |
-| Link        | MAC.  交换器， , LAN， CSMA/CD， MTU                         | Frame 帧                            |
+| Link        | MAC.  交换器， , LAN， CSMA/CD， MTU, Etherenet, WiFi        | Frame 帧                            |
 | Physics     | 集线器hub,中继器repeater                                     | 比特bit                             |
 
 路由器：NAT，访问控制，连接不同网络，寻址
 
-
+router: 
 
 - Distance Vector 距离矢量  （bellman ford）
-  - RIP, BGP， IGRP
+  - RIP, BGP,IGRP
 
 - Link State 链路状态 （dijkstra）
 
@@ -145,4 +145,207 @@ a = a ^ b
 (a ^ a = 0, a ^ 0 = a)
 
 ```
+
+
+
+
+
+## OSI
+
+Open System Interconnection
+
+application layer
+
+presentation layer 表示层：不同终端的上层用户提供数据和信息正确的语法表示变换方法
+
+session layer 会话层：opening, closing and managing a [session](https://en.wikipedia.org/wiki/Session_(computer_science)) between end-user application processes， 认证，权限
+
+transport layer 
+
+
+
+## What happens after you request sth
+
+你在浏览器中访问 `http://example.com/index.html`
+
+你的电脑 IP：`192.168.1.10`，源端口：`50000`
+
+服务器 IP：`93.184.216.34`（example.com 真实 IP 之一），目的端口：`80`
+
+MAC：
+
+- 你的网卡 MAC：`AA:BB:CC:DD:EE:FF`
+- 网关 MAC：`11:22:33:44:55:66`
+
+
+
+**HTTP Payload**
+
+```
+GET /index.html HTTP/1.1\r\n
+Host: example.com\r\n
+User-Agent: curl/8.0\r\n
+Accept: */*\r\n
+\r\n
+```
+
+**TCP Segment: TCP header + [HTTP Payload]**
+
+```
+c3 50         # 源端口 0xC350 = 50000
+00 50         # 目的端口 0x0050 = 80
+00 00 00 01   # 序列号
+00 00 00 00   # 确认号
+50 18         # Data Offset=5, Flags=PSH+ACK
+72 10         # 窗口大小
+12 34         # 校验和
+00 00         # 紧急指针
+```
+
+**IPv4 Packet: IP Header + [TCP Segment]**
+
+```
+45 00 00 7A   # 版本4+首部长度5，Total Length=0x007A
+1c 46 40 00   # 标识与分片
+40 06 a6 ec   # TTL=64, Protocol=6(TCP), Header Checksum
+c0 a8 01 0a   # 源IP 192.168.1.10
+5d b8 d8 22   # 目的IP 93.184.216.34
+```
+
+**WiFi/Ethernet Frame: Frame Header + IPv4 Packet**
+
+```
+08 01              # Frame Control: Type=Data, Subtype=Data, ToDS=1
+00 00              # Duration
+11 22 33 44 55 66  # Addr1: 接入点(AP)MAC — 接收方
+aa bb cc dd ee ff  # Addr2: 你的设备MAC — 发送方
+11 22 33 44 55 66  # Addr3: BSSID/路由器MAC
+10 86              # Sequence Control
+AA AA 03 00 00 00  # LLC/SNAP Header
+08 00              # EtherType = IPv4
+...                # 这里是整个 IPv4 包 (包含TCP+HTTP数据)
+f1 e2 d3 c4        # Frame Check Sequence (CRC-32)
+```
+
+
+
+
+
+```
+┌─Ethernet Header (Dst MAC | Src MAC | 0x0800)
+│   ┌─IPv4 Header (src 192.168.1.10 | dst 93.184.216.34 | proto 6)
+│   │   ┌─TCP Header (src port 50000 | dst port 80)
+│   │   │   └─HTTP Request Payload ("GET /index.html ...")
+│   │   └─TCP Options/Flags
+│   └─IP checksum
+└─Ethernet FCS
+```
+
+
+
+
+
+
+
+
+
+
+
+## GRPC
+
+
+
+gRPC server: grpc server port
+
+gRPB stub: grpc client port
+
+
+
+proto buf:数据描述语言
+
+数据构造称为 message
+
+
+
+grpc四种服务提供方法
+
+- Unary RPC， 
+
+```protobuf
+rpc SayHello(HelloRequest) returns (HelloResponse);
+```
+
+- server streaming rpc
+
+客户端向服务器请求，客户端从流中一直读取返回信息
+
+```
+rpc LotsOfReplies(HelloRequest) returns (stream HelloResponse);
+```
+
+- client streaming rpc
+
+客户端写入一系列信息到服务器，返回服务器的响应
+
+```
+rpc LotsOfGreetings(stream HelloRequest) returns (HelloResponse);
+```
+
+- bidirectional streaming rpc
+
+两个流独立，可以交替读取消息然后写入消息
+
+```protobuf
+rpc BidiHello(stream HelloRequest) returns (stream HelloResponse)
+```
+
+基于http2
+
+通道 channel，RPC， 消息 message
+
+metadata + channel
+
+
+
+protobuf type: 
+
+double, float, int32, int64, uint32, uint64, sint32, sint64, fixed32, fixed64, sfixed32, sfixed64, bool, string, bytes
+
+field number: 1 到536,870,911的值，不应该被重用，低field number的应该占更少空间
+
+
+
+protobuf wire format：
+
+
+
+
+
+## ICMP(ping/traceroute)
+
+ping， traceroute, both use ICMP protocol  (**Internet Control Message Protocol**)
+
+
+
+ICMP
+
+当网络层有问题，两个设备无法连接时，可以用ICMP用来诊断
+
+TCP: connection-oriented，通过handshake建立连接，但 ICMP: connectionless protocol，不需要建立连接
+
+
+
+**Packet: IP Header + [ICMP datagram]**
+
+ ICMP datagram as follows: 
+
+| 8 bit | 8 bit | 16 bit   | 32 bit          | variable length |
+| ----- | ----- | -------- | --------------- | --------------- |
+| Type  | Code  | CheckSum | Extended Header | Data/Payload    |
+
+
+
+## ML DL
+
+check notion
 
