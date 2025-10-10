@@ -2,7 +2,7 @@
 
 
 usage() {
-    echo "Arguments: [ge]neral [cm]d [kn]owledge [ba]sh [so]ftware [ma]kefile [ne]twork [pa]th [sq]l [de]vop"
+    echo "Arguments: [ge]neral [cm]d [kn]owledge [ba]sh [so]ftware [ma]kefile [ne]twork [pa]th [sq]l [de]vop [pc]"
 
 }
 open() {
@@ -26,18 +26,21 @@ open() {
         ma|makefile)
             nvim ${path}/doc/makefile.md
             ;;
-		ne|net|network)
-			nvim ${path}/doc/network.md
-			;;
-		pa|path)
-			nvim ${path}/doc/path.md
-			;;
-		sq|sql)
-			nvim ${path}/doc/sql.md
-			;;
-		de|devop)
-			nvim ${path}/doc/devop.md
-			;;
+	ne|net|network)
+	    nvim ${path}/doc/network.md
+	    ;;
+	pa|path)
+	    nvim ${path}/doc/path.md
+	    ;;
+	sq|sql)
+	    nvim ${path}/doc/sql.md
+	    ;;
+	de|devop)
+	    nvim ${path}/doc/devop.md
+	    ;;
+	pc)
+	    nvim ${path}/doc/pc.md
+	    ;;
         *)
             usage
             ;;
