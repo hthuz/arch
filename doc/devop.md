@@ -139,6 +139,18 @@ in .bashrc
 Ctrl+R: reverse search
 Ctrl+S: forward search
 
+## stty
+
+(set terminal options)
+change and print terminal line settings
+
+`stty -a`
+
+
+`TERM=xterm-256color ssh user@aws-server-ip` if backspace not working in AWS ssh
+(set TERM to xterm in server)
+
+or set `export TERM=xterm-256color` in remote `.bashrc`/`.profile`
 
 
 

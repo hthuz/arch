@@ -43,6 +43,8 @@ pacman configuration file: `/etc/pacman.conf`
 If there are signature which is unknown trust, try
 `pacman-key --refresh-keys` or `pacman -Sy archlinux-keyring`
 
+pacman install history `/var/log/pacman.log`
+
 
 ### Cache Clean
 

@@ -2,6 +2,14 @@
 
 
 
+cf `arch/go/heap/main.go`
+
+[code here](../go/heap/main.go)
+
+
+
+
+
 A complete binary tree 完全二叉树  （满二叉树）
 
 for complete binary tree, node at index `m`, then its children at index `2m+1`, `2m+2`

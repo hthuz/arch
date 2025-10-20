@@ -33,6 +33,15 @@ XMODIFIERS=@im=fcitx
 in `etc/environment`, then edit in KDE settings (virtual keyboard and input method)
 
 
+dictionaries
+```
+
+```bash
+pacman -S fcitx5-pinyin-zhwiki
+yay -S fcitx5-pinyin-sougou-dict-git
+yay -S fcitx5-pinyin-moegirl
+```
+
 ## wps optional support
 ```
 
@@ -60,6 +69,27 @@ EnableHiDPI=true
 EnableHiDPI=true
 ServerArguments=-nolisten tcp -dpi 192
 ```
+
+## mariadb
+
+```bash
+sudo pacman -S maridb
+sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+# set password for root
+sudo mariadb-secure-installation 
+sudo systemctl start maridb
+mariadb -u root -p
+
+```
+
+
+## firefox
+
+disable the default sidebar in pdf
+
+`about:config`
+search `pdfjs.sidebarViewOnLoad`, and set to `0`
+
 
 
 
