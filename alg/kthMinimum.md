@@ -27,7 +27,7 @@ func quick_select(nums []int, k int) int {
 	// using k >= len(smaller) or k > len(smaller)
 	// using k < len(smaller)+pivot or k < len(smaller) + pivot_num 
 	if k >= len(smaller) && k < len(smaller)+pivot_num {
-		return pivotw
+		return pivot
 	}
 	if k < len(smaller) {
 		return quick_select(smaller, k)

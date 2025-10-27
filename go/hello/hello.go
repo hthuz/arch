@@ -1,73 +1,94 @@
+// RWLock 是一个简单的读写锁实现
 package main
 
 import (
 	"fmt"
-	"math"
+	"sync"
+	"time"
 )
 
+type RWLock struct {
+	mu      sync.Mutex // 用于保护内部状态
+	readers int        // 当前正在读取的协程数
+	writer  bool       // 是否有写者正在写
+	cond    *sync.Cond // 条件变量，用于唤醒等待的读/写者
+}
+
+func NewRWLock() *RWLock {
+	lock := &RWLock{}
+	lock.cond = sync.NewCond(&lock.mu)
+	return lock
+}
+
+// 加读锁
+func (rw *RWLock) RLock() {
+	rw.mu.Lock()
+	defer rw.mu.Unlock()
+
+	// 如果有写者在写，就等待
+	for rw.writer {
+		rw.cond.Wait()
+	}
+	rw.readers++
+}
+
+// 释放读锁
+func (rw *RWLock) RUnlock() {
+	rw.mu.Lock()
+	defer rw.mu.Unlock()
+
+	rw.readers--
+	// 如果没有读者了，唤醒可能等待的写者
+	if rw.readers == 0 {
+		rw.cond.Broadcast()
+	}
+}
+
+// 加写锁
+func (rw *RWLock) Lock() {
+	rw.mu.Lock()
+	defer rw.mu.Unlock()
+
+	// 等待直到没有读者且没有其他写者
+	for rw.writer || rw.readers > 0 {
+		rw.cond.Wait()
+	}
+	rw.writer = true
+}
+
+// 释放写锁
+func (rw *RWLock) Unlock() {
+	rw.mu.Lock()
+	defer rw.mu.Unlock()
+
+	rw.writer = false
+	rw.cond.Broadcast() // 唤醒等待的读或写
+}
+
 func main() {
-	// value := [128]bool{}
-	// fmt.Println(value)
-	ans := coinChange([]int{2}, 3)
-	fmt.Println(ans)
-}
+	rw := NewRWLock()
+	wg := sync.WaitGroup{}
 
-func coinChange(coins []int, amount int) int {
-	dp := make([]int, amount+1)
-	for i, _ := range dp {
-		dp[i] = math.MaxInt32
-	}
-	dp[0] = 0
-
-	for i := 1; i <= amount; i++ {
-		for _, c := range coins {
-			if i-c >= 0 {
-				dp[i] = min(dp[i], dp[i-c]+1)
-			}
-		}
-	}
-	fmt.Println(dp)
-	if dp[amount] == math.MaxInt32 {
-		fmt.Println("here")
-		return -1
-	} else {
-		return dp[amount]
+	// 启动多个读者
+	for i := 0; i < 3; i++ {
+		wg.Add(1)
+		go func(id int) {
+			rw.RLock()
+			fmt.Printf("Reader %d is reading\n", id)
+			rw.RUnlock()
+			wg.Done()
+		}(i)
 	}
 
-}
+	time.Sleep(200 * time.Millisecond)
+	// 启动一个写者
+	wg.Add(1)
+	go func() {
+		rw.Lock()
+		fmt.Println("Writer is writing")
+		rw.Unlock()
+		wg.Done()
+	}()
 
-func longestCommonSubsequence(text1 string, text2 string) int {
-	width := len(text1)
-	height := len(text2)
-	dp := make([][]int, height)
-	for i := range height {
-		dp[i] = make([]int, width)
-	}
-	for i := range height {
-		if text1[0] == text2[i] {
-			dp[i][0] = 1
-		} else {
-			dp[i][0] = 0
-		}
-	}
-	for i := range width {
-		if text1[i] == text2[0] {
-			dp[0][i] = 1
-		} else {
-			dp[0][i] = 0
-		}
-	}
-	for i := 1; i < height; i++ {
-		for j := 1; j < width; j++ {
-			if text1[j] == text2[i] {
-				dp[i][j] = dp[i-1][j-1] + 1
-			} else {
-				dp[i][j] = max(dp[i-1][j], dp[i][j-1])
-			}
-		}
-	}
-	for _, row := range dp {
-		fmt.Println(row)
-	}
-	return dp[height-1][width-1]
+	wg.Wait()
 }

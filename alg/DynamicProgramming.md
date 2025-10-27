@@ -125,6 +125,8 @@ func maxSubArray(nums []int) int {
 
 ## longestPalindrome
 
+-  the following solution is not working quite well
+
 dp(i,j) is denoted as the length of longest palindrome substring of string s(i..j) 
 (for all substrings of s(i,j), its longest palindrome length is dp(i,j))
 
@@ -137,6 +139,81 @@ dp(i,j) = max(dp(i+1, j-1), dp(i, j-1), dp(i+1, j))
 Initial condition: 
 all dp(i,i) = 1 
 all dp(i, i+1) = 2 if s(i) == s(i+1) else 1
+
+
+
+- a better method is the following
+
+dp[i,j]: if s[i:j] is a palindrome
+
+the keep a global variable and record the longest one
+
+```go
+func longestPalindrome(s string) string {
+    dp := make([][]bool, len(s))
+
+    for i := range dp {
+        dp[i] = make([]bool, len(s))
+    }
+    for i := range len(dp) {
+        dp[i][i] = true
+    }
+    res := s[0:1]
+
+    for i := len(s) - 2; i >= 0; i-- {
+        for j := i + 1; j < len(s); j++ {
+            if s[i] == s[j] {
+                if dp[i+1][j-1] {
+                    dp[i][j] = true
+                }
+                if j == i + 1 {
+                    dp[i][j] = true
+                }
+            }
+            if dp[i][j] && j - i + 1 >= len(res) {
+                res = s[i:j+1]   
+            }
+        }
+    }
+    return string(res)
+}
+
+
+or 
+
+func longestPalindrome(s string) string {
+    dp := make([][]bool, len(s))
+
+    for i := range dp {
+        dp[i] = make([]bool, len(s))
+    }
+
+    res := ""
+
+    for i := len(s) - 1; i >= 0; i-- {
+        for j := i; j < len(s); j++ {
+            if s[i] == s[j] {
+                if i + 1 < len(s) && j - 1 >= 0 && dp[i+1][j-1] {
+                    dp[i][j] = true
+                }
+                if j == i + 1 {
+                    dp[i][j] = true
+                }
+                if i == j {
+                    dp[i][j] = true
+                }
+            }
+            if dp[i][j] && j - i + 1 >= len(res) {
+                res = s[i:j+1]   
+            }
+        }
+    }
+    return res
+}
+
+
+
+```
 
 
 
@@ -249,6 +326,78 @@ func jump(nums []int) int {
     }
     return steps
 }w
+```
+
+
+
+## Longest Increasing Subsequence (LIS)
+
+define dp[i]: longest increasing subsequence with nums[i] being the end
+
+then answer is max(dp)
+
+
+
+```go
+func lengthOfLIS(nums []int) int {
+    dp := make([]int, len(nums))
+    ans := 1
+    for i := range dp {
+        dp[i] = 1
+    }
+    
+    for i := 1; i < len(nums); i++ {
+        for j := 0; j < i; j++ {
+            if nums[i] > nums[j] {
+                dp[i] = max(dp[i], dp[j] + 1)
+            }
+        }
+        ans = max(ans, dp[i])
+    }
+    return ans
+    
+}
+```
+
+
+
+
+
+## Coin Exchange
+
+e.g. coins = [1,2,5], amount = 11
+
+answer: 11
+
+5 + 5 + 1
+
+
+
+dp[i]: 组成金额i所需要的最小coin数量
+
+```go
+func coinChange(coins []int, amount int) int {
+    dp := make([]int, amount + 1)
+    for i := range dp {
+        dp[i] = amount + 1
+    }
+    for _, c := range coins {
+        dp[c] = 1
+    }
+    
+    for i := 1; i <= amount; i++ {
+        for _, c := range coins {
+            if i - c >= 0 {
+                dp[i] = min(dp[i], dp[i-c] + 1)
+            }
+        }
+    }
+    if dp[amount] == amount + 1 {
+        return -1
+    } else {
+        return dp[amount]
+    }
+}
 ```
 
 
