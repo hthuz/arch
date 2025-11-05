@@ -325,7 +325,7 @@ func jump(nums []int) int {
         }
     }
     return steps
-}w
+}
 ```
 
 

@@ -92,5 +92,8 @@ search `pdfjs.sidebarViewOnLoad`, and set to `0`
 
 
 
+## docker
+
+add you to docker group, and no need to run sudo every time
 
 
