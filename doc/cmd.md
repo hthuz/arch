@@ -801,4 +801,9 @@ change and print terminal line settings
 or set `export TERM=xterm-256color` in remote `.bashrc`/`.profile`
 
 
+## hostname
+
+to use command `hostname`, `pacman -S inetutils`
+
+
 

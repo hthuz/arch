@@ -96,4 +96,16 @@ search `pdfjs.sidebarViewOnLoad`, and set to `0`
 
 add you to docker group, and no need to run sudo every time
 
+## vmware
+sudo pacman -S linux-headers
+yay -S vmware-keymaps
+yay -S vmware-workstation
+systemctl start vmware-networks-configuration
+systemctl start vmware-networks
+modprobe -a vmw_vmci vmmon
+
+
+
+
+
 
