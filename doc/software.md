@@ -140,6 +140,8 @@ onedrive on linux: insync with aur. Works but slow
 
 List of frequently used commands and flags
 
+image name should be put after the options
+
 | command                                                           | Description                                                           |
 |-------------------------------------------------------------------|-----------------------------------------------------------------------|
 | docker run -d -p 80:80 --name my_container nginx                  | run container from image, -d: in background mode, --name: assign name |
@@ -171,7 +173,8 @@ Steps for docker push
 ### Using specified network when building images, to fix the issue of no network
 `docker build --network host`
 or in docker-compose:
-```
+
+```yml
 web:
     build:
         context: .
@@ -179,8 +182,85 @@ web:
 ```
 
 
+### docker-compose volume:
+
+```yml
+web:
+    image: xxx
+    volume:
+        - </host/path>:</docker/path>
+        # e.g.
+        - /home/user/app/data:/usr/share/nginx/html
+        - ./config.conf:/etc/default.conf
+```
+
+### stop containers in docker-compose
+```bash
+docker-compose down
+```
+
+
+## java archlinux
+
+path
+`/usr/lib/jvm/java-8-openjdk`
+
+`/usr/lib/jvm/java-11-openjdk`
+
+`/usr/lib/jvm/java-25-openjdk`
+
+
+## Maven
+
+| Cmd                       | Desc                                                  |
+|---------------------------|-------------------------------------------------------|
+| `mvn compile`             | comple classes to `target/classes`                    |
+| `mvn package`             | produce jar, output to `target/`                      |
+| `mvn install`             | produce jar, output to `target/` and install to `.m2` |
+| `mvn install -DskipTests` |                                                       |
+| `mvn spring-boot:run`     | run spring boot                                       |
 
 
 
+## kafka
 
+require java
+
+If installed using pacman, run the following cmds directly. They are under `/usr/bin`
+Otherwise, specify the path e.g. `bin/kafka-topics.sh`
+
+First step
+
+```bash
+KAFKA_CLUSTER_ID="$(kafka-storage.sh random-uuid)"
+kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.properties
+# if using pacman
+sudo -u kafka /usr/bin/kafka-storage.sh format -t "$(/usr/bin/kafka-storage.sh random-uuid)" -c /etc/kafka/server.properties --standalone
+```
+
+
+| Cmd                                                                                            | Desc            |
+|------------------------------------------------------------------------------------------------|-----------------|
+| `kafka-topics.sh --create --topic mytopic --bootstrap-server localhost:9092`                   |                 |
+| `kafka-topics.sh --describe --bootstrap-server localhost:9092`                                 | show all topics |
+| `kafka-console-producer.sh --topic mytopic --bootstrap-server localhost:9092`                  |                 |
+| `kafka-console-consumer.sh --topic mytopic --bootstrap-server localhost:9092 --from-beginning` |                 |
+
+
+
+## redis-cli
+
+| Cmd                                          | Desc                 |
+|----------------------------------------------|----------------------|
+| `redis-cli -h <host> -p <port> -a <password` |                      |
+| `redis-cli -n 0`                             | use database 0 (0-15) | 
+
+
+inside shell
+| Cmd             | Desc          |
+|-----------------|---------------|
+| `keys *`        | show all keys |
+| `keys users:*`  | pattern match |
+| `del key1 key2` |               |
+| `ttl key1`      |               |
 
