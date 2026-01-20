@@ -403,3 +403,25 @@ func combinationSum(candidates []int, target int) [][]int {
 
 
 
+
+
+## trick
+
+在回溯时，上传结果是有时候需要创建一个copy
+
+```go
+temp := make([]int, len(path))
+copy(temp, path)
+res = append(res, temp)
+```
+
+这种方式的另一个简单写法是
+
+```go
+res = append(res, append([]int(nil), path...)) 
+// or 
+res = append(res, append([]int{}, path...))
+```
+
+
+

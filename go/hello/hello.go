@@ -1,94 +1,142 @@
-// RWLock 是一个简单的读写锁实现
 package main
 
-import (
-	"fmt"
-	"sync"
-	"time"
-)
+import "fmt"
 
-type RWLock struct {
-	mu      sync.Mutex // 用于保护内部状态
-	readers int        // 当前正在读取的协程数
-	writer  bool       // 是否有写者正在写
-	cond    *sync.Cond // 条件变量，用于唤醒等待的读/写者
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
 }
 
-func NewRWLock() *RWLock {
-	lock := &RWLock{}
-	lock.cond = sync.NewCond(&lock.mu)
-	return lock
-}
+func distanceK(root *TreeNode, target *TreeNode, k int) []int {
 
-// 加读锁
-func (rw *RWLock) RLock() {
-	rw.mu.Lock()
-	defer rw.mu.Unlock()
-
-	// 如果有写者在写，就等待
-	for rw.writer {
-		rw.cond.Wait()
+	if k == 0 {
+		return []int{target.Val}
 	}
-	rw.readers++
-}
-
-// 释放读锁
-func (rw *RWLock) RUnlock() {
-	rw.mu.Lock()
-	defer rw.mu.Unlock()
-
-	rw.readers--
-	// 如果没有读者了，唤醒可能等待的写者
-	if rw.readers == 0 {
-		rw.cond.Broadcast()
+	if root == target {
+		return distanceBelow(target, k)
 	}
-}
 
-// 加写锁
-func (rw *RWLock) Lock() {
-	rw.mu.Lock()
-	defer rw.mu.Unlock()
+	height, isLeft := getHeight(root, target)
+	fmt.Println(height, isLeft)
 
-	// 等待直到没有读者且没有其他写者
-	for rw.writer || rw.readers > 0 {
-		rw.cond.Wait()
+	var up []int
+	if height > k {
+		if isLeft {
+			up = distanceBelow(root.Left, height-k-1)
+		} else {
+			up = distanceBelow(root.Right, height-k-1)
+		}
+	} else if height < k {
+		if isLeft {
+			up = distanceBelow(root.Right, k-height-1)
+		} else {
+			up = distanceBelow(root.Left, k-height-1)
+		}
+	} else {
+		up = []int{root.Val}
 	}
-	rw.writer = true
+
+	below := distanceBelow(target, k)
+	return append(up, below...)
+
 }
 
-// 释放写锁
-func (rw *RWLock) Unlock() {
-	rw.mu.Lock()
-	defer rw.mu.Unlock()
+func getHeight(root *TreeNode, target *TreeNode) (int, bool) {
 
-	rw.writer = false
-	rw.cond.Broadcast() // 唤醒等待的读或写
+	var lefts []*TreeNode
+	var rights []*TreeNode
+	if root.Left != nil {
+		lefts = []*TreeNode{root.Left}
+	}
+	if root.Right != nil {
+		rights = []*TreeNode{root.Right}
+	}
+	height := 1
+	for len(lefts) != 0 {
+		next_lefts := make([]*TreeNode, 0)
+		for _, node := range lefts {
+			if node == target {
+				return height, true
+			}
+			if node.Left != nil {
+				next_lefts = append(next_lefts, node.Left)
+			}
+			if node.Right != nil {
+				next_lefts = append(next_lefts, node.Right)
+			}
+
+		}
+		height += 1
+		lefts = next_lefts
+	}
+
+	height = 1
+	for len(rights) != 0 {
+		next_rights := make([]*TreeNode, 0)
+		for _, node := range rights {
+			if node == target {
+				return height, false
+			}
+			if node.Left != nil {
+				next_rights = append(next_rights, node.Left)
+			}
+			if node.Right != nil {
+				next_rights = append(next_rights, node.Right)
+			}
+		}
+		height += 1
+		rights = next_rights
+	}
+	return 0, false
+
+}
+
+func distanceBelow(node *TreeNode, k int) []int {
+	if node == nil {
+		return []int{}
+	}
+	if k == 0 {
+		return []int{node.Val}
+	}
+	res := make([]int, 0)
+	res = append(res, distanceBelow(node.Left, k-1)...)
+	res = append(res, distanceBelow(node.Right, k-1)...)
+	return res
 }
 
 func main() {
-	rw := NewRWLock()
-	wg := sync.WaitGroup{}
 
-	// 启动多个读者
-	for i := 0; i < 3; i++ {
-		wg.Add(1)
-		go func(id int) {
-			rw.RLock()
-			fmt.Printf("Reader %d is reading\n", id)
-			rw.RUnlock()
-			wg.Done()
-		}(i)
+	target := &TreeNode{
+		Val: 5,
+		Left: &TreeNode{
+			Val: 6,
+		},
+		Right: &TreeNode{
+			Val: 2,
+			Left: &TreeNode{
+				Val: 7,
+			},
+			Right: &TreeNode{
+				Val: 4,
+			},
+		},
+	}
+	root := &TreeNode{
+		Val:  3,
+		Left: target,
+		Right: &TreeNode{
+			Val: 1,
+			Left: &TreeNode{
+				Val: 0,
+			},
+			Right: &TreeNode{
+				Val: 8,
+			},
+		},
 	}
 
-	time.Sleep(200 * time.Millisecond)
-	// 启动一个写者
-	wg.Add(1)
-	go func() {
-		rw.Lock()
-		fmt.Println("Writer is writing")
-		rw.Unlock()
-		wg.Done()
-	}()
+	res := distanceK(root, target, 2)
+	fmt.Println(res)
 
-	wg.Wait()
 }

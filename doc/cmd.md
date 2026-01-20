@@ -693,6 +693,7 @@ Commands                | Description
 `unzip some.zip`
 `unzip -P password some.zip`
 `unzip some.zip some.zip -d /path/to/dest`
+`unzip '*.zip'` unzip all zip files in current directory
 
 `7z x some.zip`
 `7z x some.zip -p<some_password>` note that no space in between
@@ -702,6 +703,13 @@ Commands                | Description
 ## Compress
 
 `zip -r target.zip file_or_folder`
+
+```bash
+for dir in */; do
+    zip -r "${dir%/}.zip" "$dir"
+done
+
+```
 
 `7z a target.zip file_or_folder `
 

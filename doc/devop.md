@@ -101,6 +101,18 @@ root@ip:my/path/to/file
 scp temp.txt root@ip:/home/desktop
 scp -r ./somedir root@ip:/home/desktop
 
+```bash
+rsync <src> <dst> -P
+-P: show progress
+```
+
+```bash
+rsync -avz --progress root@ip:/path/to/file /local/path
+-z: compress
+
+```
+use -P to show progress and keep partial files
+
 ## lscpu
 
 

@@ -138,4 +138,22 @@ func traverse(nodes []*TreeNode) {
 
    problem = problem of current node + problem of left subtree + problem of right subtree
 
-   
+
+
+
+
+
+## adding parent to Binary Tree
+
+给定一个Binary Tree,把他变成一个带parent指针的binary tree
+
+```go
+type TreeNode struct {
+    Val   int
+    Left  *TreeNode
+    Right *TreeNode
+}
+
+
+```
+
