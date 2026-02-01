@@ -42,3 +42,26 @@ func del(nums []int, index int, length *int) {
 ```
 
 
+
+## isPrime
+
+判断一个数是否为质数
+
+```go
+
+func isPrime(x int) bool {
+	if x < 2 {
+		return false
+	}
+	for i := 2; i*i <= x; i++ {
+		if (x/i)*i == x { /这里也可以等价为 if x % i == 0
+			return false
+		}
+	}
+	return true
+}
+```
+
+因为(x/i)*i == x实际上是判断floor(x/i) == x/i
+
+floor(x/i) = x/i 等价于x % i == -

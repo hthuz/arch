@@ -97,7 +97,7 @@ func reverse(head) {
 }
 
 // pre recursive way
-func reverse(head, prev) {
+func reverse(head, prev) {a
     if head == nil {
         return prev
     }
@@ -147,7 +147,6 @@ ListNode* getMedian(ListNode* left, ListNode* right) {
 }
 
 ```
-
 
 
 

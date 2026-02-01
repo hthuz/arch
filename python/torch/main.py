@@ -24,6 +24,7 @@ test_data = datasets.FashionMNIST(
     transform=ToTensor(),
     download=True,
 )
+print(training_data)
 
 class NeuralNetwork(nn.Module):
     def __init__(self):
@@ -84,12 +85,13 @@ optimizer = torch.optim.SGD(params=model.parameters(), lr=learning_rate)
 training_dataloader = DataLoader(dataset=training_data, batch_size=batch_size, shuffle=True)
 test_dataloader = DataLoader(dataset=test_data, batch_size=batch_size, shuffle=True)
 
-for t in range(epochs):
-    print(f"Epoch {t+1}\n--------------")
-    train_loop(training_dataloader, model, loss_fn, optimizer)
-    test_loop(test_dataloader, model, loss_fn)
 
-torch.save(model.state_dict(), 'model_weights.pth')
+# for t in range(epochs):
+#     print(f"Epoch {t+1}\n--------------")
+#     train_loop(training_dataloader, model, loss_fn, optimizer)
+#     test_loop(test_dataloader, model, loss_fn)
+#
+# torch.save(model.state_dict(), 'model_weights.pth')
 
 
 
