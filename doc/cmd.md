@@ -66,22 +66,6 @@ yay clean cache
 
 ## systemmd  
 
-PID 1, system and service manager  
-Units: service, mount, device, socket  
-
-
-CMD                                   | DESCRIPTION
---                                    | --
-`systemctl status`                    |
-`systemctl list-units`                |
-`systemctl list-units --type=service` | list service only
-`systemctl start unit`                | start a unit immediately
-`systemctl stop unit`                 | stop a unit immediately
-`systemctl enable unit`               | start automatically at boot
-`systemctl enable --now unit`         | start automatically at boot and start it now
-`systemctl disable unit`              | no longer start at boot
-`systemctl mask unit`                 | impossible to start
-`systemctl unmask unit`               |
 
 
 ## Environment Variables  

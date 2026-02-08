@@ -64,6 +64,22 @@ sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl start myapp
 ```
+PID 1, system and service manager  
+Units: service, mount, device, socket  
+
+
+CMD                                   | DESCRIPTION
+--                                    | --
+`systemctl status`                    |
+`systemctl list-units`                |
+`systemctl list-units --type=service` | list service only
+`systemctl start unit`                | start a unit immediately
+`systemctl stop unit`                 | stop a unit immediately
+`systemctl enable unit`               | start automatically at boot
+`systemctl enable --now unit`         | start automatically at boot and start it now
+`systemctl disable unit`              | no longer start at boot
+`systemctl mask unit`                 | impossible to start
+`systemctl unmask unit`               |
 
 ## journalctl
 
@@ -73,7 +89,9 @@ journalctl -u myapp -f  # -u <unit> specified app
 journalctl -n <N>       # check lastest N lines of log
 journalctl -p <level>   # print all levels above) emerg 0, alert 1, crit 2, err 3, warning 4, notice 5, info 6, debug 7
 journalctl -r           # check in reverse order
-journalctl -b           # only this boot
+journalctl -b           # check boot log this time / not the entire log in this start
+journalctl -b-1         # check boot log last time
+journalctl -b-2         # check boot log last last time
 journalctl --grep="pattern"
 journalctl --grep="(Started|Stopped)" # check start/stop log
 journalctl -u myapp | grep "Stopped" -B 10 # check 10 lines before service Stopped, useful for checking restart information
