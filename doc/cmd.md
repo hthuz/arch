@@ -43,6 +43,10 @@ pacman configuration file: `/etc/pacman.conf`
 If there are signature which is unknown trust, try
 `pacman-key --refresh-keys` or `pacman -Sy archlinux-keyring`
 
+
+If there's error "failed to synchronize all databases (invalid or corrupted database (PGP signature))", try
+`sudo rm /var/lib/pacman/sync/*.sig`
+
 pacman install history `/var/log/pacman.log`
 
 

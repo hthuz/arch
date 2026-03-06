@@ -15,7 +15,13 @@ e.g.
 
 Supports two operation
 - Union: combine two sets into one
-- Find: judge if two elements are in the same set (return root of a elemnt)
+- Find: return root of a element, used to judge if two elements are in the same set 
+
+
+
+需要注意的一个点，uf.parents[x] 和  uf.Find(x)不是同一个东西
+
+
 
 
 
@@ -97,6 +103,25 @@ func (uf *UnionFind) Merge(other *UnionFind) {
     }
 }
 
+```
+
+
+
+## export the union find
+
+```go
+
+func (uf *UnionFind) ToSlice() map[T][]T {
+    m := make(map[T][]T)
+    for x := range uf.parent {
+        rootX := uf.Find(x)
+        if _, exist := m[rootX]; !exist {
+            m[rootX] = make([]T, 0)
+        }
+        m[rootX] = append(m[rootX], x)
+    }
+    return m
+}
 ```
 
 

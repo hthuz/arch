@@ -46,7 +46,6 @@ func Insert(root *Node, val int) *Node {
 
 ```
 
-
 If a tree is a valid BST (leetcode 98)
 The following typical example shows that you can't simply judge a node and its left child and right child.
 Instead, you need to consider the maximum of left subtree and
@@ -111,6 +110,49 @@ func subtree(root *TreeNode) (int, int, bool) {
 }
 
 ```
+
+
+
+
+
+## traversal
+
+
+
+二叉搜索树的中序遍历是递增的，
+
+对此，二叉搜索树的逆向中序遍历是递减的。
+
+
+
+
+
+leetcode 538, 把一个BST转化为累加树，让每个节点node值为大于等于该node.val 的和
+
+![img](https://assets.leetcode.cn/aliyun-lc-upload/uploads/2019/05/03/tree.png)
+
+```go
+func convertBST(root *TreeNode) *TreeNode {
+    num := 0
+    traverse(root, &num)
+    return root
+}
+
+func traverse(root *TreeNode, num *int) {
+    if root == nil {
+        return
+    }
+    traverse(root.Right, num)
+
+    *num += root.Val
+    root.Val = *num
+
+    traverse(root.Left, num)
+
+}
+```
+
+
 
 
 

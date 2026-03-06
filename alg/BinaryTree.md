@@ -54,6 +54,91 @@ postorder: execute after you exit a node
 
 
 
+## 二叉树迭代遍历
+
+
+
+```go
+
+// 前序
+func traverse(root *TreeNode) {
+    if root == nil {
+        return
+    }
+    stack := make([]*TreeNode, 0)
+    stack.push(root)
+    for len(stack) != 0 {
+        cur := stack[len(stack)-1]
+        stack = stack[:len(stack)-1]
+        
+        fmt.Println(cur.Val)
+        
+        if cur.Right != nil {
+            stack = append(stack, cur.Right)
+        }
+        if cur.Left != nil {
+            stack = append(stack, cur.Left)
+        }
+    }
+}
+
+// 中序
+func traverse(root *TreeNode) {
+    if root == nil {
+        return 
+    }
+    stack := make([]*TreeNode, 0)
+    cur := root
+    
+    for len(stack) != 0 || cur != nil{
+        // 一直往左前进
+        
+        for cur != nil {
+            stack = append(stack)
+            cur = cur.Left
+        }
+        cur = stack[len(stack)-1]
+        stack = stack[:len(stack)-1]
+        
+        // 访问当前，然后访问右边
+        fmt.Println(stack.Val)
+        cur = cur.Right
+              
+    }
+}
+                  
+// 后序
+func traverse(root *TreeNode) {
+    stack1 := make([]*TreeNode, 0)
+    stack2 := make([]*TreeNode, 0)
+    stack1 = append(stack1, root)
+    for len(stack1) > 0 {
+        cur := stack1[len(stack1)-1]
+        stack1 = stack1[:len(stack1)-1]
+        stack2 = append(stack2, cur)
+        if cur.Left != nil {
+            stack1 = append(stack1, cur.Left)
+        }
+        if cur.Right != nil {
+            stack2 = append(stack2, cur.Right)
+        }
+    }
+    for len(stack2) > 0 {
+        cur := stack2[len(stac2)-1]
+        stack2 = stack2[:len(stack2)-1]   
+        fmt.Println(stack2)
+
+    }
+    
+}
+```
+
+
+
+
+
+
+
 ## Level order traversal
 
 using queueOrder

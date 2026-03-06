@@ -1024,3 +1024,38 @@ kappa:  只使用流处理
 
 
 
+
+
+## clickhouse
+
+列式存储
+
+压缩率更高
+
+向量化执行SIMD
+
+为聚合优化的执行引擎
+
+扫描解压和过滤并行化
+
+LSM-like, 顺序读
+
+
+
+part 合并类似于LSM tree， part的合并是通过多线程并发的，
+
+合并大体过程：1. 解压列 2. 按照order by key在全局排序顺序下合并 3. 生成新的稀疏主索引 4 将合并后的列文件和索引压缩后作为新的part存储在磁盘
+
+
+
+clickhouse distributed例子，也是说明在海量数据下如何选取最大的值的一个好例子
+
+![clickhouse-shard](https://clickhouse.com/docs/assets/ideal-img/shards_04.be5c8f7.2048.png)
+
+
+
+primary index
+
+granules: blocks of rows
+
+每个列的数据在不同的文件，

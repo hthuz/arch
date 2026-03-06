@@ -402,3 +402,33 @@ func coinChange(coins []int, amount int) int {
 
 
 
+
+
+## Editing Distance
+
+将word1转化为word2所需要的最少操作数，操作包括：插入字符，删除字符，替换字符
+
+e.g. horse => ros 需要三步
+
+horse => rorose
+
+rorse => rose
+
+rose => ros
+
+
+
+dp表
+
+dp(i)(j) 把word1(j) 变成 word2(i) 所需要的最小操作数
+
+if same, min{ dp(i-1)(j) + 1, dp(i)(j-1) + 1,  dp(i-1)(j-1) }
+
+else min( dp(i-1)(j), dp(i)(j-1), dp(i-1)(j-1) } + 1
+
+|      | _    | h    | o    | r    | s    | e    |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| _    | 0    | 1    | 2    | 3    | 4    | 5    |
+| r    | 1    | 1    | 2    | 2    | 3    | 4    |
+| o    | 2    | 2    | 1    | 2    | 3    | 4    |
+| s    | 3    | 3    | 2    | 2    | 2    | 3    |
