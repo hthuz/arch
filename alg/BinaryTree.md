@@ -141,6 +141,8 @@ func traverse(root *TreeNode) {
 
 ## Level order traversal
 
+以下两种方法都很重要，
+
 using queueOrder
 
 ```go
@@ -241,4 +243,136 @@ type TreeNode struct {
 
 
 ```
+
+
+
+## 二叉树的最近公共祖先
+
+我的解法： 记录root 到节点的path, 然后逐渐对path比较，先把长的去掉，知道path的最后一个相同，那个即是root
+
+但是需要两次遍历树
+
+```go
+func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+    var stack1 []*TreeNode
+    var stack2 []*TreeNode
+    traverse(root, p, make([]*TreeNode, 0), &stack1)
+    traverse(root, q, make([]*TreeNode, 0), &stack2)
+
+    for stack1[len(stack1)-1] != stack2[len(stack2)-1] {
+        if len(stack1) > len(stack2) {
+            stack1 = stack1[:len(stack1)-1]
+        } else if len(stack1) < len(stack2) {
+            stack2 = stack2[:len(stack2)-1]
+        } else {
+            stack1 = stack1[:len(stack1)-1]
+            stack2 = stack2[:len(stack2)-1]
+
+        }
+    }
+ 
+    return stack1[len(stack1)-1]
+  
+}
+
+func traverse(root, node *TreeNode, path []*TreeNode, stack *[]*TreeNode, )  {
+    if root == nil {
+        return
+    }
+    if root == node {
+        path = append(path, root)
+        *stack = append([]*TreeNode{}, path...)
+        return
+    }
+    path = append(path, root)
+    traverse(root.Left, node, path, stack)
+    traverse(root.Right, node, path, stack)
+    path = path[:len(path)-1]
+
+}
+```
+
+另一种解法，记录每个节点的父节点，然后不断往父节点遍历，找到第一个被p和q都遍历到过的父节点
+
+```go
+func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+    parent := map[int]*TreeNode{}
+    visited := map[int]bool{}
+
+    var dfs func(*TreeNode)
+    dfs = func(r *TreeNode) {
+        if r == nil {
+            return
+        }
+        if r.Left != nil {
+            parent[r.Left.Val] = r
+            dfs(r.Left)
+        }
+        if r.Right != nil {
+            parent[r.Right.Val] = r
+            dfs(r.Right)
+        }
+    }
+    dfs(root)
+
+    for p != nil {
+        visited[p.Val] = true
+        p = parent[p.Val]
+    }
+    for q != nil {
+        if visited[q.Val] {
+            return q
+        }
+        q = parent[q.Val]
+    }
+
+    return nil
+}
+
+```
+
+最巧妙的解法
+
+```go
+func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+    if root == nil {
+        return nil
+    }
+    if root == p || root == q {
+        return root
+    }
+
+    left := lowestCommonAncestor(root.Left, p, q)
+    right := lowestCommonAncestor(root.Right, p, q)
+    
+    if left != nil && right != nil {
+        return root
+    }
+    if left != nil && right == nil {
+        return left
+    } 
+    if left == nil && right != nil {
+        return right
+    }
+    return nil
+    
+    //////////////////////////////////////////
+    // 后面这一段也可以简化为
+    if left != nil && right != nil {
+        return root
+    }
+    if left == nil {
+        return right
+    }
+    return left
+    
+  
+}
+```
+
+
+
+
+
+
 

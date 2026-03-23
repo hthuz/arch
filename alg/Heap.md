@@ -181,7 +181,7 @@ func (h *Heap) Pop() int {
 
 	i := 0
 	for {
-		c1 := 2*i + 1
+		c1 := 2*i 2+ 1
 		c2 := 2*i + 2
 		smaller := i
 		if c1 < len(h.nums) && h.nums[c1] < h.nums[smaller] {

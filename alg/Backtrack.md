@@ -1,5 +1,17 @@
 # Backtrack
 
+
+
+两个常见的情况：
+
+如果元素有重复，怎么剪枝
+
+或者原数组元素不重复，但是元素可以选多次，也会有重复。
+
+
+
+
+
 https://zhuanlan.zhihu.com/p/93530380
 
 Examples include full permutation and N-queen
@@ -39,107 +51,38 @@ def backtrack(path, choices):
 
 
 
-## Naive approach for full permutation:
-
-Full permutation:
-given [1,2,3], return [1,2,3]; [1,3,2]; [2,1,3]; [2,3,1]; [3,1,2]; [3,2,1]
+## 全排列
 
 ```go
 func permute(nums []int) [][]int {
+	ans := make([][]int, 0)
+	path := make([]int, 0)
+	used := make([]bool, len(nums))
+	var dfs func(int)
 
-	res := make([][]int, 0)
-	if len(nums) == 1 {
-		res = append(res, nums)
-		return res
-	}
+	dfs = func(i int) {
+		if len(path) == len(nums) {
+			ans = append(ans, append([]int{}, path...))
+			return
+		}
 
-	for i := range nums {
-		pre_num := make([]int, i)
-		copy(pre_num, nums[:i])
-		post_num := nums[i+1:]
+		for i := range len(nums) {
+			if used[i] {
+				continue
+			}
 
-		sub_num := append(pre_num, post_num...)
-		subperms := permute(sub_num)
-		for _, subperm := range subperms {
-			ans := append(subperm, nums[i])
-			res = append(res, ans)
+			path = append(path, nums[i])
+			used[i] = true
+
+			dfs(i)
+
+			path = path[:len(path)-1]
+			used[i] = false
 		}
 	}
+	dfs(0)
+	return ans
 
-	return res
-}
-```
-
-
-
-## backtrack approach for full permutation
-
-```go
-func permute(nums []int) [][]int {
-	res := make([][]int, 0)
-	path := make([]int, 0)
-	backtrack(nums, path, &res)
-	return res
-}
-
-func backtrack(nums []int, path []int, res *[][]int) {
-	if len(path) == len(nums) {
-		temp := make([]int, len(path))
-		copy(temp, path)
-		*res = append(*res, temp)
-		return
-	}
-
-	for _, num := range nums {
-		// exclude illegal choices
-		if slices.Contains(path, num) {
-			continue
-		}
-		// make a choice, num here is a choice
-		path = append(path, num)
-		backtrack(nums, path, res)
-		// undo choice
-		path = path[:len(path)-1]
-	}
-}
-
-```
-
-
-
-or in a more straightforward form
-
-```go
-func permute(nums []int) [][]int {
-	res := make([][]int, 0)
-	path := make([]int, 0)
-	choices := make([]int, len(nums))
-	copy(choices, nums)
-	backtrack(choices, path, &res)
-	return res
-}
-
-func backtrack(choices []int, path []int, res *[][]int) {
-	if len(choices) == 0 {
-		temp := make([]int, len(path))
-		copy(temp, path)
-		*res = append(*res, temp)
-		return
-	}
-
-	for _, choice := range choices {
-		path = append(path, choice)
-
-		new_choices := make([]int, len(choices))
-		copy(new_choices, choices)
-		new_choices = slices.DeleteFunc(new_choices, func(e int) bool {
-			return e == choice
-		})
-
-		backtrack(new_choices, path, res)
-
-		path = path[:len(path)-1]
-	}
 }
 
 ```
@@ -160,19 +103,78 @@ Time complexity: N!
 
 
 
+## 组合总和
+
+Given `candidates`, each element unique, find all combinations that sum to `target` (leetcode 39)
+you can use the same element for multiple times.
+
+For example, candidates: [2,3,6,7], target: 7
+The problem is that there may be repetition, for example, [2,2,3], [2,3,2], [3,2,2] so you need to check for repetition, which is inefficient
+
+A wiser way
 
 
-## 有重复元素的全排列
+```go
+func combinationSum(candidates []int, target int) [][]int {
+	ans := make([][]int, 0)
+	path := make([]int, 0)
 
-对回溯树进行剪枝，当某一层，访问的元素相同时，直接跳过
+	var dfs func(int, int)
+
+	dfs = func(i int, sum int) {
+		if i == len(candidates) {
+			return
+		}
+		if sum > target {
+			return
+		}
+		if sum == target {
+			ans = append(ans, append([]int{}, path...))
+			return
+		}
+
+		dfs(i+1, sum)
+
+		path = append(path, candidates[i])
+		dfs(i, sum+candidates[i])
+		path = path[:len(path)-1]
+
+	}
+	dfs(0, 0)
+	return ans
+}
+
+```
+
+
+
+
+
+## trick
+
+在回溯时，上传结果是有时候需要创建一个copy
+
+```go
+temp := make([]int, len(path))
+copy(temp, path)
+res = append(res, temp)
+```
+
+这种方式的另一个简单写法是
+
+```go
+res = append(res, append([]int(nil), path...)) 
+// or 
+res = append(re(res, append([]int(nil), path...)) 
+// or 
+res = append(ress, append([]int{}, path...))
+```
+
+
 
 
 
 ## Nqueen
-
-
-
-
 
 ```go
 func solveNQueens(n int) [][]string {
@@ -300,134 +302,284 @@ func isvalid(chess []string, row int, col int) bool {
 ```
 
 
-## combineSum
 
-Given `candidates`, each element unique, find all combinations that sum to `target` (leetcode 39)
-you can use the same element for multiple times.
 
-For example, candidates: [2,3,6,7], target: 7
-The problem is that there may be repetition, for example, [2,2,3], [2,3,2], [3,2,2] so you need to check for repetition, which is inefficient
+
+## 二进制枚举
+
+枚举所有可能的二进制数
+
+对于二进制枚举，比如n = 3, 枚举
+
+000
+
+001
+
+010
+
+011
+
+100
+
+101
+
+110
+
+111
+
+
+
+### 子集， 子序列，子数组
+
+对于没有重复的元素的数组，求子集和求子序列是同一个问题，且最终都有2^n个
 
 ```go
-func combinationSum(candidates []int, target int) [][]int {
-    path := make([]int, 0)
-    res := make([][]int, 0)
-
-    var backtrack func(int, []int)
-    backtrack = func(s int, path []int) {
-        if s == target {
-            slices.Sort(path)
-            if is_sub(&path, &res) {
-                return 
+func subsets(nums []int) [][]int {
+    n := len(nums)
+    m := 1 << n
+    
+    ans := make([][]int, 0)
+    
+    for mask := 0; mask < m; mask++ {
+        subset := make([]int, 0)
+        for i := 0; i < n ; i++ {
+            if mask & (1 << i) != 0{
+                subset = append(subset, nums[i])
             }
-            temp := make([]int, len(path))
-            copy(temp, path)
-            res = append(res, temp)
-
-            return
         }
-        if s > target {
-            return
-        }
+        ans = append(ans, subset)
         
-        for _, c := range candidates {
-            path = append(path, c)
-            // note that you need to make a copy here, otherwise the answer is not correct
-            temp := make([]int, len(path))
-        	copy(temp, path)
-			backtrack(s+c, temp)
-            path = path[:len(path)-1]
-        }
     }
-    backtrack(0, path)
-    return res
+    return ans
+    
 }
+```
 
-func is_sub(arr *[]int, arrs *[][]int) bool {
-    for _, sub := range *arrs {
-        same := true 
-        if len(*arr) != len(sub) {
-            same = false
-            continue
-        }
-        for i := range len(*arr) {
-            if (*arr)[i] != sub[i] {
-                same = false 
-                break
-            }
-        }
-        if same {
-            return true
-        }
+
+
+对于递归回溯
+
+```go
+
+// 回溯解法
+func subsets(nums []int) [][]int {
+    
+    ans := make([][]int, 0)
+    subset := make([]int, 0)
+    dfs(nums, 0, subset, &ans)
+    return ans
+}
+func dfs(nums []int, i int, subset []int, ans *[][]int) {
+    if i == len(nums) {
+        *ans = append(*ans, append([]int{}, subset...))
+        return
     }
-    return false
+    
+    subset = append(subset, nums[i])
+    dfs(nums, i+1, subset, ans)
+    subset = subset[:len(subset)-1]
+    dfs(nums, i+1, subset, ans)
+    
+}
+```
 
+
+
+而对于子数组而言，其必定是连续的，数目只有n * (n-1) / 2
+
+```go
+func subArray(nums []int) [][]int {
+	n := len(nums)
+	ans := make([][]int, 0)
+	for start := 0; start < n; start++ {
+		for end := start; end < n; end++ {
+			ans = append(ans, nums[start:end+1])
+		}
+	}
+	return ans
 }
 
 ```
 
-A wiser way
 
+
+
+
+### 组合
 
 ```go
-func combinationSum(candidates []int, target int) [][]int {
+func combine(n int, k int) [][]int {
 
+	ans := make([][]int, 0)
 	path := make([]int, 0)
-	res := make([][]int, 0)
+	var dfs func(i int)
 
-	var backtrack func(int, int)
-	backtrack = func(s int, index int) {
+	dfs = func(i int) {
 
-		if index >= len(candidates) {
+		if len(path) == k {
+			ans = append(ans, append([]int{}, path...))
+			return
+		}
+		if i > n {
 			return
 		}
 
-		if s == target {
-			res = append(res, append([]int{}, path...))
-			return
-		}
-
-		if s > target {
-			return
-		}
-
-		// move index forward
-		backtrack(s, index+1)
-
-		// keep the index
-		path = append(path, candidates[index])
-		backtrack(s+candidates[index], index)
+		path = append(path, i)
+		dfs(i + 1)
 		path = path[:len(path)-1]
+		dfs(i + 1)
 
 	}
-	backtrack(0, 0)
-
-	return res
+	dfs(1)
+	return ans
 }
 
+// 一种更优化的剪枝
+func combine(n int, k int) [][]int {
+
+	ans := make([][]int, 0)
+	path := make([]int, 0)
+	var dfs func(i int)
+
+	dfs = func(i int) {
+
+		if len(path)+(n-i+1) < k {
+			return
+		}
+
+		if len(path) == k {
+			ans = append(ans, append([]int{}, path...))
+			return
+		}
+
+		path = append(path, i)
+		dfs(i + 1)
+		path = path[:len(path)-1]
+		dfs(i + 1)
+
+	}
+	dfs(1)
+	return ans
+}
 ```
 
 
 
 
 
-## trick
+## 带有重复
 
-在回溯时，上传结果是有时候需要创建一个copy
+
+
+### 全排列
+
+nums: 1,1,2,
+
+返回112,121,211,
 
 ```go
-temp := make([]int, len(path))
-copy(temp, path)
-res = append(res, temp)
+func permuteUnique(nums []int) [][]int {
+	ans := make([][]int, 0)
+	path := make([]int, 0)
+	used := make([]bool, len(nums))
+	var dfs func(int)
+
+	dfs = func(i int) {
+		if len(path) == len(nums) {
+			ans = append(ans, append([]int{}, path...))
+			return
+		}
+
+		layer := make(map[int]bool)
+		for i := range len(nums) {
+			if layer[nums[i]] {
+				continue
+			}
+			if used[i] {
+				continue
+			}
+			layer[nums[i]] = true
+
+			path = append(path, nums[i])
+			used[i] = true
+
+			dfs(i)
+
+			path = path[:len(path)-1]
+			used[i] = false
+		}
+	}
+	dfs(0)
+	return ans
+
+}
 ```
 
-这种方式的另一个简单写法是
+力扣官方的解法：数组排序，然后相邻数判断
 
 ```go
-res = append(res, append([]int(nil), path...)) 
-// or 
-res = append(res, append([]int{}, path...))
+func permuteUnique(nums []int) [][]int {
+
+	sort.Ints(nums)
+	ans := make([][]int, 0)
+	path := make([]int, 0)
+	used := make([]bool, len(nums))
+	var dfs func(int)
+
+	dfs = func(i int) {
+		fmt.Println(path)
+		if len(path) == len(nums) {
+			ans = append(ans, append([]int{}, path...))
+			return
+		}
+
+		for i := range len(nums) {
+			if used[i] {
+				continue
+			}
+			if i > 0 && nums[i] == nums[i-1] && !used[i-1] {
+				continue
+			}
+
+			path = append(path, nums[i])
+			used[i] = true
+
+			dfs(i)
+
+			path = path[:len(path)-1]
+			used[i] = false
+		}
+	}
+	dfs(0)
+	return ans
+}
 ```
+
+
+
+### 子集
+
+```
+输入：nums = [1,2,2]
+输出：[[],[1],[1,2],[1,2,2],[2],[2,2]]
+```
+
+```go
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

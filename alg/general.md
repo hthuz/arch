@@ -1008,7 +1008,7 @@ delta table：离线 近实时一体化
 
 delta table: 自动优化编排数据存储结构，治理小文件问题
 
-delta table实现分钟级近实时增量数据导入， 可以直接进行upsert，结合maxcompute flink connector, 而不需要隔一段时间将增量数据放到新表，然后将增量数据和全量数据执行join merge操作。
+delta table实现**分钟级近实时增量数据**导入， 可以直接进行upsert，结合maxcompute flink connector, 而不需要隔一段时间将增量数据放到新表，然后将增量数据和全量数据执行join merge操作。
 
 但这个问题是，delta table不支持自定义upsert逻辑，因此比较那啥。
 

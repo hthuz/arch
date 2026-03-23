@@ -432,3 +432,61 @@ else min( dp(i-1)(j), dp(i)(j-1), dp(i-1)(j-1) } + 1
 | r    | 1    | 1    | 2    | 2    | 3    | 4    |
 | o    | 2    | 2    | 1    | 2    | 3    | 4    |
 | s    | 3    | 3    | 2    | 2    | 2    | 3    |
+
+
+
+## 将数组分割为 m 段，求...  类分割数组
+
+这类题目可以用动归解决
+
+例子， leetcode 410
+
+将长度为n的数组，分割成k份，要求这k份。。。
+
+dp(i)(j) 将数组前i个分给为j段的。。。
+
+答案就是dp(n)(k)
+
+ => 分成k个，和分k次，是不一样的
+
+```go
+func splitArray(nums []int, k int) int {
+
+	n := len(nums)
+	dp := make([][]int, n)
+	presum := make([]int, n)
+	presum[0] = nums[0]
+	for i := 1; i < n; i++ {
+		presum[i] = presum[i-1] + nums[i]
+	}
+
+	for i := 0; i < n; i++ {
+		dp[i] = make([]int, k+1)
+		for j := range k + 1 {
+			dp[i][j] = math.MaxInt32
+		}
+		dp[i][1] = presum[i]
+	}
+
+	for i := 1; i < n; i++ {
+		for j := 2; j <= min(k, i+1); j++ {
+			for p := 0; p < i; p++ {
+				dp[i][j] = min(dp[i][j], max(dp[p][j-1], presum[i]-presum[p]))
+			}
+		}
+	}
+
+	return dp[n-1][k]
+
+}
+
+```
+
+
+
+
+
+
+
+
+

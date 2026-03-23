@@ -267,6 +267,37 @@ func lengthOfLongestSubstring(s string) int {
 
 ### 209. 长度最小的子数组
 
+给定一个含有 `n` 个正整数的数组和一个正整数 `target` **。**找出该数组中满足其总和大于等于 `target` 的长度最小的 **子数组**
+
+```go
+func minSubArrayLen(target int, nums []int) int {
+
+	left, right := 0, 0
+	sum := 0
+	ans := math.MaxInt32
+
+	for right < len(nums) {
+		sum += nums[right]
+
+		for sum >= target {
+			ans = min(ans, right-left+1)
+			sum -= nums[left]
+			left += 1
+		}
+
+		right += 1
+
+	}
+	if ans == math.MaxInt32 {
+		return 0
+	}
+	return ans
+
+}
+```
+
+
+
 
 
 ### 239. 滑动窗口最大值
@@ -274,6 +305,54 @@ func lengthOfLongestSubstring(s string) int {
 
 
 ### 567. 字符串的排列
+
+给你两个字符串 `s1` 和 `s2` ，写一个函数来判断 `s2` 是否包含 `s1` 的 。如果是，返回 `true` ；否则，返回 `false` 。
+
+换句话说，`s1` 的排列之一是 `s2` 的 **子串** 。
+
+```
+输入：s1 = "ab" s2 = "eidbaooo"
+输出：true
+解释：s2 包含 s1 的排列之一 ("ba").
+```
+
+```go
+// 自己题解，非官方题解
+func checkInclusion(s1 string, s2 string) bool {
+
+    s1_count := [26]int{}
+    s2_count := [26]int{}
+    for _, s := range s1 {
+        s1_count[s-'a'] += 1
+    }
+    l := 0
+    r := 0
+    for r < len(s2) {
+        s2_count[s2[r]-'a'] += 1
+        for s2_count[s2[r]-'a'] > s1_count[s2[r]-'a'] {
+            s2_count[s2[l]-'a'] -= 1
+            l += 1
+        }
+        if s2_count[s2[r]-'a'] == s1_count[s2[r]-'a'] {
+            // check
+            equal := true
+            for i := range 26 {
+                if s1_count[i] != s2_count[i] {
+                    equal = false
+                    break
+                }
+            }
+            if equal {
+                return true
+            }
+        }
+        r += 1
+        
+    }
+    return false
+
+}
+```
 
 
 

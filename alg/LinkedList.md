@@ -83,13 +83,13 @@ for cur != nil {
 }
 return prev
 
-// post recursive way
+// post recursive way (我最常用的写法)
 func reverse(head) {
     if head == nil || head.Next = nil {
         return head
     }
     
-    reversed := reverse(head)
+    reversed := reverse(head.Next)
     
     head.Next.Next = head
     head.Next = nil
@@ -108,6 +108,26 @@ func reverse(head, prev) {a
 }
 reverse(head, nil)
 ```
+
+
+
+reverse一个常见变式，给定一个链表，返回head到tail的部分
+
+```go
+func reverse(head *ListNode, tail *ListNode) *ListNode {
+    if head == tail {
+        return head
+    }
+    reversed := reverse(head.Next, tail)
+    head.Next.Next = head
+    head.Next = nil
+    return reversed
+}
+```
+
+
+
+
 
 
 
