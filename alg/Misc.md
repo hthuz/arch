@@ -321,3 +321,54 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 
 ```
 
+
+
+
+
+## k bit 遍历
+
+
+
+```go
+func main() {
+	for k, v := 0, 1; k <= 31; k, v = k+1, v<<1 {
+		fmt.Println(k, v)
+	}
+
+	for k := 0; k <= 31; k++ {
+		fmt.Println(k, 1<<k)
+	}
+}
+
+```
+
+
+
+
+
+## 前缀和
+
+永远定义pre[0] = 0
+
+pre[i] 表示前i个元素的和, 不包括nums[i]
+
+```go
+pre := make([]int, len(nums)+1)
+for i := 0; i < len(nums); i++ {
+    pre[i+1] = pre[i] + nums[i]
+}
+
+```
+
+=> nums[i] = pre[i+1] - pre[i]
+
+```go
+for i := 0; i < len(nums); i++ {
+    nums[i] = pre[i+1] - pre[i]
+}
+
+```
+
+=> sum(l,r)  = pre[r+1] - pre[l]，l, r 是inclusive
+
+

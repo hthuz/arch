@@ -1,5 +1,11 @@
 # Binary Tree
 
+
+
+full binary tree： 满二叉树， 每个层数的节点都达到最大值
+
+complete binary tree: 完全二叉树，除了最后一层都是满的，最后一层是从左往右
+
 Two ways of traversal
 
 - Recursive (DFS)
@@ -373,6 +379,16 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 
 
 
+
+
+
+## 哈夫曼树
+
+aka 最优二叉树
+
+用n个节点构建一棵树时，如果这棵树的带权路径长度WPL (Weighted Path Length)最小，则称为 最优二叉树
+
+=> 构建时，权重大的节点离更近
 
 
 
