@@ -16,3 +16,9 @@ a xor a xor a = a
 
 1 or a = 1
 
+
+
+lowbit(x) = x & -x, 即x二进制最低位1以及后面0所组成的数
+
+
+

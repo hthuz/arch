@@ -68,6 +68,26 @@ yay clean cache
 `yay -Scc` remove all cache in `~/.cache/yay`
 `yay -Ps` print 
 
+
+### arch linux liveCD
+
+`lsblk` to check partition
+
+mount root
+`mount /dev/nvme0n1p3 /mnt (your root partition)`
+`mount /dev/nvme0n1p1 /mnt/boot (your boot partition)`
+`arch-chroot /mnt`
+
+solve your problem, such as `pacman -Syu`
+then exit
+`exit`
+`umount -R /mnt/boot`
+`umount -R /mnt`
+`reboot`
+
+remove USB
+start the arch linux
+
 ## systemmd  
 
 
