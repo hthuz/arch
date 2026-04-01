@@ -372,3 +372,55 @@ for i := 0; i < len(nums); i++ {
 => sum(l,r)  = pre[r+1] - pre[l]，l, r 是inclusive
 
 
+
+## 给定数组，是否有n个/2个元素，满足某种性质
+
+常用解法：hash, 排序+双指针，滑动窗口
+
+比如，两个数的和为target, 使用hash, 可以将复杂度下降至O(n)
+
+```go
+for _, num := range nums {
+    if set[target-num] {
+        return true
+    }
+    set[num] = true
+}
+```
+
+n个数的差为4的倍数 => 取模4相同
+
+```go
+for _, num := range nums {
+    cnt[num % 4]++
+    if cnt[num % 4] >= n {
+        return true
+    }
+}
+```
+
+两个数的绝对值差小于k，如果用hash复杂度仍未O(n^2)
+
+```go
+for _, num := range nums {
+    for _, v := range set {
+        if abs(num - v) < k {
+            return true
+        }
+    }
+}
+```
+
+更好的方式是排序O(nlogn)
+
+```go
+sort.Ints(nums)
+for i := 1; i < len(nums); i++ {
+    if nums[i] - nums[i-1] < k {
+        return true
+    }
+}
+```
+
+其他的hash, 比如一个数位另一个数的n倍，乘积为target，异或值为xxx等等
+
