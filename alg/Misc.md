@@ -371,6 +371,10 @@ for i := 0; i < len(nums); i++ {
 
 => sum(l,r)  = pre[r+1] - pre[l]，l, r 是inclusive
 
+nums = 	  [  3,5, 2, 1, 6]
+pre_sum = [0,3,8,10,11,17]
+idx        0,1,2, 3, 4, 5
+
 
 
 ## 给定数组，是否有n个/2个元素，满足某种性质
