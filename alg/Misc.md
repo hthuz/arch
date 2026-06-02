@@ -352,6 +352,13 @@ func main() {
 
 pre[i] 表示前i个元素的和, 不包括nums[i]
 
+```
+pre[i] = nums[0] + nums[1] + .. + nums[i-1]
+```
+
+
+
+
 ```go
 pre := make([]int, len(nums)+1)
 for i := 0; i < len(nums); i++ {
@@ -376,6 +383,26 @@ pre_sum = [0,3,8,10,11,17]
 idx        0,1,2, 3, 4, 5
 
 
+数学上来说
+$$
+pre_i = a_0 + a_1 + a_{i-1} 
+$$
+
+$$
+pre_n = a_0 + a_1 + a_{n-1}
+$$
+
+$$
+S_{0,i} = a_0 + a_1 + .. + a_{i} = pre_{i+1}
+$$
+
+$$
+S_{i,n} = a_i + a_{i+1} +.. + a_{n-1} = pre[n] - pre[i]
+$$
+
+$$
+S_{i+1,n} = a_{i+1} +.. + a_{n-1} = pre[n] - pre[i+1]
+$$
 
 ## 给定数组，是否有n个/2个元素，满足某种性质
 
