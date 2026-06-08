@@ -20,3 +20,5 @@ python/*.jpg
 
 go/play
 csharp/*.exe
+
+.DS_Store

@@ -32,6 +32,16 @@ func main() {
     sort.Slice(s, func(i,j int) bool {
         return people[i].age < people[j].age
     })
+
+
+    // rand
+    rand.IntN(100) // [0,100)
+    rand.Float64() // [0,1)
+
+    nums := []int{1, 2, 3, 4, 5}
+	rand.Shuffle(len(nums), func(i, j int) {
+		nums[i], nums[j] = nums[j], nums[i]
+	})
 }	
 ```
 
