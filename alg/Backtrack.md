@@ -89,6 +89,47 @@ func permute(nums []int) [][]int {
 
 
 
+或者，两者本质相同
+
+```go
+
+func permute(nums []int) [][]int {
+    
+    ans := make([][]int, 0)
+    path := make([]int, 0)
+    var backtrack func()
+
+    backtrack = func() {
+        if len(path) == len(nums) {
+            ans = append(ans, append([]int{}, path...))
+            return
+        }
+
+        // for choices, make a choice
+        for i := range len(nums) {
+            if slices.Contains(path, nums[i]) {
+                continue
+            }
+            path = append(path, nums[i])
+
+            backtrack()
+
+            // undo the choice
+            path = path[:len(path)-1]
+        }
+    }
+
+    backtrack()
+    return ans
+
+
+}
+```
+
+
+
+
+
 Given N numbers
 
 Number of nodes in the first layer 1
@@ -329,9 +370,60 @@ func isvalid(chess []string, row int, col int) bool {
 
 
 
+回溯的解法
+
+```go
+func permute(n int ) {
+    s := ""
+    for i := 0; i < n; i++ {
+        s = append(s, "0")
+    }
+    ans := make([]string, 0)
+    
+    var dfs func(i int)
+    
+    dfs = func(i int) {
+        
+        if i == n {
+            ans = append(ans, append("", s))
+            return
+        }
+        
+        s[i] = '0'
+        dfs(i+1)
+        
+        s[i] = '1'
+        dfs(i+1)
+        
+    }
+    dfs(0)
+    return ans
+}
+```
+
+                         ""
+                    /          \
+                   0            1
+                 /   \        /   \
+                00   01      10    11
+               / \   / \    / \    / \
+             000 001 010 011 100 101 110 111
+
+
+
+也有bitmask的解法
+
+
+
+
+
 ### 子集， 子序列，子数组
 
 对于没有重复的元素的数组，求子集和求子序列是同一个问题，且最终都有2^n个
+
+比如元素{a,b,c}, 对应的就是 二进制011, 为1选取，为0不选取
+
+
 
 ```go
 func subsets(nums []int) [][]int {
