@@ -362,3 +362,45 @@ func checkInclusion(s1 string, s2 string) bool {
 
 ### 727. 最小窗口子序列
 
+
+
+### 3095 或值至少为 K 的最短子数组
+
+```go
+func minimumSubarrayLength(nums []int, k int) int {
+
+    if k == 0 {
+        return 1
+    }
+    ans := len(nums) + 1
+
+    left := 0
+    right := 0
+    window := make([]int, 0)
+    for right < len(nums) {
+        window = append(window, nums[right])
+
+        for getVal(window) >= k {
+            ans = min(ans, right - left + 1)
+            
+            window = window[1:]
+            left++
+        }
+
+        right++
+    } 
+    if ans == len(nums) + 1 {
+        return -1
+    }
+    return ans
+}
+
+func getVal(nums []int) int {
+    ans := 0
+    for _, x := range nums {
+        ans = ans | x
+    }
+    return ans
+}
+```
+

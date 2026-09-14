@@ -68,6 +68,47 @@ floor(x/i) = x/i 等价于x % i == -
 
 
 
+## getAllPrimes
+
+获取1-n内的所有质数
+
+ **埃拉托斯特尼筛法（Sieve of Eratosthenes）**
+
+2 是质数，把2的倍数都删除
+
+3 是质数，把3的倍数都删除
+
+5 是质数，把5的倍数都删除
+
+```go
+func getPrimes(n int) {
+    isPrime := make([]int, n+1)
+    for i := 2; i <= n; i++ {
+        isPrime[i] = true
+    }
+    for i := 2; i * i <= n; i++ {
+        
+        if !isPrime[i] {
+            continue
+        }
+        
+        // i 是质数，筛掉 i 的所有倍数, 这里可以直接从i * i开始
+        for j := i * i; j <= n; j += i {
+            isPrime[j] = false
+        }
+    }
+    
+}
+```
+
+
+
+
+
+
+
+
+
 ## 判断数组是否有重复
 
 判断数组是否有重复，并且比如说找到重复的元素，无特殊情况下最优方法就是用哈希集合，对所有元素遍历一边并确认元素是否已出现过，时间空间复杂度均为O(n)
@@ -403,6 +444,122 @@ $$
 $$
 S_{i+1,n} = a_{i+1} +.. + a_{n-1} = pre[n] - pre[i+1]
 $$
+
+
+
+
+
+## 单调栈 monotone stack
+
+stack中的元素保留单调递增或递减 （递减stack 底部元素最大）。
+
+用于对所有元素，找左右第一个更大的/更小的
+
+
+
+**对于递减栈**，当一个新元素到来时，先与栈顶元素进行比较。
+
+*若比栈顶元素小*，则直接压栈保存；*若比栈顶元素大*，则需要弹出栈顶元素，直到栈空或比栈顶元素小后压栈。
+
+stack [7,4] 遇到8的时候，需要把4, 7 pop出来，然后再插入8
+
+
+
+e.g. next greater element 获得每个元素右边第一个比他大的元素
+
+arr = [2,1,5,3,4]
+
+```go
+func nextGreater(a []int) []int {
+    ans := make([]int, len(a))
+    
+    for i := range len(a) {
+        ans[i] = -1
+    }
+    
+    stack := []int{} // stack 存 index, 递减栈
+    
+    for i := 0; i < len(a); i++ {
+        
+        // 遇到比栈顶更大的，压缩
+        // 这个时候遇到的元素，就是stack pop出的元素对应的右边第一个最大值。
+        for len(stack) > 0 && a[stack[len(stack)-1]] < a[i] {
+            
+            j := stack[len(stack)-1]
+            stack = stack[:len(stack)-1]
+            
+            ans[j] = a[i]
+            
+        }
+        
+        
+        // 下标记入stack
+        stack = append(stack, i)
+        
+    }
+}
+```
+
+
+
+## 单调队列
+
+
+
+滑动窗口的最大值/最小值
+
+a = [1, 3, -1, -3, 5, 3, 6, 7]
+k = 3
+
+ans: [3,3,5,5,6,7]
+
+
+
+用递减队列， 也是存index, queue[0] 最大，遇到大于队尾的，pop掉队尾元素然后push新元素进队列
+
+```go
+
+func maxSlidingWindow(nums []int, k int) []int {
+    ans := make([]int, 0)
+    q := make([]int, 0)
+    
+    for i := 0; i < len(nums); i++ {
+        
+        // 队头index不在窗口范围内也要去掉
+        // 这里窗口返回是[i-k, i]
+        if len(q) > 0 && q[0] <= i-k {
+            q = q[1:]
+        }
+        // 遇到大于队尾的，pop掉队尾元素然后push新元素进队列
+        for len(q) > 0 && nums[i] > nums[q[len(q)-1]] {
+            q = q[:len(q)-1] 
+        } 
+
+        q = append(q, i)
+        
+        // i过k的时候就可以记录ans
+        if i >= k-1 {
+            ans = append(ans, nums[q[0]])
+            
+        }
+    }
+    return ans
+}
+```
+
+
+
+
+
+## 快速获取某个子数组的和/最小值/最大值
+
+获取子数组的和可以通过 **前缀和相减获得**
+
+获取子数组的最小值可以通过 **单调栈获得**
+
+
+
+
 
 ## 给定数组，是否有n个/2个元素，满足某种性质
 
