@@ -121,6 +121,8 @@ func getPrimes(n int) {
 
 
 
+
+
 ## 多个排序数组中得到最大的top N个
 
 类似于设计推特的getnews feed
@@ -360,6 +362,37 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 }
     
 
+```
+
+
+
+
+
+## 区间的交集/并集
+
+
+
+```go
+
+func intersection(b1, b2 []int) []int {
+    if b1 == nil || b2 == nil {
+        return nil
+    }
+    low := max(b1[0], b2[0])
+    upper := min(b1[1]k b2[1])
+    if low > upper {
+        return nil
+    }
+    return []int{low, upper}
+}
+
+// 并集假设两个区间有交集
+func union(b1, b2 []int) []int {
+    low := min(b1[0], b2[0])
+    upper := max(b1[1], b2[1])
+    
+    return []int{low, upper}
+}
 ```
 
 

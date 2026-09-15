@@ -492,20 +492,222 @@ func splitArray(nums []int, k int) int {
 
 knappack problem
 
+一些子集问题可以用这个方法解
+
 给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高
 
 
 
 ### 01 背包
 
-一共有N件物品，第i（i从1开始）件物品的重量为w[i]，价值为v[i]。在总重量不超过背包承载上限W的情况下，能够装入背包的最大价值是多少
+一共有N件物品，第i（i从0开始）件物品的重量为w[i]，价值为v[i]。在总重量不超过背包承载上限W的情况下，能够装入背包的最大价值是多少
+
+
+
+最直接的，暴力解法
+
+```go
+
+func bag(w []int, v []int, W) {
+	
+    ans := 0
+    value := 0
+    weight := 0
+    var dfs func(i int)
+    dfs = func(i int) {
+        if i == len(v) {
+            return
+        }
+    	// not include item i
+        dfs(i + 1)
+        
+        // include item i
+        if weight + w[i] <= W {
+            weight += w[i]
+            value += v[i]
+            ans = max(ans, value)
+            
+            dfs(i+1)
+            weight -= w[i]
+            value -= v[i]
+        }
+    }
+    dfs(0)
+    return ans
+}
+
+// 本质上DFS的状态是dfs(i, weight), 前i个用了weight时的最大价值
+// dfs(i, weight) = max of 
+//   	dfs(i+1, weight) // not take
+//  	dfs(i+1, weight + w[i]) + v[i]
+
+```
+
+
+
+因此改用动态规划
+
+```go
+func bag(w []int, v []int, W int) {
+	// dp[i][j] 前i个 item, 最大限重j的最大价值
+    dp := make([][]int, len(v))
+    for i := range len(v) {
+        dp[i] = make([]int, W + 1)
+    }
+    for j := 0; j <= W; j++ {
+        if w[0] <= j {
+            dp[0][j] = v[0]
+        }
+    }
+    
+    for i := 1; i < len(w); i++ {
+        for j := 0; j <= W; j++ {
+            // do not take item i
+            dp[i][j] = dp[i-1][j]
+            // take item i
+            if w[i] <= j { 	
+                dp[i][j] = max(dp[i][j], dp[i-1][j-w[i]] + v[i])
+            }
+        }
+    }
+    
+    return dp[len(v)-1][W]
+}
+```
+
+
+
+利用滚动数组（每一行的计算，只和上一行有关），改成一维数组
+
+```go
+func bag(w []int, v []int, w int) {
+    // dp[j] 最大限制重量为j的最大价值
+    dp := make([]int, W + 1)
+    dp[0] = 0
+    
+    for i := 0; i < len(w); i++ {
+        
+        // 这里需要改成倒序遍历, 这里同个物品可能被用多次
+        for j := 0; j <= W; j++ {
+            // dp[j] = dp[j]
+            if w[i] <= j {
+                dp[j] = max(dp[j],dp[j-w[i]] + v[i])
+            }
+        }
+        // correct version， 这里计算的时候，max(dp)里的dp[j]还是上一轮的状态
+        for j := W; j >= 0; j++ {
+            if w[i] <= j {
+                dp[j] = max(dp[j], dp[j-w[i]] + v[i])
+            }
+        }
+        
+    }
+
+    
+}
+```
+
+
 
 
 
 ### 完全背包
 
-完全背包（unbounded knapsack problem）与01背包不同就是每种物品可以有无限多个：一共有N种物品，每种物品有无限多个，第i（i从1开始）种物品的重量为w[i]，价值为v[i]。在总重量不超过背包承载上限W的情况下，能够装入背包的最大价值是多少？
+每个item可以被拿无数次
+
+
+
+```go
+    for i := 1; i < len(w); i++ {
+        for j := 0; j <= W; j++ {
+            // do not take item i
+            dp[i][j] = dp[i-1][j]
+            // take item i
+            if w[i] <= j { 	
+                // 区别在这，这里选取的是dp[i][j-w[i]] 而不是dp[i-1][j-w[i]], 表示这个物品可以重复选
+                // 如果是一维数组，就是正向遍历weight
+                dp[i][j] = max(dp[i][j], dp[i][j-w[i]] + v[i])
+            }
+        }
+    }
+```
+
+
 
 ### 多重背包
 
-与前面不同就是每种物品是有限个：一共有N种物品，第i（i从1开始）种物品的数量为n[i]，重量为w[i]，价值为v[i]。在总重量不超过背包承载上限W的情况下，能够装入背包的最大价值是多少？
+每个item可以被拿k次
+
+
+
+背包问题拓展：
+
+[416. 分割等和子集](https://leetcode.cn/problems/partition-equal-subset-sum/), 拾取一些数，使其和为s / 2
+
+[1049. 最后一块石头的重量 II](https://leetcode.cn/problems/last-stone-weight-ii/) 这个很抽象，本质上就是每个石头有+或者-号，所有加起来后的最小值是啥
+
+[474. 一和零](https://leetcode.cn/problems/ones-and-zeroes/)
+
+[494. 目标和](https://leetcode.cn/problems/target-sum/)
+
+```go
+func findTargetSumWays(nums []int, target int) int {
+    s := 0
+    for _, num := range nums {
+        s += num
+    }
+
+    if target > s || target < -s {
+        return 0
+    }
+
+    dp := make([][]int, len(nums))
+    for i := range nums {
+        dp[i] = make([]int, 2*s+1)
+    }
+
+    // 第一个数
+    dp[0][s+nums[0]]++
+    dp[0][s-nums[0]]++
+
+    for i := 1; i < len(nums); i++ {
+        for j := 0; j <= 2*s; j++ {
+
+            // + nums[i]
+            if j-nums[i] >= 0 {
+                dp[i][j] += dp[i-1][j-nums[i]]
+            }
+
+            // - nums[i]
+            if j+nums[i] <= 2*s {
+                dp[i][j] += dp[i-1][j+nums[i]]
+            }
+        }
+    }
+
+    return dp[len(nums)-1][s+target]
+}
+```
+
+
+
+更标准的解法
+
+```
+nums 分成两组：
+P = 被加号的数
+N = 被减号的数
+
+sum(P) - sum(N) = target
+sum(P) + sum(N) = sum
+
+2 sum(P) = target + s
+
+sum(P) = (target + s) / 2
+
+=> 选取一些数，使其和为(target + s) / 2, 
+dp[j], 选取一些数，使其和为j的方案数
+```
+
+
+
