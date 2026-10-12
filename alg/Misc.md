@@ -43,6 +43,37 @@ func del(nums []int, index int, length *int) {
 
 
 
+## 把整数数组和int转化
+
+```go
+
+
+// 每一位的digit 数组转为int
+var arr []int 
+
+s := 0
+
+for i := range len(arr) {
+    s = s * 10 + i
+}
+
+// int 转为每一位的digit
+var s int 
+
+arr := make([]int, 0)
+for s != 0 {
+    // 这里可能耗时过长， 也可以 arr = append(arr, s%10) 结束后再反转
+    arr = append([]int{s%10}, arr...)
+    s = s / 10
+}
+```
+
+
+
+
+
+
+
 ## isPrime
 
 判断一个数是否为质数
@@ -644,4 +675,127 @@ for i := 1; i < len(nums); i++ {
 ```
 
 其他的hash, 比如一个数位另一个数的n倍，乘积为target，异或值为xxx等等
+
+
+
+
+
+## 某个字符串由那个字符串重复多次获得
+
+
+
+给定一个字符串，小红想判断它能否由某个更短的非空字符串重复至少两次得到。若可以，输出长度最短的重复段，紧接着输出重复次数；否则原样输出字符串。
+
+```go
+func main() {
+    var s string
+    fmt.Scan(&s)
+
+    pattern := string(s[0])
+    j := 0
+    for i := 0; i < len(s); i++ {
+        if len(pattern) > len(s) / 2 {
+            break
+        }
+
+        if s[i] != pattern[j] {
+            pattern = s[:i+1]
+            // pattern = pattern + string(s[i])
+            j = 0
+            continue
+        } else {
+            j++
+            if j == len(pattern) {
+                j = 0
+            }
+        }
+
+    }
+    if len(pattern) > len(s) / 2{
+        fmt.Println(s)
+    } else {
+        fmt.Print(pattern)
+        fmt.Println(len(s) / len(pattern))
+    }
+}
+```
+
+
+
+
+
+## quick select  选择第k个元素
+
+
+
+quick sort
+
+```go
+
+func quickSort(nums []int, left, right int) {
+    if left > right {
+        return
+    }
+    
+    p := partition(nums, left, right)
+    
+    quickSort(nums, left, p-1)
+    quickSort(nums, p+1, right)
+    
+}
+
+// example
+// nums = [5, 2, 8, 1, 3]
+// left = 0
+// right = 4
+// partitioin 后 => [2,1,3,5,8], pivot 3在中间， 左右不保证有序
+
+func partition(nums []int, left, right int ) int {
+    pivot := nums[right]
+    
+    i := left // 已经确认的位置
+    
+    for j ：= left; j < right; j++ {
+        // 把小的放在i的位置，
+        if nums[j] < pivot {
+            nums[i], nums[j] = nums[j], nums[i]
+            i++
+        }
+    }
+    
+    // i现在的位置是pivot的位置
+    nums[i], nums[right] = nums[right], nums[i]
+    
+    return i
+    
+}
+
+// 返回第k个小元素
+// 如果是k个大元素，quickSelect(nums, len(nums)-k)
+// 也可以写成递归的
+func quickSelect(nums []int, k int) int {
+    left := 0
+    right := len(nums)-1
+    for left <= right {
+        p := partition(nums, left, right)
+        
+        if p == k {
+            return nums[p] 
+        } else if k < p {
+            right = p - 1
+        } else {
+            left = p + 1
+        }
+        
+    }
+    
+    return -1
+}
+
+
+```
+
+
+
+
 

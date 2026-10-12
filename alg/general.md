@@ -667,6 +667,8 @@ Concurrency: 并发数
 
 
 
+
+
 ## 如何debug一个并发过程中的内存访问错误这样的问题
 
 
@@ -692,6 +694,8 @@ defer在return后执行
 coroutine在用户态线程换成切换，不会陷入内核态
 
 goroutine 需要的栈非常小，只有几KB, 并且可以根据实际进行伸缩
+
+可以记住调度方式：队列
 
 
 
@@ -885,11 +889,25 @@ https://oyto.github.io/2023/11/09/Go/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/go%E8%
 
 
 
+### 读多写少时
+
 最常见的情况下，只有在读的时候才会访问redis, 其他情况（写，更新）都是访问的mysql，不会将数据更新在redis上，
 
+对于写的请求，使用旁路缓存 cache aside， 写mysql, 写完后从redis删除
+
+1. 写mysql,还没有删除redis的时候，获取到的仍可能是redis的old value，如果业务允许最终一致性是可行的
+2. 如果redis删除失败，解决方案就是重试 + MQ、
+3. 如果amount 是强一致数据，读必须拿到最新值，那就直接只用mysql, 不用redis
+4. 如果一定要保证强一致性，但也要增加并发，就水平扩展，
+5. 如果有同一个product的大量请求，得保证其有序，用队列做串行有序化 ，不同product可以并行处理
 
 
 
+
+
+
+
+### 写多的时候
 
 写多的场景，用缓存也不是很划算。只有在读多写少的情况下使用缓存才会发挥更大的价值
 
@@ -1059,3 +1077,48 @@ primary index
 granules: blocks of rows
 
 每个列的数据在不同的文件，
+
+
+
+## 列式存储 & 行式存储
+
+
+
+列式： 
+
+1. 涉及列比较少，
+2. 数据分析场景时，数据重复多，压缩率高。
+3. 适合向量化计算，一次处理一批数据
+
+
+
+
+
+## 单例模式
+
+
+
+一个类只创造一个实例，提供一个全局访问该实例的方式
+
+多线程时需要保证只创建一次
+
+构造函数不能被外部调用
+
+```c++
+class Singleton {
+    private:
+    	Singleton() = default;  // 禁止外部构造''
+    	Singleton(const SIngleton&) = delete;
+    	Singleton& operator=(const Singleton&) = delete; // 禁止赋值，复制给其他变量，重载实现
+   	public:
+    	Singleton& getInstance() {
+            // 懒加载
+            static Singleton& instance;  // static保证初始化时线程并发安全
+            return instance
+        }
+    	int count = 0; //成员变量， s.count获取
+}
+```
+
+饿汉式单例，程序启动就创建对象
+

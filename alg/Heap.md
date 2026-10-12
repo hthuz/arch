@@ -111,6 +111,25 @@ func main() {
     
     heap.Push(h, 4)
     a1 := heap.Pop()
+    
+    // 数组 -> heap
+    h := Heap(nums)
+    heap.Init(&h)
+    
+    heap.Pop(&h)
+    heap.Push(&h, 10)
+    
+    // 遍历heap, 这里相当于就是遍历底层数组
+    for _, x := range h {
+        
+    }
+    
+    // 如果需要按照heap的顺序遍历，且不破坏heap,需要先copy一份
+    h2 := make(Heap, len(h))
+    copy(h2,h)
+    for len(h1) > 0 {
+        elt := heap.Pop(&h2).(int)
+    }
 }
 
 ```
