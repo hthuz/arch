@@ -138,6 +138,10 @@ left := 0
 right := 0
 for right < len(nums) {
     // move right, update window
+    // 
+    // right更新的地方不一定在这，就我自己遇到的题目而言
+    // 都是现在 for window satisfy condition 前，把right放入window, 然后for window satisfy condition 后
+    // 更新right
     
     for (window satisfying condition) {
         // update global data
@@ -147,6 +151,40 @@ for right < len(nums) {
 }
 
 ```
+
+
+
+更准确的
+
+如果是求满足xxx条件的最小xxx
+
+```go
+left := 0
+right := 0
+
+for right < len(nums) {
+    window[right]++
+    
+    for (window satisfy condition) {
+        ans = min(ans, right-left+1)
+        
+        
+        window[left]--
+        left += 1
+    }
+    
+    right += 1
+}
+return ans
+```
+
+
+
+如果是求满足xx条件的最长xxx
+
+这个遇到再总结吧，note一下先
+
+
 
 
 
@@ -163,19 +201,56 @@ for right < len(nums) {
 
 ```go
 func minWindow(s string, t string) string {
+    
+
+    t_count := make(map[byte]int)
+    for i := range t {
+        t_count[t[i]] += 1
+    }
+
+    min_len := math.MaxInt32
+
     left := 0
     right := 0
-    res := ""
-    cur_str := ""
-    for right < len(s) {
-        cur_str = append(cur_str, s[right])
-        for 
-        
+
+    s_count := make(map[byte]int)
+
+    ans := ""
+
+
+    satisfy := func() bool {
+
+        for c, count := range t_count {
+            if s_count[c] < count {
+                return false
+            }
+        }
+        return true
+
     }
+    for right < len(s) {
+
+        s_count[s[right]] += 1
+
+        // shorten left/ inc left
+
+        for satisfy() {
+            if right-left+1 < min_len {
+                min_len = right-left+1
+                ans = s[left:right+1]
+            }
+			
+            // 这里更新过后，可能就已经不satisfy窗口的要求了，但是已经把ans记录了，最后跳出这个for就是不满足的一个情况
+            s_count[s[left]] -= 1
+            left += 1
+        }
+        
+        right++
+    }
+
+    return ans
     
 }
-
-
 ```
 
 
