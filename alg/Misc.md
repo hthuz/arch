@@ -527,11 +527,32 @@ stack中的元素保留单调递增或递减 （递减stack 底部元素最大�
 
 stack [7,4] 遇到8的时候，需要把4, 7 pop出来，然后再插入8
 
+```go
+
+s := make([]int, 0)
+
+for i := 0; i < len(nums); i++ {
+    
+    for len(s) > 0 && nums[i] xxx nums[s[len(s)-1]] {
+        top := s[len(s)-1]
+        s = s[:len(s)-1]
+        
+        // do something here
+       
+    }
+    
+    s = append(s, i)
+}
+
+```
+
 
 
 e.g. next greater element 获得每个元素右边第一个比他大的元素
 
 arr = [2,1,5,3,4]
+
+
 
 ```go
 func nextGreater(a []int) []int {
@@ -563,6 +584,12 @@ func nextGreater(a []int) []int {
     }
 }
 ```
+
+
+
+
+
+其他题目，比如接雨水，柱状图中最大矩形，巨大矩形面积等等
 
 
 
